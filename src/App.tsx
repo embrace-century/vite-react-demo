@@ -2,8 +2,8 @@ import './styles/App.css';
 
 import React from 'react';
 
-import { BasicLayout } from './layout/BasicLayout';
+import { PageLayout } from '@/layout';
 
 export const App = () => {
-  return <BasicLayout />;
+  return <PageLayout />;
 };

@@ -5,7 +5,13 @@ import { useSelector } from 'react-redux';
 
 import { menuSelector } from '../stores/side-menu-slice';
 
-export const BasicLayout = () => {
+/**
+ * Layout布局逻辑:
+ * Layout -> [Header, SideBar, Content]
+ * Content -> [Nav, DisplayArea(路由展示区)]
+ */
+
+export const PageLayout = () => {
   const { Header, Footer, Sider, Content } = Layout;
   const { menuItem } = useSelector(menuSelector);
 
