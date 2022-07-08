@@ -1,3 +1,4 @@
+import React from "react";
 import { ReactNode } from "react";
 import { IconHome, IconHistogram, IconLive, IconSetting } from '@douyinfe/semi-icons';
 

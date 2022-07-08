@@ -1,0 +1,9 @@
+config
+build
+dist
+dist-ssr
+mock
+public
+scripts
+*.d.ts
+*.js
