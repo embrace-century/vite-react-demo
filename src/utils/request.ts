@@ -1,10 +1,10 @@
+import { Modal } from '@douyinfe/semi-ui';
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
-import { Banner } from '@douyinfe/semi-ui';
+
+import { BASE_URL } from '@/constants';
 
 // Todo: 加环境配置
 // const env = process.env.NDOE_ENV || 'development';
-
-const BASE_URL = '/api';
 
 const instance = axios.create({
   baseURL: BASE_URL,
@@ -23,20 +23,26 @@ const instance = axios.create({
 // 对返回的结果做处理
 instance.interceptors.response.use(
   (response) => {
-    const { status, data } = response;
-    
-    if (status !== 200 ) {
+    const { status, data: res } = response;
+
+    if (status !== 200) {
+      // 请求失败的错误信息
+      const STATUS_ERROR = {
+        content: `返回状态码为${status}，请求未成功`,
+      };
+      Modal.error(STATUS_ERROR);
     }
-    const res = response.data;
 
     if (res.code === 3) {
-      return null;
+      return res;
     }
     return res;
   },
   (err) => {
-    // 
-    console.log('err', err);
+    const STATUS_ERROR = {
+      content: `发生未知错误，请求未成功`,
+    };
+    Modal.error(STATUS_ERROR);
   },
 );
 

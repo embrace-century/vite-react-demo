@@ -1,19 +1,19 @@
 import { Banner } from '@douyinfe/semi-ui';
+import React from 'react';
 
 type ErrorMessageProps = {
   title: string;
   content: string;
-}
+};
 
 export const ErrorMessage = ({ title, content }: ErrorMessageProps) => {
   return (
-     <Banner
-            fullMode={false}
-            title={title}
-            type="warning"
-            bordered
-            description={content}
-        >
-        </Banner>
-  )
-}
+    <Banner
+      bordered
+      description={content}
+      fullMode={false}
+      title={title}
+      type="warning"
+    />
+  );
+};
