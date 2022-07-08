@@ -1,6 +1,7 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import { Banner } from '@douyinfe/semi-ui';
 
-// 环境
+// Todo: 加环境配置
 // const env = process.env.NDOE_ENV || 'development';
 
 const BASE_URL = '/api';
@@ -9,7 +10,7 @@ const instance = axios.create({
   baseURL: BASE_URL,
 });
 
-// // 请求拦截
+// 请求拦截
 // axios.interceptors.request.use((request) => {
 //   // 添加token、应用信息等
 //   request.headers = {
@@ -22,15 +23,19 @@ const instance = axios.create({
 // 对返回的结果做处理
 instance.interceptors.response.use(
   (response) => {
+    const { status, data } = response;
+    
+    if (status !== 200 ) {
+    }
     const res = response.data;
 
     if (res.code === 3) {
-      // history.replace('/');
       return null;
     }
     return res;
   },
   (err) => {
+    // 
     console.log('err', err);
   },
 );
