@@ -1,13 +1,15 @@
 import { AnyAction, configureStore, ThunkAction } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 
+import globalSlice from './global-slice';
 import menuItemReducer from './side-menu-slice';
 
-export const store  = configureStore({
+export const store = configureStore({
   reducer: {
-    [menuItemReducer.name]: menuItemReducer.reducer
+    [globalSlice.name]: globalSlice.reducer,
+    [menuItemReducer.name]: menuItemReducer.reducer,
   },
-})
+});
 
 export type AppState = ReturnType<typeof store.getState>;
 
@@ -18,5 +20,3 @@ export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppState, unkn
 export const useAppDispatch = () => useDispatch<AppDispatch>();
 
 export const useAppSelector: TypedUseSelectorHook<AppState> = useSelector;
-
-
