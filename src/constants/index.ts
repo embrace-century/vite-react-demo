@@ -1,1 +1,1 @@
-export * from './default-setting';
+export * from './default-settings';
