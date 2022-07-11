@@ -1,13 +1,11 @@
-import './styles/App.css';
-
 import { Layout } from '@douyinfe/semi-ui';
 import React from 'react';
 
 import { Container, HeaderNav, SideMenu } from '@/components/layouts';
 
-export const App = () => {
+const Home = () => {
   return (
-    <Layout style={{ border: '1px solid var(--semi-color-border)' }}>
+    <Layout style={{ border: '1px solid #ccc' }}>
       <HeaderNav />
       <Layout>
         <SideMenu />
@@ -16,3 +14,5 @@ export const App = () => {
     </Layout>
   );
 };
+
+export default Home;

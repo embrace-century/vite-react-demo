@@ -26,15 +26,23 @@
     "paths": {
       "@/*": [
         "src/*"
+      ],
+      "@c/*": [
+        "config/*"
       ]
     }
   },
   "include": [
-    "src"
+    "src/",
+    "typings/**/*",
+    "config/**/*",
+    "vite.config.ts",
+    "mock/_createProductionServer.ts"
   ],
-  "references": [
-    {
-      "path": "./tsconfig.node.json"
-    }
+  "exclude": [
+    "node_modules",
+    "build",
+    "dist",
+    "**/*.js"
   ]
 }
