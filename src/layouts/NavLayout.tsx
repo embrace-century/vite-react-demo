@@ -3,16 +3,14 @@ import React from 'react';
 
 import { Container, HeaderNav, SideMenu } from '@/components/layouts';
 
-const Home = () => {
+export const NavLayout = () => {
   return (
     <Layout style={{ border: '1px solid #ccc' }}>
-      <HeaderNav />
+      <SideMenu />
       <Layout>
-        <SideMenu />
+        <HeaderNav />
         <Container />
       </Layout>
     </Layout>
   );
 };
-
-export default Home;

@@ -1,18 +1,31 @@
 import './styles/App.css';
 
-import { Layout } from '@douyinfe/semi-ui';
 import React from 'react';
+import { Route, Routes } from 'react-router-dom';
 
-import { Container, HeaderNav, SideMenu } from '@/components/layouts';
+import { MapLayout, NavLayout } from '@/layouts';
+import NotFound from '@/pages/NotFound';
 
+/**
+ * 应该根据配置文件去配置，而不是写死
+ */
 export const App = () => {
   return (
-    <Layout style={{ border: '1px solid var(--semi-color-border)' }}>
-      <HeaderNav />
-      <Layout>
-        <SideMenu />
-        <Container />
-      </Layout>
-    </Layout>
+    <Routes>
+      <Route
+        element={<NavLayout />}
+        path="/"
+      >
+        {/* Todo: 嵌套路由放这里 */}
+      </Route>
+      <Route
+        element={<MapLayout />}
+        path="/map"
+      />
+      <Route
+        element={<NotFound />}
+        path="*"
+      />
+    </Routes>
   );
 };

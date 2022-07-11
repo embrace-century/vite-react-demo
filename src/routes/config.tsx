@@ -1,12 +1,13 @@
 import React from 'react';
 
-import { Home } from '@/pages';
+import { MapLayout, NavLayout } from '@/layouts';
+import NotFound from '@/pages/NotFound';
 
 export type IRouteConfig = {
   // 路由路径
   path: string;
   // 路由组件
-  component?: any;
+  element?: any;
   // 302 跳转
   redirect?: string;
   exact?: boolean;
@@ -15,58 +16,34 @@ export type IRouteConfig = {
   icon?: string;
   // 是否校验权限, false 为不校验, 不存在该属性或者为true 为校验, 子路由会继承父路由的 auth 属性
   auth?: boolean;
-  routes?: IRouteConfig[];
+  children?: IRouteConfig[];
 };
 
 const routes: IRouteConfig[] = [
   {
     path: '/',
-    title: '/',
-    exact: true,
-    component: Home,
+    title: 'NavLayout',
+    element: NavLayout,
+    // exact: true,
+    children: [
+      {
+        path: 'child',
+        title: '子路由',
+        element: NotFound,
+      },
+    ],
   },
-  // {
-  //   path: '/sys',
-  //   component: BasicLayout,
-  //   title: '系统路由',
-  //   // exact: true,
-  //   routes: [
-  //     {
-  //       path: '/sys/home',
-  //       title: '首页',
-  //       icon: 'home',
-  //       component: React.lazy(() => import('@/pages/Home')),
-  //     },
-  //     {
-  //       path: '/sys/about',
-  //       title: '关于',
-  //       icon: 'home',
-  //       component: React.lazy(() => import('@/pages/About')),
-  //     },
-  //   ],
-  // },
-  // {
-  //   path: '/user',
-  //   component: UserLayout,
-  //   title: '用户路由',
-  //   redirect: '/user/login',
-  //   routes: [
-  //     {
-  //       path: '/user/login',
-  //       component: React.lazy(() => import('@/pages/User/Login')),
-  //       title: '登录',
-  //     },
-  //     {
-  //       path: '/user/register',
-  //       component: 'pages/User/Register',
-  //       title: '注册',
-  //     },
-  //   ],
-  // },
+  {
+    path: '/map',
+    title: 'mapLayout',
+    element: MapLayout,
+    // exact: true,
+    children: [],
+  },
   {
     path: '/noFond',
     title: '页面不存在',
-    component: React.lazy(() => import('@/pages/NotFound')),
+    element: React.lazy(() => import('@/pages/NotFound')),
   },
 ];
 

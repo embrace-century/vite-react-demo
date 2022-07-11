@@ -1,8 +1,6 @@
 import { Breadcrumb, Layout } from '@douyinfe/semi-ui';
 import React, { PropsWithChildren } from 'react';
-import { BrowserRouter } from 'react-router-dom';
-
-import RouterComponent from '@/routes/index';
+import { Outlet } from 'react-router-dom';
 
 export const Container = ({ children }: PropsWithChildren) => {
   const { Content } = Layout;
@@ -27,10 +25,7 @@ export const Container = ({ children }: PropsWithChildren) => {
           padding: '32px',
         }}
       >
-        {/* <BrowserRouter>
-          <RouterComponent />
-        </BrowserRouter> */}
-        {children}
+        <Outlet />
       </div>
     </Content>
   );
