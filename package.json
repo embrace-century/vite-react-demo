@@ -30,6 +30,9 @@
     "react-router-dom": "^6.3.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^17.0.3",
+    "@commitlint/config-conventional": "^17.0.3",
+    "@ls-lint/ls-lint": "^1.11.2",
     "@types/node": "^18.0.3",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
