@@ -1,5 +1,5 @@
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
-import React, { useEffect, useRef } from 'react';
+import React, { useCallback, useState } from 'react';
 import Map from 'react-map-gl';
 
 import {
@@ -14,6 +14,8 @@ import {
   MAPBOX_ZOOM,
 } from '@/constants/default-settings';
 
+import DrawControl from './draw-control';
+
 const MAPBOX_STYLE_CONST = {
   version: 8,
   name: 'Positron',
@@ -23,24 +25,29 @@ const MAPBOX_STYLE_CONST = {
 };
 
 export const MapboxInstance = () => {
-  const mapRef = useRef<any>(null);
-  // 绘制控件
-  const mapDrawer = new MapboxDraw({
-    displayControlsDefault: false,
-    controls: {
-      polygon: true,
-      trash: true,
-    },
-    defaultMode: 'draw_polygon',
-  });
-  useEffect(() => {
-    if (mapRef.current) {
-      mapRef.current.addControl(mapDrawer, 'top-right');
-    }
+  const [features, setFeatures] = useState({});
+
+  const onUpdate = useCallback((e: any) => {
+    setFeatures((currFeatures) => {
+      const newFeatures: any = { ...currFeatures };
+      for (const f of e.features) {
+        newFeatures[f.id] = f;
+      }
+      return newFeatures;
+    });
+  }, []);
+
+  const onDelete = useCallback((e: any) => {
+    setFeatures((currFeatures) => {
+      const newFeatures: any = { ...currFeatures };
+      for (const f of e.features) {
+        delete newFeatures[f.id];
+      }
+      return newFeatures;
+    });
   }, []);
   return (
     <Map
-      ref={mapRef}
       bearing={MAPBOX_BEARING}
       doubleClickZoom={MAPBOX_DOUBLE_CLICK_ZOOM}
       initialViewState={{
@@ -56,6 +63,21 @@ export const MapboxInstance = () => {
       scrollZoom={MAPBOX_SCROLL_ZOOM}
       style={{ width: '100vw', height: '80vh' }}
       zoom={MAPBOX_ZOOM}
-    />
+    >
+      <DrawControl
+        controls={{
+          polygon: true,
+          point: true,
+          line_string: true,
+          trash: true,
+        }}
+        defaultMode="draw_polygon"
+        displayControlsDefault={false}
+        position="top-left"
+        onCreate={onUpdate}
+        onDelete={onDelete}
+        onUpdate={onUpdate}
+      />
+    </Map>
   );
 };
