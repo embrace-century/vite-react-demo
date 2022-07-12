@@ -1,4 +1,6 @@
 import './styles/App.css';
+import 'mapbox-gl/dist/mapbox-gl.css';
+import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
 
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
