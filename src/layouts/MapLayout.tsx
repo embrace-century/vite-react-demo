@@ -1,4 +1,8 @@
+import { Layout } from '@douyinfe/semi-ui';
 import React from 'react';
+
+import { HeaderNav, SideMenu } from '@/components/layouts';
+import { MapboxInstance } from '@/components/mapbox/MapboxInstance';
 
 /**
  * 地图页面布局结构：
@@ -9,5 +13,22 @@ import React from 'react';
  */
 
 export const MapLayout = () => {
-  return <div>MapLayout</div>;
+  const { Content } = Layout;
+  return (
+    <Layout style={{ border: '1px solid #ccc' }}>
+      <HeaderNav />
+      <Layout>
+        <SideMenu />
+        <Content
+          style={{
+            padding: '24px',
+            backgroundColor: 'var(--semi-color-bg-0)',
+          }}
+        >
+          <MapboxInstance />
+          {/* Todo: 此处应有数据展示 */}
+        </Content>
+      </Layout>
+    </Layout>
+  );
 };
