@@ -1,4 +1,4 @@
-import './styles/App.css';
+import '@/styles/tailwind.css';
 
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
