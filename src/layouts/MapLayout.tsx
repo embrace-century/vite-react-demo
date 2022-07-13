@@ -26,7 +26,6 @@ export const MapLayout = () => {
           }}
         >
           <MapboxInstance />
-          {/* Todo: 此处应有数据展示 */}
         </Content>
       </Layout>
     </Layout>
