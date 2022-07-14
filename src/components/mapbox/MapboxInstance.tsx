@@ -1,5 +1,5 @@
 import { Form, Modal, Switch, Typography } from '@douyinfe/semi-ui';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Map, { MapLayerMouseEvent } from 'react-map-gl';
 
 import { postPoint } from '@/api/draw';
@@ -30,6 +30,8 @@ const MAPBOX_STYLE_CONST = {
 export const MapboxInstance = () => {
   const dispatch = useAppDispatch();
   const { modalIsOpen, geometry } = useAppSelector(drawSelector);
+
+  const draw = useRef<any>();
   // semi design组件解构
   const { Title } = Typography;
   // 组件内部state，考虑提取到状态管理
@@ -39,7 +41,7 @@ export const MapboxInstance = () => {
   const [mapStyle, setMapStyle] = useState<any>(MAPBOX_STYLE_CONST);
 
   // 改变弹窗的展示内容（Todo: 增加一个动态配置表单）
-  useEffect(() => {}, []);
+  useEffect(() => {}, [draw]);
 
   // mapbox的事件处理
   const handleMapCLick = useCallback((event: MapLayerMouseEvent) => {
