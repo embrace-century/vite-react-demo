@@ -3,7 +3,7 @@ import type { ControlPosition, MapRef } from 'react-map-gl';
 import { useControl } from 'react-map-gl';
 
 import { useAppDispatch } from '@/stores';
-import { setModalOpen } from '@/stores/draw-slice';
+import { GeoMetryType, setModalOpen } from '@/stores/draw-slice';
 
 type DrawControlType = {
   position?: ControlPosition;
@@ -12,9 +12,7 @@ type DrawControlType = {
 type DrawControlProps = ConstructorParameters<typeof MapboxDraw>[0] & DrawControlType;
 
 type FeaturesType = {
-  geometry: number[];
-  type: string;
-  properties: any[];
+  geometry: GeoMetryType;
 };
 
 type DrawEvent = {
@@ -26,10 +24,12 @@ export default function DrawControl(props: DrawControlProps) {
   const dispatch = useAppDispatch();
   // 监听drawe事件
   const handleDraw = (event: DrawEvent) => {
-    const { features } = event;
-    const { type, geometry } = features[0];
-    // Todo: 判断绘制的图形的类型
     dispatch(setModalOpen(true));
+    const { features } = event;
+    const {
+      geometry: { coordinates, type },
+    } = features[0];
+    // Todo: 判断绘制的图形的类型
   };
 
   useControl<MapboxDraw>(

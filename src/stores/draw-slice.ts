@@ -3,8 +3,14 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { AppState } from './index';
 
+export type GeoMetryType = {
+  coordinates: number[] | Array<number[]> | Array<Array<number[]>>;
+  type: string;
+};
+
 export type DrawState = {
   modalIsOpen: boolean; // 侧边栏是否展开
+  geometry?: GeoMetryType;
 };
 
 const initialState: DrawState = {
@@ -20,10 +26,13 @@ export const drawSlice = createSlice({
     setModalOpen: (state, action: PayloadAction<boolean>) => {
       state.modalIsOpen = action.payload;
     },
+    setGeometry: (state, action: PayloadAction<GeoMetryType>) => {
+      state.geometry = action.payload;
+    },
   },
 });
 
-export const { setModalOpen } = drawSlice.actions;
+export const { setModalOpen, setGeometry } = drawSlice.actions;
 
 export const drawSelector = (state: AppState) => {
   return state[name];
