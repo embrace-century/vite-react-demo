@@ -1,5 +1,5 @@
 import '@/styles/tailwind.css';
-import 'mapbox-gl/dist/mapbox-gl.css';
+import '@/styles/mapbox.scss';
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
 
 import React from 'react';
