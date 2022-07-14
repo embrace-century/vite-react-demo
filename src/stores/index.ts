@@ -1,13 +1,13 @@
 import { AnyAction, configureStore, ThunkAction } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 
+import drawSlice from './draw-slice';
 import globalSlice from './global-slice';
-import menuItemReducer from './side-menu-slice';
 
 export const store = configureStore({
   reducer: {
     [globalSlice.name]: globalSlice.reducer,
-    [menuItemReducer.name]: menuItemReducer.reducer,
+    [drawSlice.name]: drawSlice.reducer,
   },
 });
 

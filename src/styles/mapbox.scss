@@ -1,0 +1,55 @@
+@import 'mapbox-gl/dist/mapbox-gl.css';
+
+.mapboxgl-canvas {
+  width: 100% !important;
+  height: 100% !important;
+
+  outline: none;
+}
+
+// 去除logo
+a.mapboxgl-ctrl-logo,
+.mapboxgl-ctrl-attrib {
+  display: none;
+}
+
+// 定制 popup 的外观
+.custom-popup {
+  .mapboxgl-popup-content {
+    padding: 1rem;
+
+    border-radius: 1rem;
+
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+      rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.1) 0px 4px 6px -4px;
+
+    .custom-popup-content {
+      position: relative;
+
+      &:after {
+        position: absolute;
+        left: 50%;
+        content: ' ';
+
+        width: 0px;
+        height: 0px;
+
+        border-top: 10px solid #e2e4e9;
+        border-right: 10px solid transparent;
+        border-left: 10px solid transparent;
+
+        transform: translateX(-50%);
+      }
+    }
+
+    .mapboxgl-popup-close-button {
+      right: 0.75rem;
+
+      transform: scale(1.5);
+
+      &:hover {
+        background-color: none;
+      }
+    }
+  }
+}
