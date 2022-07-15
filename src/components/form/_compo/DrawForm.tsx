@@ -1,15 +1,20 @@
 import { Form } from '@douyinfe/semi-ui';
-import React, { useEffect } from 'react';
+import React, { forwardRef, LegacyRef, useEffect } from 'react';
 
 import { FORM_DICT } from '@/configs/draw-config';
 import { useAppDispatch, useAppSelector } from '@/stores';
 import { drawSelector } from '@/stores/draw-slice';
 
-export const DrawForm = () => {
+type DrawFormProp = {
+  labelCol?: number;
+  wrapperCol?: number;
+};
+
+export const DrawForm = forwardRef((props: DrawFormProp, ref: LegacyRef<Form>) => {
   const dispatch = useAppDispatch();
   const { features } = useAppSelector(drawSelector);
   console.log('🚀 ~ file: DrawForm.tsx ~ line 11 ~ DrawForm ~ features', features);
-
+  const { labelCol = 6, wrapperCol = 20 } = props;
   const { Input, Select } = Form;
   // coordinates point: 一维数组 line: 二维数组 polygon: 三维数组
   const { properties, geometry } = features!;
@@ -29,23 +34,25 @@ export const DrawForm = () => {
 
   return (
     <Form
+      ref={ref}
       labelAlign="right"
-      labelCol={{ span: 6 }}
+      labelCol={{ span: labelCol }}
       labelPosition="left"
-      wrapperCol={{ span: 20 }}
+      wrapperCol={{ span: wrapperCol }}
     >
       {Object.keys(formItems).map((formKey) => {
-        const { label, disabled, required, type, initValue, trigger } = formItems[formKey];
+        const { label, disabled, rules, type, initValue, trigger } = formItems[formKey];
         return type === 'input' ? (
           <Input
             key={formKey}
             field={formKey}
             initValue={initValue}
             label={label}
+            rules={rules}
             trigger={trigger}
           />
         ) : null;
       })}
     </Form>
   );
-};
+});
