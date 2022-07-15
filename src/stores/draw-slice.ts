@@ -8,13 +8,27 @@ export type GeoMetryType = {
   type: string;
 };
 
+export type FeaturesType = {
+  properties: Object;
+  geometry: GeoMetryType;
+};
+
 export type DrawState = {
   modalIsOpen: boolean; // 侧边栏是否展开
-  geometry?: GeoMetryType;
+  features?: FeaturesType;
+};
+
+const emptyFeatures = {
+  properties: {},
+  geometry: {
+    type: 'Point',
+    coordinates: [],
+  },
 };
 
 const initialState: DrawState = {
   modalIsOpen: false,
+  features: emptyFeatures,
 };
 
 const name = 'draw';
@@ -26,13 +40,13 @@ export const drawSlice = createSlice({
     setModalOpen: (state, action: PayloadAction<boolean>) => {
       state.modalIsOpen = action.payload;
     },
-    setGeometry: (state, action: PayloadAction<GeoMetryType>) => {
-      state.geometry = action.payload;
+    setFeatures: (state, action: PayloadAction<FeaturesType>) => {
+      state.features = action.payload;
     },
   },
 });
 
-export const { setModalOpen, setGeometry } = drawSlice.actions;
+export const { setModalOpen, setFeatures } = drawSlice.actions;
 
 export const drawSelector = (state: AppState) => {
   return state[name];

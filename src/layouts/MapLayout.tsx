@@ -1,6 +1,8 @@
 import { Layout } from '@douyinfe/semi-ui';
+import { motion } from 'framer-motion';
 import React from 'react';
 
+import { EditForm } from '@/components/form/EditForm';
 import { HeaderNav, SideMenu } from '@/components/layouts';
 import { MapboxInstance } from '@/components/mapbox/MapboxInstance';
 
@@ -14,19 +16,18 @@ import { MapboxInstance } from '@/components/mapbox/MapboxInstance';
 
 export const MapLayout = () => {
   const { Content } = Layout;
+
   return (
     <Layout style={{ border: '1px solid #ccc' }}>
       <HeaderNav />
       <Layout>
         <SideMenu />
-        <Content
-          style={{
-            padding: '24px',
-            backgroundColor: 'var(--semi-color-bg-0)',
-          }}
-        >
-          <MapboxInstance />
-        </Content>
+        <motion.div>
+          <Content>
+            <MapboxInstance />
+            <EditForm />
+          </Content>
+        </motion.div>
       </Layout>
     </Layout>
   );

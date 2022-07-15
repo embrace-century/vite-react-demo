@@ -1,5 +1,5 @@
 import { Form, Modal, Switch, Typography } from '@douyinfe/semi-ui';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Map, { MapLayerMouseEvent } from 'react-map-gl';
 
 import { postPoint } from '@/api/draw';
@@ -29,41 +29,42 @@ const MAPBOX_STYLE_CONST = {
 
 export const MapboxInstance = () => {
   const dispatch = useAppDispatch();
-  const { modalIsOpen, geometry } = useAppSelector(drawSelector);
+  const { modalIsOpen, features } = useAppSelector(drawSelector);
+
+  const draw = useRef<any>();
   // semi design组件解构
   const { Title } = Typography;
   // 组件内部state，考虑提取到状态管理
   const [open, setOpen] = useState(false);
   const [mapLat, setMapLat] = useState(0);
   const [mapLng, setMapLng] = useState(0);
-  const [mapStyle, setMapStyle] = useState<any>(MAPBOX_STYLE_CONST);
+  const [mapStyle, setMapStyle] = useState<any>(open ? MAPBOX_STYLE : MAPBOX_STYLE_CONST);
 
   // 改变弹窗的展示内容（Todo: 增加一个动态配置表单）
-  useEffect(() => {}, []);
+  useEffect(() => {}, [draw]);
 
   // mapbox的事件处理
-  const handleMapCLick = useCallback((event: MapLayerMouseEvent) => {
-    // 记录点击的经纬度
-    const {
-      lngLat: { lat, lng },
-    } = event;
-    setMapLat(lat);
-    setMapLng(lng);
-    dispatch(setModalOpen(true));
-  }, []);
+  const handleMapCLick = useCallback(
+    (event: MapLayerMouseEvent) => {
+      // 记录点击的经纬度
+      const {
+        lngLat: { lat, lng },
+      } = event;
+      setMapLat(lat);
+      setMapLng(lng);
+      dispatch(setModalOpen(true));
+    },
+    [dispatch],
+  );
 
   const closeModal = () => {
     dispatch(setModalOpen(false));
   };
 
-  const handleSwitchChange = (switchValue: boolean) => {
-    if (switchValue) {
-      setMapStyle(MAPBOX_STYLE);
-    } else {
-      setMapStyle(MAPBOX_STYLE_CONST);
-    }
+  const handleSwitchChange = useCallback((switchValue: boolean) => {
+    setMapStyle(switchValue ? MAPBOX_STYLE : MAPBOX_STYLE_CONST);
     setOpen((prev) => !prev);
-  };
+  }, []);
 
   return (
     <>
@@ -81,7 +82,7 @@ export const MapboxInstance = () => {
         minZoom={MAPBOX_MIN_ZOOM}
         pitch={MAPBOX_PITCH}
         scrollZoom={MAPBOX_SCROLL_ZOOM}
-        style={{ width: '90vw', height: '80vh' }}
+        style={{ width: '90vw', height: '90vh' }}
         zoom={MAPBOX_ZOOM}
         // onClick={handleMapCLick}
       >
@@ -112,7 +113,7 @@ export const MapboxInstance = () => {
       </div>
       <Modal
         closeOnEsc={true}
-        title="POINT地理信息"
+        title="地理信息"
         visible={modalIsOpen}
         onCancel={closeModal}
         onOk={closeModal}
