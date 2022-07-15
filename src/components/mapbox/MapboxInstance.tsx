@@ -38,34 +38,33 @@ export const MapboxInstance = () => {
   const [open, setOpen] = useState(false);
   const [mapLat, setMapLat] = useState(0);
   const [mapLng, setMapLng] = useState(0);
-  const [mapStyle, setMapStyle] = useState<any>(MAPBOX_STYLE_CONST);
+  const [mapStyle, setMapStyle] = useState<any>(open ? MAPBOX_STYLE : MAPBOX_STYLE_CONST);
 
   // 改变弹窗的展示内容（Todo: 增加一个动态配置表单）
   useEffect(() => {}, [draw]);
 
   // mapbox的事件处理
-  const handleMapCLick = useCallback((event: MapLayerMouseEvent) => {
-    // 记录点击的经纬度
-    const {
-      lngLat: { lat, lng },
-    } = event;
-    setMapLat(lat);
-    setMapLng(lng);
-    dispatch(setModalOpen(true));
-  }, []);
+  const handleMapCLick = useCallback(
+    (event: MapLayerMouseEvent) => {
+      // 记录点击的经纬度
+      const {
+        lngLat: { lat, lng },
+      } = event;
+      setMapLat(lat);
+      setMapLng(lng);
+      dispatch(setModalOpen(true));
+    },
+    [dispatch],
+  );
 
   const closeModal = () => {
     dispatch(setModalOpen(false));
   };
 
-  const handleSwitchChange = (switchValue: boolean) => {
-    if (switchValue) {
-      setMapStyle(MAPBOX_STYLE);
-    } else {
-      setMapStyle(MAPBOX_STYLE_CONST);
-    }
+  const handleSwitchChange = useCallback((switchValue: boolean) => {
+    setMapStyle(switchValue ? MAPBOX_STYLE : MAPBOX_STYLE_CONST);
     setOpen((prev) => !prev);
-  };
+  }, []);
 
   return (
     <>

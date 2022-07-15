@@ -1,7 +1,6 @@
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
 import { useEffect, useState } from 'react';
-import type { ControlPosition, MapRef } from 'react-map-gl';
-import { useControl } from 'react-map-gl';
+import { ControlPosition, MapRef, useControl, useMap } from 'react-map-gl';
 
 import { useAppDispatch } from '@/stores';
 import { GeoMetryType, setGeometry, setModalOpen } from '@/stores/draw-slice';
@@ -22,20 +21,7 @@ type DrawEvent = {
   action?: string;
 };
 
-const featureData = {
-  id: 'line-string',
-  type: 'Feature',
-  properties: {},
-  geometry: {
-    type: 'LineString',
-    coordinates: [
-      [114.35583567706539, 30.484324450634176],
-      [114.38317275134511, 30.482216392829827],
-    ],
-  },
-};
-
-const geojson = {
+const line = {
   type: 'FeatureCollection',
   features: [
     {
@@ -44,8 +30,8 @@ const geojson = {
       geometry: {
         type: 'LineString',
         coordinates: [
-          [114.35583567706539, 30.484324450634176],
-          [114.38317275134511, 30.482216392829827],
+          [114.40080642700195, 30.52064247832281],
+          [114.39934730529785, 30.457552461000667],
         ],
       },
     },
@@ -54,16 +40,17 @@ const geojson = {
 
 export default function DrawControl(props: DrawControlProps) {
   const dispatch = useAppDispatch();
+  const { current } = useMap();
 
   const [drawInstance, setDrewInstance] = useState<MapboxDraw>();
 
   useEffect(() => {
-    if (drawInstance) {
-      // 加载所有数据
-      console.log('🚀 ~ file: draw-control.ts ~ line 32 ~ useEffect ~ drawInstance', drawInstance);
-      drawInstance.add(featureData);
+    if (current && drawInstance) {
+      current.on('styledata', () => {
+        drawInstance.set(line as any);
+      });
     }
-  }, [drawInstance]);
+  }, [current, drawInstance]);
 
   // drawe.create 事件
   const onCreate = (event: DrawEvent) => {
