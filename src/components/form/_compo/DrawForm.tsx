@@ -8,6 +8,7 @@ import { drawSelector } from '@/stores/draw-slice';
 export const DrawForm = () => {
   const dispatch = useAppDispatch();
   const { features } = useAppSelector(drawSelector);
+  console.log('🚀 ~ file: DrawForm.tsx ~ line 11 ~ DrawForm ~ features', features);
 
   const { Input, Select } = Form;
   // coordinates point: 一维数组 line: 二维数组 polygon: 三维数组
@@ -27,15 +28,21 @@ export const DrawForm = () => {
   }, [coordinates, formItems, type]);
 
   return (
-    <Form>
+    <Form
+      labelAlign="right"
+      labelCol={{ span: 6 }}
+      labelPosition="left"
+      wrapperCol={{ span: 20 }}
+    >
       {Object.keys(formItems).map((formKey) => {
-        const { label, disabled, required, type } = formItems[formKey];
+        const { label, disabled, required, type, initValue, trigger } = formItems[formKey];
         return type === 'input' ? (
           <Input
             key={formKey}
             field={formKey}
+            initValue={initValue}
             label={label}
-            trigger="blur"
+            trigger={trigger}
           />
         ) : null;
       })}
