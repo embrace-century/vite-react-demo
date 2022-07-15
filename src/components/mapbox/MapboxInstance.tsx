@@ -1,8 +1,9 @@
-import { Form, Modal, Switch, Typography } from '@douyinfe/semi-ui';
+import { Modal, Switch, Typography } from '@douyinfe/semi-ui';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Map, { MapLayerMouseEvent } from 'react-map-gl';
 
 import { postPoint } from '@/api/draw';
+import { AddForm } from '@/components/form';
 import {
   MAPBOX_ACCESS_TOKEN,
   MAPBOX_BEARING,
@@ -36,8 +37,6 @@ export const MapboxInstance = () => {
   const { Title } = Typography;
   // 组件内部state，考虑提取到状态管理
   const [open, setOpen] = useState(false);
-  const [mapLat, setMapLat] = useState(0);
-  const [mapLng, setMapLng] = useState(0);
   const [mapStyle, setMapStyle] = useState<any>(open ? MAPBOX_STYLE : MAPBOX_STYLE_CONST);
 
   // 改变弹窗的展示内容（Todo: 增加一个动态配置表单）
@@ -47,19 +46,11 @@ export const MapboxInstance = () => {
   const handleMapCLick = useCallback(
     (event: MapLayerMouseEvent) => {
       // 记录点击的经纬度
-      const {
-        lngLat: { lat, lng },
-      } = event;
-      setMapLat(lat);
-      setMapLng(lng);
+      const { lngLat } = event;
       dispatch(setModalOpen(true));
     },
     [dispatch],
   );
-
-  const closeModal = () => {
-    dispatch(setModalOpen(false));
-  };
 
   const handleSwitchChange = useCallback((switchValue: boolean) => {
     setMapStyle(switchValue ? MAPBOX_STYLE : MAPBOX_STYLE_CONST);
@@ -111,37 +102,7 @@ export const MapboxInstance = () => {
           onChange={handleSwitchChange}
         />
       </div>
-      <Modal
-        closeOnEsc={true}
-        title="地理信息"
-        visible={modalIsOpen}
-        onCancel={closeModal}
-        onOk={closeModal}
-      >
-        <Form
-          labelAlign="right"
-          labelCol={{ span: 4 }}
-          labelPosition="left"
-          wrapperCol={{ span: 20 }}
-        >
-          <Form.Input
-            field="lat"
-            initValue={mapLat}
-            label="纬度"
-            placeholder="请输入姓名"
-            style={{ width: 250 }}
-            trigger="blur"
-          />
-          <Form.Input
-            field="lng"
-            initValue={mapLng}
-            label="经度"
-            placeholder="请输入经度"
-            style={{ width: 250 }}
-            trigger="blur"
-          />
-        </Form>
-      </Modal>
+      <AddForm />
     </>
   );
 };

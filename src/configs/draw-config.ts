@@ -5,6 +5,7 @@ export type FormItemConfig = {
   required: boolean;
   type: 'input' | 'select';
   initValue: string | number;
+  trigger: 'blur' | 'change' | 'custom' | 'mount';
 };
 
 export type FormConfig = {
@@ -19,6 +20,7 @@ export const POINT_CONFIG: Record<string, FormItemConfig> = {
     required: true,
     type: 'input',
     initValue: '',
+    trigger: 'blur',
   },
   node_type: {
     key: 'node_type',
@@ -27,6 +29,7 @@ export const POINT_CONFIG: Record<string, FormItemConfig> = {
     required: true,
     type: 'input',
     initValue: '',
+    trigger: 'blur',
   },
   system_type: {
     key: 'system_type',
@@ -35,6 +38,7 @@ export const POINT_CONFIG: Record<string, FormItemConfig> = {
     required: true,
     type: 'input',
     initValue: '',
+    trigger: 'blur',
   },
   lon: {
     key: 'lon',
@@ -43,6 +47,7 @@ export const POINT_CONFIG: Record<string, FormItemConfig> = {
     required: true,
     type: 'input',
     initValue: '',
+    trigger: 'blur',
   },
   lat: {
     key: 'lat',
@@ -51,6 +56,7 @@ export const POINT_CONFIG: Record<string, FormItemConfig> = {
     required: true,
     type: 'input',
     initValue: '',
+    trigger: 'blur',
   },
   x: {
     key: 'x',
@@ -59,6 +65,7 @@ export const POINT_CONFIG: Record<string, FormItemConfig> = {
     required: true,
     type: 'input',
     initValue: '',
+    trigger: 'blur',
   },
   y: {
     key: 'y',
@@ -67,6 +74,7 @@ export const POINT_CONFIG: Record<string, FormItemConfig> = {
     required: true,
     type: 'input',
     initValue: '',
+    trigger: 'blur',
   },
   ground_level: {
     key: 'ground_level',
@@ -75,6 +83,7 @@ export const POINT_CONFIG: Record<string, FormItemConfig> = {
     required: true,
     type: 'input',
     initValue: '',
+    trigger: 'blur',
   },
   flood_level: {
     key: 'flood_level',
@@ -83,6 +92,7 @@ export const POINT_CONFIG: Record<string, FormItemConfig> = {
     required: true,
     type: 'input',
     initValue: '',
+    trigger: 'blur',
   },
   scenario_id: {
     key: 'scenario_id',
@@ -91,6 +101,7 @@ export const POINT_CONFIG: Record<string, FormItemConfig> = {
     required: false,
     type: 'input',
     initValue: '',
+    trigger: 'blur',
   },
   remarks: {
     key: 'scenario_id',
@@ -99,9 +110,10 @@ export const POINT_CONFIG: Record<string, FormItemConfig> = {
     required: true,
     type: 'input',
     initValue: '',
+    trigger: 'blur',
   },
 };
 
 export const FORM_DICT: Record<string, FormConfig> = {
-  point: POINT_CONFIG,
+  Point: POINT_CONFIG,
 };
