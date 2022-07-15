@@ -14,8 +14,8 @@ const menuItems: MenuItem[] = [
     text: '模型编排管理',
     icon: <IconHistogram size="large" />,
     items: [
-      { itemKey: 'my-project', text: '我的项目', icon: null },
-      { itemKey: 'my-mock', text: '我的模拟', icon: null },
+      { itemKey: 'project', text: '我的项目', icon: null },
+      { itemKey: 'mock', text: '我的模拟', icon: null },
     ],
   },
 ];

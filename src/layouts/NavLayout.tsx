@@ -1,17 +1,26 @@
 import { Layout } from '@douyinfe/semi-ui';
-import React from 'react';
+import React, { FC, Suspense } from 'react';
+import { Outlet } from 'react-router-dom';
 
-import { Container, HeaderNav } from '@/components/layouts';
+import SuspendFallbackLoading from '@/components/fallback-loading';
+import { HeaderNav } from '@/components/layouts';
 
 import Sider from './_comps/sider';
 
-export const NavLayout = () => {
+const { Content } = Layout;
+
+export const NavLayout: FC = () => {
   return (
     <Layout style={{ border: '1px solid #ccc' }}>
       <Sider />
       <Layout>
         <HeaderNav />
-        <Container />
+
+        <Content>
+          <Suspense fallback={<SuspendFallbackLoading message="正在加载中" />}>
+            <Outlet />
+          </Suspense>
+        </Content>
       </Layout>
     </Layout>
   );

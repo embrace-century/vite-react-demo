@@ -4,6 +4,7 @@ specifiers:
   '@commitlint/cli': ^17.0.3
   '@commitlint/config-conventional': ^17.0.3
   '@douyinfe/semi-icons': ^2.14.0
+  '@douyinfe/semi-illustrations': ^2.15.0
   '@douyinfe/semi-ui': ^2.14.0
   '@ls-lint/ls-lint': ^1.11.2
   '@mapbox/geojson-area': ^0.2.2
@@ -49,6 +50,7 @@ specifiers:
   react-map-gl: ^7.0.17
   react-query: ^3.39.1
   react-redux: ^8.0.2
+  react-router: ^6.3.0
   react-router-dom: ^6.3.0
   sass: ^1.53.0
   stylelint: ^14.9.1
@@ -67,6 +69,7 @@ specifiers:
 
 dependencies:
   '@douyinfe/semi-icons': 2.14.0_react@18.2.0
+  '@douyinfe/semi-illustrations': 2.15.0_react@18.2.0
   '@douyinfe/semi-ui': 2.14.0_p2ipsf336anyyqmnghad65cyy4
   '@mapbox/geojson-area': 0.2.2
   '@mapbox/geojson-extent': 1.0.1
@@ -85,6 +88,7 @@ dependencies:
   react-map-gl: 7.0.17_bauxlsvvy7hbbifsyt3jz3gu5i
   react-query: 3.39.1_biqbaboplfbrettd7655fr4n2y
   react-redux: 8.0.2_rxpulxqxsibgdk5rs4llgxl6gy
+  react-router: 6.3.0_react@18.2.0
   react-router-dom: 6.3.0_biqbaboplfbrettd7655fr4n2y
   xtend: 4.0.2
 
@@ -643,6 +647,15 @@ packages:
 
   /@douyinfe/semi-illustrations/2.14.0_react@18.2.0:
     resolution: {integrity: sha512-GXySlk28dTzI2CMyQ55Sk9QmjXPKb2fVbd2pZGYgEL1LuBWTYc2xl1wwKAre5yhjxcs3M8juzbb/yTufceivAQ==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      '@babel/runtime-corejs3': 7.18.6
+      react: 18.2.0
+    dev: false
+
+  /@douyinfe/semi-illustrations/2.15.0_react@18.2.0:
+    resolution: {integrity: sha512-8gajbeKZwJTk7G79tK7qPg8s3V1UUxjg8oA8X/11kim+rt0vzRqCXclyR65JMWIayZIIj+VftqjCHcTc6ozI0A==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
