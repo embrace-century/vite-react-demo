@@ -1,14 +1,16 @@
 import { Layout, Nav } from '@douyinfe/semi-ui';
-import React from 'react';
+import React, { FC } from 'react';
 
-import { menuItems } from '@/mock/menuItem';
+import menuItems from './data';
 
-export const SideMenu = () => {
+const Sider: FC = () => {
   const { Sider } = Layout;
+
   return (
     <Sider style={{ backgroundColor: 'var(--semi-color-bg-1)' }}>
       <Nav
-        defaultSelectedKeys={['Home']}
+        defaultOpenKeys={['model']}
+        defaultSelectedKeys={['my-project']}
         footer={{
           collapseButton: true,
         }}
@@ -22,3 +24,5 @@ export const SideMenu = () => {
     </Sider>
   );
 };
+
+export default Sider;

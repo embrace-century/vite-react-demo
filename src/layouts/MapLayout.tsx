@@ -3,8 +3,10 @@ import { motion } from 'framer-motion';
 import React from 'react';
 
 import { EditForm } from '@/components/form/EditForm';
-import { HeaderNav, SideMenu } from '@/components/layouts';
+import { HeaderNav } from '@/components/layouts';
 import { MapboxInstance } from '@/components/mapbox/MapboxInstance';
+
+import Sider from './_comps/sider';
 
 /**
  * 地图页面布局结构：
@@ -21,7 +23,7 @@ export const MapLayout = () => {
     <Layout style={{ border: '1px solid #ccc' }}>
       <HeaderNav />
       <Layout>
-        <SideMenu />
+        <Sider />
         <motion.div>
           <Content>
             <MapboxInstance />

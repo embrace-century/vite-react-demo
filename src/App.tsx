@@ -1,4 +1,5 @@
 import '@/styles/tailwind.css';
+import './App.scss';
 import '@/styles/mapbox.scss';
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
 
