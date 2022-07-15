@@ -61,7 +61,7 @@ export default function DrawControl(props: DrawControlProps) {
     if (drawInstance) {
       // 加载所有数据
       console.log('🚀 ~ file: draw-control.ts ~ line 32 ~ useEffect ~ drawInstance', drawInstance);
-      drawInstance.add({ type: 'Point', coordinates: [0, 0] });
+      drawInstance.add(featureData);
     }
   }, [drawInstance]);
 
@@ -90,7 +90,9 @@ export default function DrawControl(props: DrawControlProps) {
       // map.on('draw.update', handleDraw);
       // map.on('draw.delete', handleDraw);
       map.on('draw.selectionchange', onSelectionchange);
-      return new MapboxDraw(props);
+      const draw = new MapboxDraw(props);
+      setDrewInstance(draw);
+      return draw;
     },
     ({ map }: { map: MapRef }) => {
       map.off('draw.create', onCreate);
