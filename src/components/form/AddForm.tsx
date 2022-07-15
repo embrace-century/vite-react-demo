@@ -1,5 +1,5 @@
 import { Modal } from '@douyinfe/semi-ui';
-import React, { useCallback } from 'react';
+import React, { useCallback, useRef } from 'react';
 
 import { useAppDispatch, useAppSelector } from '@/stores';
 import { drawSelector, setModalOpen } from '@/stores/draw-slice';
@@ -10,9 +10,12 @@ export const AddForm = () => {
   const dispatch = useAppDispatch();
   const { modalIsOpen } = useAppSelector(drawSelector);
 
+  const formRef = useRef();
+
   const closeModal = useCallback(() => {
     dispatch(setModalOpen(false));
   }, []);
+
   return (
     <Modal
       closeOnEsc={true}
