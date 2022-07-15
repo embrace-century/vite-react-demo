@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { ControlPosition, MapRef, useControl, useMap } from 'react-map-gl';
 
 import { useAppDispatch } from '@/stores';
-import { GeoMetryType, setGeometry, setModalOpen } from '@/stores/draw-slice';
+import { FeaturesType, setFeatures, setModalOpen } from '@/stores/draw-slice';
 import { setSideSheetVisible } from '@/stores/global-slice';
 
 type DrawControlType = {
@@ -12,30 +12,9 @@ type DrawControlType = {
 
 type DrawControlProps = ConstructorParameters<typeof MapboxDraw>[0] & DrawControlType;
 
-type FeaturesType = {
-  geometry: GeoMetryType;
-};
-
 type DrawEvent = {
   features: FeaturesType[];
   action?: string;
-};
-
-const line = {
-  type: 'FeatureCollection',
-  features: [
-    {
-      type: 'Feature',
-      properties: {},
-      geometry: {
-        type: 'LineString',
-        coordinates: [
-          [114.40080642700195, 30.52064247832281],
-          [114.39934730529785, 30.457552461000667],
-        ],
-      },
-    },
-  ],
 };
 
 export default function DrawControl(props: DrawControlProps) {
@@ -45,10 +24,10 @@ export default function DrawControl(props: DrawControlProps) {
   const [drawInstance, setDrewInstance] = useState<MapboxDraw>();
 
   useEffect(() => {
-    if (current && drawInstance) {
-      current.on('styledata', () => {
-        drawInstance.set(line as any);
-      });
+    if (drawInstance) {
+      // 加载所有数据
+      console.log('🚀 ~ file: draw-control.ts ~ line 32 ~ useEffect ~ drawInstance', drawInstance);
+      // drawInstance.add(featureData);
     }
   }, [current, drawInstance]);
 
@@ -56,19 +35,16 @@ export default function DrawControl(props: DrawControlProps) {
   const onCreate = (event: DrawEvent) => {
     dispatch(setModalOpen(true));
     const { features } = event;
-    const {
-      geometry: { coordinates, type },
-    } = features[0];
-    // Todo: 判断绘制的图形的类型展示不同的表单内容
+    dispatch(setSideSheetVisible(false)); // 创建完成不展示侧边栏
+    dispatch(setFeatures(features[0])); // geometry数据更新到draw-slice
   };
   // draw.selectionchange 事件
   const onSelectionchange = (event: DrawEvent) => {
     const { features } = event;
-    const { geometry } = features[0];
     // 未选中点、线、面时，features是一个空数组
     if (!features.length) return;
     dispatch(setSideSheetVisible(true));
-    dispatch(setGeometry(geometry));
+    dispatch(setFeatures(features[0]));
   };
 
   useControl<MapboxDraw>(

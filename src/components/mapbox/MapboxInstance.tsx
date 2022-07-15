@@ -29,7 +29,7 @@ const MAPBOX_STYLE_CONST = {
 
 export const MapboxInstance = () => {
   const dispatch = useAppDispatch();
-  const { modalIsOpen, geometry } = useAppSelector(drawSelector);
+  const { modalIsOpen, features } = useAppSelector(drawSelector);
 
   const draw = useRef<any>();
   // semi design组件解构
@@ -82,7 +82,7 @@ export const MapboxInstance = () => {
         minZoom={MAPBOX_MIN_ZOOM}
         pitch={MAPBOX_PITCH}
         scrollZoom={MAPBOX_SCROLL_ZOOM}
-        style={{ width: '90vw', height: '80vh' }}
+        style={{ width: '90vw', height: '90vh' }}
         zoom={MAPBOX_ZOOM}
         // onClick={handleMapCLick}
       >
@@ -113,7 +113,7 @@ export const MapboxInstance = () => {
       </div>
       <Modal
         closeOnEsc={true}
-        title="POINT地理信息"
+        title="地理信息"
         visible={modalIsOpen}
         onCancel={closeModal}
         onOk={closeModal}
