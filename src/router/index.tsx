@@ -8,6 +8,8 @@ import { NavLayout } from '@/layouts';
 import { WrapperRouteComponent, WrapperRouteWithOutLayoutComponent } from './config';
 
 const ModelProject = lazy(() => import('@/pages/model/project'));
+const MyMock = lazy(() => import('@/pages/model/mock'));
+const Map = lazy(() => import('@/pages/model/map'));
 
 const routeList: RouteObject[] = [
   {
@@ -27,6 +29,26 @@ const routeList: RouteObject[] = [
             auth
             element={<ModelProject />}
             titleId="我的项目"
+          />
+        ),
+      },
+      {
+        path: '/mock',
+        element: (
+          <WrapperRouteComponent
+            auth
+            element={<MyMock />}
+            titleId="我的模拟"
+          />
+        ),
+      },
+      {
+        path: '/map',
+        element: (
+          <WrapperRouteComponent
+            auth
+            element={<Map />}
+            titleId="地图"
           />
         ),
       },
