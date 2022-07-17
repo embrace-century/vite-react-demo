@@ -72,6 +72,7 @@
     "eslint-plugin-tailwindcss": "^3.6.0",
     "eslint-plugin-typescript-enum": "^2.1.0",
     "husky": "^8.0.1",
+    "io-ts-types": "^0.5.16",
     "lint-staged": "^13.0.3",
     "postcss": "^8.4.14",
     "prettier": "^2.7.1",
