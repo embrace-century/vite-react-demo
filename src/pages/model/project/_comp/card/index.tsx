@@ -1,13 +1,14 @@
 import { Card, Col, Typography } from '@douyinfe/semi-ui';
 import React, { FC } from 'react';
+import { Link } from 'react-router-dom';
 
-import { ProjectType } from '../../interface';
+import { IProject } from '../../interface';
 
-type Props = {
-  item: ProjectType;
+type IProps = {
+  item: IProject;
 };
 
-const Index: FC<Props> = ({ item }) => {
+const Index: FC<IProps> = ({ item }) => {
   const { Text, Title, Paragraph } = Typography;
 
   return (
@@ -16,9 +17,13 @@ const Index: FC<Props> = ({ item }) => {
       span={6}
     >
       <Card
-        headerExtraContent={<Text link>查看</Text>}
+        headerExtraContent={
+          <Link to={String(item.id)}>
+            <Text link>查看</Text>
+          </Link>
+        }
         style={{ maxWidth: 360 }}
-        title={`${item.id} #`}
+        title={`# ${item.id}`}
       >
         <Title heading={4}>uuid: </Title>
         <Paragraph>{item.uuid}</Paragraph>

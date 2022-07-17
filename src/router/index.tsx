@@ -1,13 +1,15 @@
 import React, { FC, lazy } from 'react';
 import { RouteObject } from 'react-router';
-import { useRoutes } from 'react-router-dom';
+import { Outlet, useRoutes } from 'react-router-dom';
 
 import Empty from '@/components/empty';
 import { NavLayout } from '@/layouts';
 
 import { WrapperRouteComponent, WrapperRouteWithOutLayoutComponent } from './config';
 
-const ModelProject = lazy(() => import('@/pages/model/project'));
+const ProjectIndex = lazy(() => import('@/pages/model/project'));
+const ProjectShow = lazy(() => import('@/pages/model/project/Show'));
+
 const MyMock = lazy(() => import('@/pages/model/mock'));
 const Map = lazy(() => import('@/pages/model/map'));
 
@@ -24,13 +26,29 @@ const routeList: RouteObject[] = [
     children: [
       {
         path: '/project',
-        element: (
-          <WrapperRouteComponent
-            auth
-            element={<ModelProject />}
-            titleId="我的项目"
-          />
-        ),
+        children: [
+          {
+            index: true,
+            element: (
+              <WrapperRouteComponent
+                auth
+                element={<ProjectIndex />}
+                titleId="我的项目"
+              />
+            ),
+          },
+          {
+            path: ':projectId',
+            index: false,
+            element: (
+              <WrapperRouteComponent
+                auth
+                element={<ProjectShow />}
+                titleId="我的项目"
+              />
+            ),
+          },
+        ],
       },
       {
         path: '/mock',

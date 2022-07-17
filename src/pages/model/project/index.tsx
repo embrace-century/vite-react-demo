@@ -3,20 +3,16 @@ import React from 'react';
 import { useQuery } from 'react-query';
 
 import Card from './_comp/card';
-import { ProjectType } from './interface';
-import ProjectService from './service';
+import { IProject } from './interface';
+import { ProjectService } from './service';
 
 const Index: React.FC = () => {
-  const { data, isLoading, isError } = useQuery<ProjectType[], Error>(
-    'ProjectService.findAll',
-    ProjectService.findAll,
-    {
-      refetchOnWindowFocus: true,
-      refetchOnReconnect: true,
-      staleTime: 0,
-      cacheTime: 5000,
-    },
-  );
+  const { data, isLoading, isError } = useQuery<IProject[], Error>(['project_index'], ProjectService.findAll, {
+    refetchOnWindowFocus: true,
+    refetchOnReconnect: true,
+    staleTime: 0,
+    cacheTime: 5000,
+  });
 
   if (isLoading) {
     return <div>数据加载中...</div>;

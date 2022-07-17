@@ -1,6 +1,6 @@
 import { axios } from '@/services';
 
-import { ProjectType } from './interface';
+import { INetwork, IProject } from './interface';
 
 // eg: [
 //   {
@@ -12,7 +12,7 @@ import { ProjectType } from './interface';
 // ];
 
 const findAll = async () => {
-  const response = await axios.get<ProjectType[]>('/projects');
+  const response = await axios.get<IProject[]>('/projects');
   return response.data;
 };
 
@@ -20,4 +20,13 @@ const ProjectService = {
   findAll,
 };
 
-export default ProjectService;
+const findAllNetwork = async (projectId: string) => {
+  const response = await axios.get<INetwork[]>(`/projects/${projectId}/networks`);
+  return response.data;
+};
+
+const NetworkService = {
+  findAll: findAllNetwork,
+};
+
+export { NetworkService, ProjectService };
