@@ -2,7 +2,6 @@ import { Form, Modal, Switch, Typography } from '@douyinfe/semi-ui';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Map, { MapLayerMouseEvent } from 'react-map-gl';
 
-import { postPoint } from '@/api/draw';
 import {
   MAPBOX_ACCESS_TOKEN,
   MAPBOX_BEARING,
@@ -67,7 +66,21 @@ export const MapboxInstance = () => {
   }, []);
 
   return (
-    <>
+    <div className="flex h-full w-full flex-col">
+      <div className="flex items-center">
+        <Title
+          heading={6}
+          style={{ margin: 8 }}
+        >
+          {open ? '正常加载' : '无底图模式'}
+        </Title>
+        <Switch
+          aria-label="a switch for demo"
+          checked={open}
+          onChange={handleSwitchChange}
+        />
+      </div>
+
       <Map
         bearing={MAPBOX_BEARING}
         doubleClickZoom={MAPBOX_DOUBLE_CLICK_ZOOM}
@@ -82,7 +95,6 @@ export const MapboxInstance = () => {
         minZoom={MAPBOX_MIN_ZOOM}
         pitch={MAPBOX_PITCH}
         scrollZoom={MAPBOX_SCROLL_ZOOM}
-        style={{ width: '90vw', height: '90vh' }}
         zoom={MAPBOX_ZOOM}
         // onClick={handleMapCLick}
       >
@@ -98,19 +110,7 @@ export const MapboxInstance = () => {
           position="top-left"
         />
       </Map>
-      <div className="flex items-center">
-        <Title
-          heading={6}
-          style={{ margin: 8 }}
-        >
-          {open ? '有地图' : '无地图'}
-        </Title>
-        <Switch
-          aria-label="a switch for demo"
-          checked={open}
-          onChange={handleSwitchChange}
-        />
-      </div>
+
       <Modal
         closeOnEsc={true}
         title="地理信息"
@@ -142,6 +142,6 @@ export const MapboxInstance = () => {
           />
         </Form>
       </Modal>
-    </>
+    </div>
   );
 };
