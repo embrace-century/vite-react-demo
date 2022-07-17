@@ -1,5 +1,5 @@
 import { Modal } from '@douyinfe/semi-ui';
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, CancelToken } from 'axios';
 
 import { BASE_URL } from '@/constants';
 
@@ -51,4 +51,4 @@ const request = <T>(reqConfig: AxiosRequestConfig): Promise<T> => {
 };
 
 export default request;
-export type { AxiosInstance, AxiosResponse };
+export type { AxiosInstance, AxiosResponse, CancelToken };
