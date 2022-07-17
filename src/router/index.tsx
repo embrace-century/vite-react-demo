@@ -12,6 +12,7 @@ const ProjectShow = lazy(() => import('@/pages/model/project/Show'));
 
 const MyMock = lazy(() => import('@/pages/model/mock'));
 const Map = lazy(() => import('@/pages/model/map'));
+const NodeLayer = lazy(() => import('@/pages/model/node-layer'));
 
 const routeList: RouteObject[] = [
   {
@@ -66,7 +67,17 @@ const routeList: RouteObject[] = [
           <WrapperRouteComponent
             auth
             element={<Map />}
-            titleId="地图"
+            titleId="画地图"
+          />
+        ),
+      },
+      {
+        path: '/node-layer',
+        element: (
+          <WrapperRouteComponent
+            auth
+            element={<NodeLayer />}
+            titleId="点图层"
           />
         ),
       },
