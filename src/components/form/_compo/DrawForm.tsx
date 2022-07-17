@@ -1,23 +1,22 @@
 import { Form } from '@douyinfe/semi-ui';
-import React, { forwardRef, LegacyRef, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 import { FORM_DICT } from '@/configs/draw-config';
-import { useAppDispatch, useAppSelector } from '@/stores';
+import { useAppSelector } from '@/stores';
 import { drawSelector } from '@/stores/draw-slice';
 
 type DrawFormProp = {
   labelCol?: number;
   wrapperCol?: number;
+  getFormApi?: (formapi: any) => void;
 };
 
-export const DrawForm = forwardRef((props: DrawFormProp, ref: LegacyRef<Form>) => {
-  const dispatch = useAppDispatch();
+export const DrawForm = (props: DrawFormProp) => {
   const { features } = useAppSelector(drawSelector);
-  console.log('🚀 ~ file: DrawForm.tsx ~ line 11 ~ DrawForm ~ features', features);
-  const { labelCol = 6, wrapperCol = 20 } = props;
-  const { Input, Select } = Form;
+  const { labelCol = 6, wrapperCol = 20, getFormApi } = props;
+  const { Input } = Form;
   // coordinates point: 一维数组 line: 二维数组 polygon: 三维数组
-  const { properties, geometry } = features!;
+  const { geometry } = features!;
   const { coordinates, type } = geometry;
   const formItems = FORM_DICT[type];
 
@@ -27,6 +26,8 @@ export const DrawForm = forwardRef((props: DrawFormProp, ref: LegacyRef<Form>) =
         formItems['lon'].initValue = (coordinates as Array<number>)[0];
         formItems['lat'].initValue = (coordinates as Array<number>)[1];
         break;
+      case 'LineString':
+        break;
       default:
         break;
     }
@@ -34,7 +35,7 @@ export const DrawForm = forwardRef((props: DrawFormProp, ref: LegacyRef<Form>) =
 
   return (
     <Form
-      ref={ref}
+      getFormApi={getFormApi}
       labelAlign="right"
       labelCol={{ span: labelCol }}
       labelPosition="left"
@@ -45,6 +46,7 @@ export const DrawForm = forwardRef((props: DrawFormProp, ref: LegacyRef<Form>) =
         return type === 'input' ? (
           <Input
             key={formKey}
+            disabled={disabled}
             field={formKey}
             initValue={initValue}
             label={label}
@@ -55,4 +57,4 @@ export const DrawForm = forwardRef((props: DrawFormProp, ref: LegacyRef<Form>) =
       })}
     </Form>
   );
-});
+};
