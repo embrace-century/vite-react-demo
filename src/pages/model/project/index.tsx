@@ -1,23 +1,42 @@
-import { Col, Row, Typography } from '@douyinfe/semi-ui';
+import { Row } from '@douyinfe/semi-ui';
 import React from 'react';
+import { useQuery } from 'react-query';
 
 import Card from './_comp/card';
+import { ProjectType } from './interface';
+import ProjectService from './service';
 
 const Index: React.FC = () => {
-  const { Text } = Typography;
+  const { data, isLoading, isError } = useQuery<ProjectType[], Error>(
+    'ProjectService.findAll',
+    ProjectService.findAll,
+    {
+      refetchOnWindowFocus: true,
+      refetchOnReconnect: true,
+      staleTime: 0,
+      cacheTime: 5000,
+    },
+  );
+
+  if (isLoading) {
+    return <div>数据加载中...</div>;
+  }
+  if (isError) {
+    return <div>数据加载出错</div>;
+  }
 
   return (
     <div className="flex flex-col">
       <div className="text-2xl font-semibold text-black">我的项目</div>
       <div className="mt-8 grid">
-        <Row
-          justify="space-between"
-          type="flex"
-        >
-          <Card />
-          <Card />
-          <Card />
-          <Card />
+        <Row gutter={[16, 24]}>
+          {data?.length &&
+            data?.map((ele) => (
+              <Card
+                key={ele.id}
+                item={ele}
+              />
+            ))}
         </Row>
       </div>
     </div>
