@@ -14,6 +14,8 @@ specifiers:
   '@mapbox/point-geometry': ^0.1.0
   '@reduxjs/toolkit': ^1.8.3
   '@turf/area': ^6.5.0
+  '@types/geojson': ^7946.0.10
+  '@types/lodash-es': ^4.17.6
   '@types/mapbox__mapbox-gl-draw': ^1.2.5
   '@types/node': ^18.0.5
   '@types/react': ^18.0.15
@@ -42,6 +44,7 @@ specifiers:
   husky: ^8.0.1
   io-ts-types: ^0.5.16
   lint-staged: ^13.0.3
+  lodash-es: ^4.17.21
   lodash.isequal: ^4.5.0
   mapbox-gl: ^2.9.2
   postcss: ^8.4.14
@@ -84,6 +87,7 @@ dependencies:
   env-cmd: 10.1.0
   framer-motion: 6.5.1_biqbaboplfbrettd7655fr4n2y
   hat: 0.0.3
+  lodash-es: 4.17.21
   lodash.isequal: 4.5.0
   mapbox-gl: 2.9.2
   react: 18.2.0
@@ -99,6 +103,8 @@ devDependencies:
   '@commitlint/cli': 17.0.3
   '@commitlint/config-conventional': 17.0.3
   '@ls-lint/ls-lint': 1.11.2
+  '@types/geojson': 7946.0.10
+  '@types/lodash-es': 4.17.6
   '@types/mapbox__mapbox-gl-draw': 1.2.5
   '@types/node': 18.0.5
   '@types/react': 18.0.15
@@ -1017,8 +1023,8 @@ packages:
       '@turf/helpers': 6.5.0
     dev: false
 
-  /@types/geojson/7946.0.8:
-    resolution: {integrity: sha512-1rkryxURpr6aWP7R786/UQOkJ3PcpQiWkAXBmdWc7ryFWqN6a4xfK7BtjXvFBKO9LjQ+MWQSWxYeZX1OApnArA==}
+  /@types/geojson/7946.0.10:
+    resolution: {integrity: sha512-Nmh0K3iWQJzniTuPRcJn5hxXkfB1T1pgB89SBig5PlJQU5yocazeu4jATJlaA0GYFKWMqDdvYemoSnF2pXgLVA==}
 
   /@types/history/4.7.11:
     resolution: {integrity: sha512-qjDJRrmvBMiTx+jyLxvLfJU7UznFuokDv4f3WRuriHKERccVpFU+8XMQUAbDzoiJCsmexxRExQeMwwCdamSKDA==}
@@ -1039,15 +1045,25 @@ packages:
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
     dev: true
 
+  /@types/lodash-es/4.17.6:
+    resolution: {integrity: sha512-R+zTeVUKDdfoRxpAryaQNRKk3105Rrgx2CFRClIgRGaqDTdjsm8h6IYA8ir584W3ePzkZfst5xIgDwYrlh9HLg==}
+    dependencies:
+      '@types/lodash': 4.14.182
+    dev: true
+
+  /@types/lodash/4.14.182:
+    resolution: {integrity: sha512-/THyiqyQAP9AfARo4pF+aCGcyiQ94tX/Is2I7HofNRqoYLgN1PBoOWu2/zTA5zMxzP5EFutMtWtGAFRKUe961Q==}
+    dev: true
+
   /@types/mapbox-gl/2.7.3:
     resolution: {integrity: sha512-XdveeJptNNZw7ZoeiAJ2/dupNtWaV6qpBG/SOFEpQNQAc+oiO6qUznX85n+W1XbLeD8SVRVfVORKuR+I4CHDZw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npm.taobao.org/@types/mapbox-gl/-/mapbox-gl-2.7.3.tgz}
     dependencies:
-      '@types/geojson': 7946.0.8
+      '@types/geojson': 7946.0.10
 
   /@types/mapbox__mapbox-gl-draw/1.2.5:
     resolution: {integrity: sha512-swDFPOPYkDSLWWXznurjradEAX05E0l8QZwdciQkTBjjg5dQmOjNfCIN54HNIDpKoSypSY+8T5SyFAOOm5LSTQ==}
     dependencies:
-      '@types/geojson': 7946.0.8
+      '@types/geojson': 7946.0.10
       '@types/mapbox-gl': 2.7.3
     dev: true
 
@@ -3624,6 +3640,10 @@ packages:
     dependencies:
       p-locate: 5.0.0
     dev: true
+
+  /lodash-es/4.17.21:
+    resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
+    dev: false
 
   /lodash.isequal/4.5.0:
     resolution: {integrity: sha512-pDo3lu8Jhfjqls6GkMgpahsF9kCyayhgykjyLMNFTKWrpVdAQtYyB4muAMWozBB4ig/dtWAmsMxLEI8wuz+DYQ==}
