@@ -1,7 +1,5 @@
-import '@/styles/mapbox.scss';
+import '@/styles/app.scss';
 import '@/styles/tailwind.css';
-import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
-import './App.scss';
 
 import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';

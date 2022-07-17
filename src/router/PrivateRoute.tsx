@@ -5,7 +5,7 @@ import { Navigate } from 'react-router-dom';
 import Empty from '@/components/empty';
 // import useStore from '@src/stores/user'
 
-const PrivateRoute: FC<RouteProps> = (props) => {
+const PrivateRoute: FC<RouteProps> = (props: any) => {
   const location = useLocation();
   const { pathname } = location;
   // const logged = useStore((state) => state.logged)

@@ -3,7 +3,7 @@ import { RouteProps } from 'react-router';
 
 import SuspendFallbackLoading from '@/components/fallback-loading';
 
-import PrivateRoute from './privateRoute';
+import PrivateRoute from './PrivateRoute';
 
 export type WrapperRouteProps = {
   /** document title id */
@@ -12,7 +12,7 @@ export type WrapperRouteProps = {
   auth?: boolean;
 } & RouteProps;
 
-const PublicRoute = (props) => {
+const PublicRoute = (props: any) => {
   return props.element;
 };
 
