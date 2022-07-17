@@ -23,7 +23,7 @@ const Index: FC<IProps> = ({ item }) => {
           </Link>
         }
         style={{ maxWidth: 360 }}
-        title={`${item.id} #`}
+        title={`# ${item.id}`}
       >
         <Title heading={4}>uuid: </Title>
         <Paragraph>{item.uuid}</Paragraph>
