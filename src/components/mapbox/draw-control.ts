@@ -2,6 +2,7 @@ import MapboxDraw from '@mapbox/mapbox-gl-draw';
 import { useEffect, useState } from 'react';
 import { ControlPosition, MapRef, useControl, useMap } from 'react-map-gl';
 
+import { deletePoint } from '@/api/draw';
 import { line } from '@/mock/features';
 import { useAppDispatch } from '@/stores';
 import { FeaturesType, setFeatures, setModalOpen } from '@/stores/draw-slice';
@@ -38,13 +39,14 @@ export default function DrawControl(props: DrawControlProps) {
   // drawe.create 事件
   const onCreate = (event: DrawEvent) => {
     dispatch(setModalOpen(true));
-    console.log('🚀 ~ file: draw-control.ts ~ line 42 ~ onCreate ~ event', event);
     const { features } = event;
     dispatch(setSideSheetVisible(false)); // 创建完成不展示侧边栏
     dispatch(setFeatures(features[0])); // geometry数据更新到draw-slice
   };
   // draw.selectionchange 事件
   const onSelectionchange = (event: DrawEvent) => {
+    console.log('🚀 ~ file: draw-control.ts ~ line 54 ~ onSelectionchange ~ onSelectionchange');
+
     const { features } = event;
     // 未选中点、线、面时，features是一个空数组
     if (!features.length) return;
@@ -52,11 +54,16 @@ export default function DrawControl(props: DrawControlProps) {
     dispatch(setFeatures(features[0]));
   };
 
+  const onDrawDelete = (event: any) => {
+    console.log('🚀 ~ file: draw-control.ts ~ line 58 ~ onDrawDelete ~ event', event);
+    dispatch(setSideSheetVisible(false));
+  };
+
   useControl<MapboxDraw>(
     ({ map }: { map: MapRef }) => {
       map.on('draw.create', onCreate);
       // map.on('draw.update', handleDraw);
-      // map.on('draw.delete', handleDraw);
+      map.on('draw.delete', onDrawDelete);
       map.on('draw.selectionchange', onSelectionchange);
       const draw = new MapboxDraw(props);
       setDrewInstance(draw);
