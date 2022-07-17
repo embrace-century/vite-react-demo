@@ -48,7 +48,7 @@ export const EditForm = () => {
       bodyStyle={{ borderBottom: '1px solid var(--semi-color-border)' }}
       footer={footer}
       headerStyle={{ borderBottom: '1px solid var(--semi-color-border)' }}
-      mask={false}
+      mask={true}
       title={<Typography.Title heading={4}>地理信息</Typography.Title>}
       visible={sideSheetVisible}
       onCancel={() => dispatch(setSideSheetVisible(false))}
