@@ -26,6 +26,7 @@ specifiers:
   '@vitejs/plugin-react': ^2.0.0
   autoprefixer: ^10.4.7
   axios: ^0.27.2
+  clsx: ^1.2.1
   env-cmd: ^10.1.0
   eslint: ^8.20.0
   eslint-config-alloy: ^4.6.2
@@ -84,6 +85,7 @@ dependencies:
   '@reduxjs/toolkit': 1.8.3_kkwg4cbsojnjnupd3btipussee
   '@turf/area': 6.5.0
   axios: 0.27.2
+  clsx: 1.2.1
   env-cmd: 10.1.0
   framer-motion: 6.5.1_biqbaboplfbrettd7655fr4n2y
   hat: 0.0.3

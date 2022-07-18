@@ -32,6 +32,7 @@
     "@reduxjs/toolkit": "^1.8.3",
     "@turf/area": "^6.5.0",
     "axios": "^0.27.2",
+    "clsx": "^1.2.1",
     "env-cmd": "^10.1.0",
     "framer-motion": "^6.5.1",
     "hat": "0.0.3",

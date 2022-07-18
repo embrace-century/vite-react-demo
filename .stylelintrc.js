@@ -24,5 +24,11 @@ module.exports = {
         ignoreAtRules: ['extends', 'tailwind'],
       },
     ],
+    'selector-pseudo-class-no-unknown': [
+      true,
+      {
+        ignorePseudoClasses: ['global'],
+      },
+    ],
   },
 };
