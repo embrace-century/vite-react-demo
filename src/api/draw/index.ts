@@ -1,24 +1,28 @@
+import { PointType } from '@/configs/draw-config';
 import request from '@/utils/request';
 
 const Api = {
-  POINT: '/points',
+  CREATE_POINT: '/points',
+  UPDATE_POINT: '/points',
 };
 
-const pointData = {
-  class_name: 'node',
-  node_type: 'Manhole',
-  system_type: 1,
-  lon: 114.2143432535,
-  lat: 34.214342,
-  x: 843252,
-  y: 592454,
-  ground_level: 1.001,
-  flood_level: 1.002,
-};
-
-export const postPoint = () =>
+export const createPoint = (pointData: PointType) =>
   request({
-    url: Api.POINT,
+    url: Api.CREATE_POINT,
+    method: 'POSt',
+    data: pointData,
+  });
+
+export const updatePoint = (pointData: PointType) =>
+  request({
+    url: Api.UPDATE_POINT,
+    method: 'POSt',
+    data: pointData,
+  });
+
+export const deletePoint = (pointData: PointType) =>
+  request({
+    url: Api.UPDATE_POINT,
     method: 'POSt',
     data: pointData,
   });
