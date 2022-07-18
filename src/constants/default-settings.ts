@@ -15,7 +15,7 @@ export const IS_PROD: boolean = BUILD_ENV === 'production';
 export const IS_NOT_PROD: boolean = BUILD_ENV !== 'production';
 
 // API地址
-export const BASE_URL = 'http://172.168.52.216:3000';
+export const BASE_URL = 'http://172.168.59.155:3000';
 
 /**
  * @description: mapbox设置
