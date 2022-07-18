@@ -2,9 +2,10 @@ import MapboxDraw from '@mapbox/mapbox-gl-draw';
 import { useCallback, useEffect, useState } from 'react';
 import { ControlPosition, MapRef, useControl, useMap } from 'react-map-gl';
 
-import { line } from '@/mock/features';
-import { useAppDispatch } from '@/stores';
-import { FeaturesType, setFeatures, setModalOpen } from '@/stores/draw-slice';
+import { buildGeojsonFromPoint } from '@/pages/model/node-layer/helper';
+import NodeService from '@/pages/model/node-layer/service';
+import { useAppDispatch, useAppSelector } from '@/stores';
+import { drawSelector, FeaturesType, setCancleCreate, setFeatures, setModalOpen } from '@/stores/draw-slice';
 import { setSideSheetVisible } from '@/stores/global-slice';
 
 type DrawControlType = {
@@ -15,37 +16,51 @@ type DrawControlProps = ConstructorParameters<typeof MapboxDraw>[0] & DrawContro
 
 type DrawEvent = {
   features: FeaturesType[];
-  action?: string;
 };
 
 /**
  * 新建点未提交的时候，点关闭，要删除点，要获取到drawInstance是个问题
- * 可以通过监听新建弹窗的visible来绕过这个问题，但是这样好像耦合太深，考虑组件封装的思路
+ * 使用redux也不合适
  */
 
 export default function DrawControl(props: DrawControlProps) {
   const dispatch = useAppDispatch();
   const { current } = useMap();
 
+  const { cancleCreate, features } = useAppSelector(drawSelector);
+
   const [drawInstance, setDrewInstance] = useState<MapboxDraw>();
+  const { position } = props;
   let touchCreate = false;
 
+  // 地图加载之后，查询项目下已经建好的点线并绘制
   useEffect(() => {
     if (drawInstance) {
-      // 加载所有数据
       if (current && drawInstance) {
         current.on('styledata', () => {
-          // drawInstance.set(line as any);
+          NodeService.findAll().then((data) => {
+            const nodeData = buildGeojsonFromPoint(data);
+            drawInstance.set(nodeData);
+          });
         });
       }
     }
-  }, [current, drawInstance]);
+  }, [current, drawInstance, cancleCreate, features]);
+
+  // 新建弹窗关闭后，执行删除操作
+  useEffect(() => {
+    if (cancleCreate && features?.id && drawInstance) {
+      const fetureId = features?.id;
+      drawInstance.delete(fetureId!);
+    }
+  }, [cancleCreate, features, drawInstance]);
 
   const onCreate = (event: DrawEvent) => {
     dispatch(setModalOpen(true));
     const { features } = event;
     touchCreate = true;
     dispatch(setFeatures(features[0])); // geometry数据更新到draw-slice
+    dispatch(setCancleCreate(false));
   };
 
   const onSelectionchange = useCallback(
@@ -85,7 +100,7 @@ export default function DrawControl(props: DrawControlProps) {
       map.on('draw.delete', onDrawDelete);
     },
     {
-      position: props.position,
+      position: position,
     },
   );
 

@@ -17,23 +17,30 @@ export const EditForm = () => {
     setFormApi(formApi);
   };
 
-  const handleSubmitClick = useCallback(() => {
+  const handleSubmitClick = () => {
     if (formApi) {
       formApi
         .validate()
         .then((values: IPoint) => {
-          PointService.updatePoint(123, values);
+          PointService.updatePoint(123, values).then(() => {
+            dispatch(setSideSheetVisible(false));
+          });
           // Todo: 这里要执行同步操作
         })
         .catch((errors: any) => {
           console.log('🚀 ~ file: AddForm.tsx ~ line 26 ~ formApi.validate ~ errors', errors);
         });
     }
-  }, []);
+  };
 
   const footer = (
     <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-      <Button style={{ marginRight: 8 }}>关闭</Button>
+      <Button
+        className="mr-2"
+        onClick={() => dispatch(setSideSheetVisible(false))}
+      >
+        关闭
+      </Button>
       <Button
         theme="solid"
         onClick={handleSubmitClick}
@@ -47,7 +54,7 @@ export const EditForm = () => {
       bodyStyle={{ borderBottom: '1px solid var(--semi-color-border)' }}
       footer={footer}
       headerStyle={{ borderBottom: '1px solid var(--semi-color-border)' }}
-      mask={true}
+      mask={false}
       title={<Typography.Title heading={4}>地理信息</Typography.Title>}
       visible={sideSheetVisible}
       onCancel={() => dispatch(setSideSheetVisible(false))}

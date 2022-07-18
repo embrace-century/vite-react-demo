@@ -25,9 +25,7 @@ const MAPBOX_STYLE_CONST = {
 };
 
 export const MapboxInstance = () => {
-  // semi design组件解构
   const { Title } = Typography;
-  // 组件内部state，考虑提取到状态管理
   const [open, setOpen] = useState(false);
   const [mapStyle, setMapStyle] = useState<any>(open ? MAPBOX_STYLE : MAPBOX_STYLE_CONST);
 

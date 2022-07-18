@@ -10,17 +10,19 @@ export type GeoMetryType = {
 };
 
 export type FeaturesType = {
+  id: string;
   properties: Object;
   geometry: GeoMetryType;
 };
 
 export type DrawState = {
-  modalIsOpen: boolean; // 侧边栏是否展开
+  modalIsOpen: boolean; // 新增弹窗是否打开
   features?: FeaturesType;
-  drawInstance?: MapboxDraw;
+  cancleCreate: boolean; // 是否取消新建操作
 };
 
 const emptyFeatures = {
+  id: '',
   properties: {},
   geometry: {
     type: 'Point',
@@ -31,6 +33,7 @@ const emptyFeatures = {
 const initialState: DrawState = {
   modalIsOpen: false,
   features: emptyFeatures,
+  cancleCreate: false,
 };
 
 const name = 'draw';
@@ -45,13 +48,13 @@ export const drawSlice = createSlice({
     setFeatures: (state, action: PayloadAction<FeaturesType>) => {
       state.features = action.payload;
     },
-    setDrawInstance: (state, action: PayloadAction<FeaturesType>) => {
-      state.features = action.payload;
+    setCancleCreate: (state, action: PayloadAction<boolean>) => {
+      state.cancleCreate = action.payload;
     },
   },
 });
 
-export const { setModalOpen, setFeatures } = drawSlice.actions;
+export const { setModalOpen, setFeatures, setCancleCreate } = drawSlice.actions;
 
 export const drawSelector = (state: AppState) => {
   return state[name];

@@ -5,7 +5,7 @@ import { DrawForm } from '@/components/form';
 import { IPoint } from '@/pages/model/map/interface';
 import { PointService } from '@/pages/model/map/service';
 import { useAppDispatch, useAppSelector } from '@/stores';
-import { drawSelector, setModalOpen } from '@/stores/draw-slice';
+import { drawSelector, setCancleCreate, setModalOpen } from '@/stores/draw-slice';
 
 export const AddForm = () => {
   const dispatch = useAppDispatch();
@@ -18,6 +18,7 @@ export const AddForm = () => {
   };
 
   const closeModal = useCallback(() => {
+    // dispatch(setCancleCreate(true));
     dispatch(setModalOpen(false));
   }, [dispatch]);
 
@@ -26,7 +27,9 @@ export const AddForm = () => {
       formApi
         .validate()
         .then((values: IPoint) => {
-          PointService.createPoint(values);
+          PointService.createPoint(values).then(() => {
+            dispatch(setModalOpen(false));
+          });
           // Todo: 这里要执行同步操作
         })
         .catch((errors: any) => {
