@@ -1,12 +1,11 @@
 import { Modal } from '@douyinfe/semi-ui';
 import React, { useCallback, useState } from 'react';
 
-import { createPoint } from '@/api/draw';
-import { PointType } from '@/configs/draw-config';
+import { DrawForm } from '@/components/form';
+import { IPoint } from '@/pages/model/map/interface';
+import { PointService } from '@/pages/model/map/service';
 import { useAppDispatch, useAppSelector } from '@/stores';
 import { drawSelector, setModalOpen } from '@/stores/draw-slice';
-
-import { DrawForm } from './_compo/DrawForm';
 
 export const AddForm = () => {
   const dispatch = useAppDispatch();
@@ -26,8 +25,8 @@ export const AddForm = () => {
     if (formApi) {
       formApi
         .validate()
-        .then((values: PointType) => {
-          createPoint(values);
+        .then((values: IPoint) => {
+          PointService.createPoint(values);
           // Todo: 这里要执行同步操作
         })
         .catch((errors: any) => {

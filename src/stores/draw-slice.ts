@@ -1,3 +1,4 @@
+import MapboxDraw from '@mapbox/mapbox-gl-draw';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 
@@ -16,6 +17,7 @@ export type FeaturesType = {
 export type DrawState = {
   modalIsOpen: boolean; // 侧边栏是否展开
   features?: FeaturesType;
+  drawInstance?: MapboxDraw;
 };
 
 const emptyFeatures = {
@@ -41,6 +43,9 @@ export const drawSlice = createSlice({
       state.modalIsOpen = action.payload;
     },
     setFeatures: (state, action: PayloadAction<FeaturesType>) => {
+      state.features = action.payload;
+    },
+    setDrawInstance: (state, action: PayloadAction<FeaturesType>) => {
       state.features = action.payload;
     },
   },

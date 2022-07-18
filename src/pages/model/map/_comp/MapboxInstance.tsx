@@ -2,7 +2,6 @@ import { Switch, Typography } from '@douyinfe/semi-ui';
 import React, { useCallback, useState } from 'react';
 import Map from 'react-map-gl';
 
-import { AddForm } from '@/components/form';
 import {
   MAPBOX_ACCESS_TOKEN,
   MAPBOX_BEARING,
@@ -81,7 +80,6 @@ export const MapboxInstance = () => {
           position="top-left"
         />
       </Map>
-      <AddForm />
     </div>
   );
 };

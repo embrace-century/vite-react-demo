@@ -1,2 +1,1 @@
-export { AddForm } from './AddForm';
-export { EditForm } from './EditForm';
+export { DrawForm } from './DrawForm';

@@ -18,6 +18,11 @@ type DrawEvent = {
   action?: string;
 };
 
+/**
+ * 新建点未提交的时候，点关闭，要删除点，要获取到drawInstance是个问题
+ * 可以通过监听新建弹窗的visible来绕过这个问题，但是这样好像耦合太深，考虑组件封装的思路
+ */
+
 export default function DrawControl(props: DrawControlProps) {
   const dispatch = useAppDispatch();
   const { current } = useMap();
@@ -30,7 +35,7 @@ export default function DrawControl(props: DrawControlProps) {
       // 加载所有数据
       if (current && drawInstance) {
         current.on('styledata', () => {
-          drawInstance.set(line as any);
+          // drawInstance.set(line as any);
         });
       }
     }
@@ -62,13 +67,12 @@ export default function DrawControl(props: DrawControlProps) {
   const onDrawDelete = (event: any) => {
     console.log('🚀 ~ file: draw-control.ts ~ line 58 ~ onDrawDelete ~ event', event);
     dispatch(setSideSheetVisible(false));
-    // Todo: 删除图形时，要考虑是否发请求
+    // Todo: 调用实例的delete方法时，是否会触发delete事件
   };
 
   useControl<MapboxDraw>(
     ({ map }: { map: MapRef }) => {
       map.on('draw.create', onCreate);
-      // map.on('draw.update', handleDraw);
       map.on('draw.delete', onDrawDelete);
       map.on('draw.selectionchange', onSelectionchange);
       const draw = new MapboxDraw(props);
@@ -77,7 +81,6 @@ export default function DrawControl(props: DrawControlProps) {
     },
     ({ map }: { map: MapRef }) => {
       map.off('draw.create', onCreate);
-      // map.off('draw.update', handleDraw);
       map.on('draw.selectionchange', onSelectionchange);
       map.on('draw.delete', onDrawDelete);
     },

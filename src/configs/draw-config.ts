@@ -1,4 +1,4 @@
-export type FormItemConfig = {
+export type IFormItemConfig = {
   key: string;
   label: string;
   disabled: boolean;
@@ -8,34 +8,11 @@ export type FormItemConfig = {
   rules?: any[];
 };
 
-export type FormConfig = {
-  [key: string]: FormItemConfig;
+export type IFormConfig = {
+  [key: string]: IFormItemConfig;
 };
 
-export type PointType = {
-  /**
-   * 目前使用固定值 node
-   */
-  class_name: string;
-  /**
-   * 洪水高程
-   */
-  flood_level: number;
-  /**
-   * 地面高程
-   */
-  ground_level: number;
-  lat: number;
-  lon: number;
-  node_type: string;
-  remarks: string;
-  scenario_id?: number;
-  system_type: number;
-  x: number;
-  y: number;
-};
-
-export const POINT_CONFIG: Record<string, FormItemConfig> = {
+export const POINT_CONFIG: Record<string, IFormItemConfig> = {
   class_name: {
     key: 'class_name',
     label: '类名',
@@ -167,7 +144,7 @@ export const POINT_CONFIG: Record<string, FormItemConfig> = {
   },
 };
 
-export const LINESTRING_CONFIG: Record<string, FormItemConfig> = {
+export const LINESTRING_CONFIG: Record<string, IFormItemConfig> = {
   class_name: {
     key: 'class_name',
     label: '类名',
@@ -299,7 +276,7 @@ export const LINESTRING_CONFIG: Record<string, FormItemConfig> = {
   },
 };
 
-export const FORM_DICT: Record<string, FormConfig> = {
+export const FORM_DICT: Record<string, IFormConfig> = {
   Point: POINT_CONFIG,
   LineString: LINESTRING_CONFIG,
 };

@@ -1,2 +1,2 @@
-export { MapLayout } from './MapLayout';
+// export { MapLayout } from './MapLayout';
 export { NavLayout } from './NavLayout';

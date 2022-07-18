@@ -1,12 +1,11 @@
 import { Button, SideSheet, Typography } from '@douyinfe/semi-ui';
 import React, { useCallback, useState } from 'react';
 
-import { updatePoint } from '@/api/draw';
-import { PointType } from '@/configs/draw-config';
+import { DrawForm } from '@/components/form';
+import { IPoint } from '@/pages/model/map/interface';
+import { PointService } from '@/pages/model/map/service';
 import { useAppDispatch, useAppSelector } from '@/stores';
 import { globalSelector, setSideSheetVisible } from '@/stores/global-slice';
-
-import { DrawForm } from './_compo/DrawForm';
 
 export const EditForm = () => {
   const dispatch = useAppDispatch();
@@ -22,8 +21,8 @@ export const EditForm = () => {
     if (formApi) {
       formApi
         .validate()
-        .then((values: PointType) => {
-          updatePoint(values);
+        .then((values: IPoint) => {
+          PointService.updatePoint(123, values);
           // Todo: 这里要执行同步操作
         })
         .catch((errors: any) => {
