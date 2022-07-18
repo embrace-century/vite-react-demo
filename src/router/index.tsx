@@ -1,6 +1,6 @@
 import React, { FC, lazy } from 'react';
 import { RouteObject } from 'react-router';
-import { Outlet, useRoutes } from 'react-router-dom';
+import { useRoutes } from 'react-router-dom';
 
 import Empty from '@/components/empty';
 import { NavLayout } from '@/layouts';
@@ -83,15 +83,6 @@ const routeList: RouteObject[] = [
       },
     ],
   },
-  // {
-  //   path: 'login',
-  //   element: (
-  //     <WrapperRouteWithOutLayoutComponent
-  //       element={<LoginPage />}
-  //       titleId="登录"
-  //     />
-  //   ),
-  // },
   {
     path: '*',
     element: (

@@ -7,6 +7,7 @@ import { Outlet } from 'react-router-dom';
 import SuspendFallbackLoading from '@/components/fallback-loading';
 import { HeaderNav } from '@/components/layouts';
 
+import Footer from './_comps/footer';
 import Sider from './_comps/sider';
 
 const { Content } = Layout;
@@ -14,15 +15,16 @@ const { Content } = Layout;
 export const NavLayout: FC = () => {
   return (
     <Layout className="layout-page">
-      <HeaderNav />
+      <Sider />
       <Layout>
-        <Sider />
+        <HeaderNav />
 
         <Content className="layout-content">
           <Suspense fallback={<SuspendFallbackLoading message="正在加载中" />}>
             <Outlet />
           </Suspense>
         </Content>
+        <Footer />
       </Layout>
     </Layout>
   );
