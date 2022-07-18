@@ -4,6 +4,7 @@
   border: 1px solid var(--semi-color-border);
 
   background: #f0f2f5;
+
   .layout-content {
     position: relative;
 
@@ -12,13 +13,24 @@
       height: 100%;
     }
   }
+
   .layout-header {
     background-color: var(--semi-color-bg-1);
     .semi-navigation-horizontal {
       height: 50px;
 
-      border-bottom: 0px;
+      border-bottom: 1px solid var(--semi-color-border);
     }
+  }
+
+  .layout-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 40px;
+
+    color: var(--semi-color-text-2);
   }
   .semi-badge-rightTop {
     position: absolute;

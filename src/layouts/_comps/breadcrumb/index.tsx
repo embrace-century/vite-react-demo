@@ -48,7 +48,10 @@ const Index: React.FC = () => {
   }, [pathname]);
 
   return (
-    <Breadcrumb>
+    <Breadcrumb
+      className="mb-4"
+      compact={false}
+    >
       {breadcrumbList.map((e) => {
         return <Item key={e.key}>{e.title}</Item>;
       })}

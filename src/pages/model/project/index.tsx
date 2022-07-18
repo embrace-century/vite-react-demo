@@ -23,8 +23,7 @@ const Index: React.FC = () => {
 
   return (
     <div className="flex flex-col">
-      <div className="text-2xl font-semibold text-black">我的项目</div>
-      <div className="mt-8 grid">
+      <div className="grid">
         <Row gutter={[16, 24]}>
           {data?.length &&
             data?.map((ele) => (

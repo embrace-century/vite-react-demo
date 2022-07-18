@@ -25,16 +25,16 @@ const Index: FC<IProps> = ({ item }) => {
         style={{ maxWidth: 360 }}
         title={`# ${item.id}`}
       >
-        <Title heading={4}>uuid: </Title>
-        <Paragraph>{item.uuid}</Paragraph>
-        <br />
-
         <Title heading={4}>name</Title>
         <Paragraph>{item.name}</Paragraph>
         <br />
 
+        {/* <Title heading={4}>uuid: </Title>
+        <Paragraph>{item.uuid}</Paragraph>
+        <br />
+
         <Title heading={4}>icm_path</Title>
-        <Paragraph>{item.icm_path}</Paragraph>
+        <Paragraph>{item.icm_path}</Paragraph> */}
       </Card>
     </Col>
   );
