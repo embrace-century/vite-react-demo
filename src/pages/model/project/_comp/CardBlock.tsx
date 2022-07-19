@@ -70,16 +70,18 @@ const CardBlock: FC<IProps> = (props) => {
           删除
         </Button>
 
-        <Button
-          loading={isLoading}
-          theme="light"
-          type="primary"
-          onClick={() => {
-            mutate({ id });
-          }}
-        >
-          同步
-        </Button>
+        {!synced && (
+          <Button
+            loading={isLoading}
+            theme="light"
+            type="primary"
+            onClick={() => {
+              mutate({ id });
+            }}
+          >
+            同步
+          </Button>
+        )}
 
         <Link to={String(id)}>
           <Button
