@@ -5,9 +5,6 @@ html,
 body,
 #root,
 #root > * {
-  --semi-color-primary: rgba(var(--semi-violet-6), 1);
-  --semi-color-primary-hover: rgba(var(--semi-violet-3), 1);
-  --semi-color-primary-light-default: rgba(var(--semi-violet-0), 1);
   height: 100%;
   margin: 0;
 

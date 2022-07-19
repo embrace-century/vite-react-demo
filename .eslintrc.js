@@ -40,6 +40,7 @@ module.exports = {
     'no-unused-vars': 'warn',
     // typescript项目关闭这个选项
     // 'no-undef': 'off',
+    'no-return-assign': 'off',
 
     'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'error',
