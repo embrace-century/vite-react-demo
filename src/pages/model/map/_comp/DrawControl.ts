@@ -1,5 +1,5 @@
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { ControlPosition, MapRef, useControl, useMap } from 'react-map-gl';
 
 import { buildGeojsonFromPoint } from '@/pages/model/node-layer/helper';
@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from '@/stores';
 import { drawSelector, FeaturesType, setCancleCreate, setFeatures, setModalOpen } from '@/stores/draw-slice';
 import { setSideSheetVisible } from '@/stores/global-slice';
 
+import { MapFeatures } from '../map-context';
 import { PointService } from '../service';
 
 type DrawControlType = {
@@ -31,6 +32,8 @@ export default function DrawControl(props: DrawControlProps) {
 
   const { cancleCreate, features } = useAppSelector(drawSelector);
 
+  const nodeData = useContext(MapFeatures);
+
   const [drawInstance, setDrawInstance] = useState<MapboxDraw>();
   const { position } = props;
   let touchCreate = false;
@@ -40,16 +43,11 @@ export default function DrawControl(props: DrawControlProps) {
     if (drawInstance) {
       if (current && drawInstance) {
         current.on('styledata', () => {
-          NodeService.findAll().then((data) => {
-            if (data.length > 0) {
-              const nodeData = buildGeojsonFromPoint(data);
-              drawInstance.set(nodeData);
-            }
-          });
+          drawInstance.set(nodeData);
         });
       }
     }
-  }, [current, drawInstance]);
+  }, [current, drawInstance, nodeData]);
 
   // 新建弹窗关闭后，执行删除操作
   useEffect(() => {
@@ -87,7 +85,7 @@ export default function DrawControl(props: DrawControlProps) {
     console.log('🚀 ~ file: draw-control.ts ~ line 58 ~ onDrawDelete ~ event', event);
     const { id } = event.features[0];
     dispatch(setSideSheetVisible(false));
-    PointService.deletePoint(id, 'node').catch(() => {
+    PointService.deletePoint(id!, 'node').catch(() => {
       drawInstance?.add(event.features[0] as any);
     });
   };

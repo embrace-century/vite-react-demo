@@ -1,4 +1,4 @@
-import { Card, Switch, Typography } from '@douyinfe/semi-ui';
+import { Switch, Typography } from '@douyinfe/semi-ui';
 import React, { useCallback, useState } from 'react';
 import Map from 'react-map-gl';
 
@@ -57,12 +57,13 @@ export const MapboxInstance = () => {
         minZoom={MAPBOX_MIN_ZOOM}
         pitch={MAPBOX_PITCH}
         scrollZoom={MAPBOX_SCROLL_ZOOM}
+        style={{ width: '100%', height: '80vh' }}
       >
         <DrawControl
           controls={{
             point: true,
             line_string: true,
-            trash: true,
+            // trash: true,
           }}
           defaultMode="simple_select"
           displayControlsDefault={false}

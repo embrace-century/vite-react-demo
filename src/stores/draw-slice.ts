@@ -14,7 +14,7 @@ const Feature = {
 } as const;
 
 export type FeaturesType = {
-  id: string;
+  id?: string;
   properties: Record<string, any>;
   geometry: GeoMetryType;
   type: keyof typeof Feature;

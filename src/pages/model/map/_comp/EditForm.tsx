@@ -1,4 +1,4 @@
-import { Button, SideSheet, Typography } from '@douyinfe/semi-ui';
+import { Button, ButtonGroup, SideSheet, Typography } from '@douyinfe/semi-ui';
 import React, { useEffect, useState } from 'react';
 
 import { DrawForm } from '@/components/form';
@@ -20,7 +20,7 @@ export const EditForm = () => {
   // 把uesEffect当做Mounted生命周期用
   useEffect(() => {
     dispatch(setSideSheetVisible(false));
-  }, []);
+  }, [dispatch]);
 
   const handleSubmitClick = () => {
     if (formApi) {
@@ -39,19 +39,32 @@ export const EditForm = () => {
   };
 
   const footer = (
-    <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+    // <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+    <div className="flex justify-between">
       <Button
-        className="mr-2"
+        className="float-right	"
+        theme="solid"
+        type="danger"
         onClick={() => dispatch(setSideSheetVisible(false))}
       >
-        关闭
+        删除
       </Button>
-      <Button
-        theme="solid"
-        onClick={handleSubmitClick}
-      >
-        提交
-      </Button>
+      <div>
+        <Button
+          className="pr-4"
+          theme="solid"
+          type="tertiary"
+          onClick={() => dispatch(setSideSheetVisible(false))}
+        >
+          关闭
+        </Button>
+        <Button
+          theme="solid"
+          onClick={handleSubmitClick}
+        >
+          提交
+        </Button>
+      </div>
     </div>
   );
   return (
