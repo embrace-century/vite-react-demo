@@ -69,7 +69,7 @@ const Show: React.FC = () => {
   const [create, setCreate] = useState(false);
 
   const { data, isLoading, isError } = useQuery<INetwork[], Error>(['network.index', { projectId }], () =>
-    NetworkService.findAll(projectId!),
+    NetworkService.findAll({ projectId: projectId! }),
   );
 
   if (isLoading) {
