@@ -14,7 +14,7 @@ type DrawFormProp = {
 export const DrawForm = (props: DrawFormProp) => {
   const { features } = useAppSelector(drawSelector);
   const { labelCol = 6, wrapperCol = 20, getFormApi } = props;
-  const { Input } = Form;
+  const { Input, InputNumber } = Form;
   // coordinates point: 一维数组 line: 二维数组 polygon: 三维数组
   const { geometry } = features!;
   const { coordinates, type } = geometry;
@@ -43,17 +43,33 @@ export const DrawForm = (props: DrawFormProp) => {
     >
       {Object.keys(formItems).map((formKey) => {
         const { label, disabled, rules, type, initValue, trigger } = formItems[formKey];
-        return type === 'input' ? (
-          <Input
-            key={formKey}
-            disabled={disabled}
-            field={formKey}
-            initValue={initValue}
-            label={label}
-            rules={rules}
-            trigger={trigger}
-          />
-        ) : null;
+        switch (type) {
+          case 'InputNumber':
+            return (
+              <InputNumber
+                key={formKey}
+                hideButtons
+                disabled={disabled}
+                field={formKey}
+                initValue={initValue}
+                label={label}
+                rules={rules}
+                trigger={trigger}
+              />
+            );
+          default:
+            return (
+              <Input
+                key={formKey}
+                disabled={disabled}
+                field={formKey}
+                initValue={initValue}
+                label={label}
+                rules={rules}
+                trigger={trigger}
+              />
+            );
+        }
       })}
     </Form>
   );

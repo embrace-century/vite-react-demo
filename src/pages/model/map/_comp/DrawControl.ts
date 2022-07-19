@@ -29,7 +29,7 @@ export default function DrawControl(props: DrawControlProps) {
 
   const { cancleCreate, features } = useAppSelector(drawSelector);
 
-  const [drawInstance, setDrewInstance] = useState<MapboxDraw>();
+  const [drawInstance, setDrawInstance] = useState<MapboxDraw>();
   const { position } = props;
   let touchCreate = false;
 
@@ -91,7 +91,7 @@ export default function DrawControl(props: DrawControlProps) {
       map.on('draw.delete', onDrawDelete);
       map.on('draw.selectionchange', onSelectionchange);
       const draw = new MapboxDraw(props);
-      setDrewInstance(draw);
+      setDrawInstance(draw);
       return draw;
     },
     ({ map }: { map: MapRef }) => {
