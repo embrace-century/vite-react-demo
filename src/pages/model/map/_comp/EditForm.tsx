@@ -1,15 +1,17 @@
-import { Button, ButtonGroup, SideSheet, Typography } from '@douyinfe/semi-ui';
-import React, { useEffect, useState } from 'react';
+import { Button, Popconfirm, SideSheet, Typography } from '@douyinfe/semi-ui';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { DrawForm } from '@/components/form';
 import { IPoint } from '@/pages/model/map/interface';
 import { PointService } from '@/pages/model/map/service';
 import { useAppDispatch, useAppSelector } from '@/stores';
+import { drawSelector } from '@/stores/draw-slice';
 import { globalSelector, setSideSheetVisible } from '@/stores/global-slice';
 
 export const EditForm = () => {
   const dispatch = useAppDispatch();
   const { sideSheetVisible } = useAppSelector(globalSelector);
+  const { features } = useAppSelector(drawSelector);
 
   const [formApi, setFormApi] = useState<any>();
 
@@ -21,6 +23,14 @@ export const EditForm = () => {
   useEffect(() => {
     dispatch(setSideSheetVisible(false));
   }, [dispatch]);
+
+  const handleDelete = useCallback(() => {
+    const { id, properties } = features!;
+    // 如果先删再查的话，就不需要draw的实例了
+    PointService.deletePoint(features!.id!, properties['class_name']).then(() => {
+      dispatch(setSideSheetVisible(false));
+    });
+  }, []);
 
   const handleSubmitClick = () => {
     if (formApi) {
@@ -39,16 +49,23 @@ export const EditForm = () => {
   };
 
   const footer = (
-    // <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
     <div className="flex justify-between">
-      <Button
-        className="float-right	"
-        theme="solid"
-        type="danger"
-        onClick={() => dispatch(setSideSheetVisible(false))}
+      <Popconfirm
+        cancelText="否"
+        content="此修改将不可逆"
+        okText="是"
+        position="top"
+        title="确认删除吗？"
+        onConfirm={handleDelete}
       >
-        删除
-      </Button>
+        <Button
+          className="float-right	"
+          theme="solid"
+          type="danger"
+        >
+          删除
+        </Button>
+      </Popconfirm>
       <div>
         <Button
           className="pr-4"

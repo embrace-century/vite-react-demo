@@ -53,7 +53,7 @@ export default function DrawControl(props: DrawControlProps) {
   useEffect(() => {
     if (cancleCreate && features?.id && drawInstance) {
       const fetureId = features?.id;
-      drawInstance.delete(fetureId!);
+      drawInstance.delete(`${fetureId}`!);
     }
   }, [cancleCreate, features, drawInstance]);
 

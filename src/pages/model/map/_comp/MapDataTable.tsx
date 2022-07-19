@@ -12,8 +12,6 @@ type IColumns = IPoint & {
 };
 
 const mapDataColumns: ColumnProps<IColumns>[] = [
-  { dataIndex: 'node_type', title: '节点类型' },
-  { dataIndex: 'system_type', title: '系统类型' },
   { dataIndex: 'lon', title: '经度' },
   { dataIndex: 'lat', title: '纬度' },
   { dataIndex: 'flood_level', title: '洪水高程' },
@@ -28,9 +26,10 @@ export const MapDataTable: FC = () => {
   const dataSource = useMemo(() => {
     return nodeData.features.map((feature: FeaturesType) => {
       const { properties, geometry } = feature;
-      return { ...properties, ...geometry };
+      return { ...properties, lon: geometry.coordinates[0], lat: geometry.coordinates[1] };
     });
   }, [nodeData.features]);
+  console.log('🚀 ~ file: MapDataTable.tsx ~ line 34 ~ dataSource ~ dataSource', dataSource);
 
   return (
     <Table<IColumns>
