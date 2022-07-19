@@ -1,5 +1,5 @@
 import { IconPlus } from '@douyinfe/semi-icons';
-import { Button, Card, Space, Table, Typography } from '@douyinfe/semi-ui';
+import { Button, Card, Popconfirm, Space, Table, Typography } from '@douyinfe/semi-ui';
 import { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
@@ -52,12 +52,23 @@ const networkColumns: ColumnProps<INetwork>[] = [
         >
           查看
         </Button>
-        <Button
-          theme="borderless"
-          type="danger"
+
+        <Popconfirm
+          cancelText="否"
+          content="此修改将不可逆"
+          // okButtonProps={{ loading: isLoadingRemove }}
+          okText="是"
+          position="top"
+          title="确认删除吗？"
+          // onConfirm={() => mutateRemove({ id })}
         >
-          删除
-        </Button>
+          <Button
+            theme="borderless"
+            type="danger"
+          >
+            删除
+          </Button>
+        </Popconfirm>
       </div>
     ),
   },
