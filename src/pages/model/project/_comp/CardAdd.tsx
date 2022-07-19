@@ -4,7 +4,7 @@ import { IconPlus } from '@douyinfe/semi-icons';
 import { Card } from '@douyinfe/semi-ui';
 import React, { FC, useState } from 'react';
 
-import New from './New';
+import New from './NewProject';
 
 const CardAdd: FC = () => {
   const [create, setCreate] = useState(false);

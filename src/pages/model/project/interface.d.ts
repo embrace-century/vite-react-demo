@@ -12,6 +12,7 @@ export type INetwork = {
   id: number;
   name: string;
   scenario_id: number;
+  project?: IProject;
   // uuid: string;
   // project_id: number;
   // icm_id: number;

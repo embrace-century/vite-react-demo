@@ -1,10 +1,11 @@
 import { IconPlus } from '@douyinfe/semi-icons';
 import { Button, Card, Space, Table, Typography } from '@douyinfe/semi-ui';
 import { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
-import React from 'react';
+import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 
+import NewNetwork from './_comp/NewNetwork';
 import { INetwork } from './interface';
 import { NetworkService } from './service';
 
@@ -65,6 +66,8 @@ const networkColumns: ColumnProps<INetwork>[] = [
 const Show: React.FC = () => {
   const { projectId } = useParams();
 
+  const [create, setCreate] = useState(false);
+
   const { data, isLoading, isError } = useQuery<INetwork[], Error>(['network.index', { projectId }], () =>
     NetworkService.findAll(projectId!),
   );
@@ -78,29 +81,39 @@ const Show: React.FC = () => {
   }
 
   return (
-    <Card>
-      <Title heading={6}>我的项目</Title>
+    <>
+      <Card>
+        <Title heading={6}>我的项目</Title>
 
-      <div className="mt-6">
-        <div className="button-group">
-          <Space>
-            <Button
-              icon={<IconPlus />}
-              theme="solid"
-              type="primary"
-            >
-              新建
-            </Button>
-          </Space>
+        <div className="mt-6">
+          <div className="button-group">
+            <Space>
+              <Button
+                icon={<IconPlus />}
+                theme="solid"
+                type="primary"
+                onClick={() => {
+                  setCreate(true);
+                }}
+              >
+                新建
+              </Button>
+            </Space>
+          </div>
+
+          <Table<INetwork>
+            columns={networkColumns}
+            dataSource={data}
+            pagination={false}
+          />
         </div>
+      </Card>
 
-        <Table<INetwork>
-          columns={networkColumns}
-          dataSource={data}
-          pagination={false}
-        />
-      </div>
-    </Card>
+      <NewNetwork
+        visible={create}
+        onClose={() => setCreate(false)}
+      />
+    </>
   );
 };
 
