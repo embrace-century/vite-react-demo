@@ -21,7 +21,7 @@ export const NavLayout: FC = () => {
       <Layout>
         <Sider />
 
-        <Layout>
+        <Layout className="layout-bg">
           <Content className="layout-content">
             <Breadcrumb />
 
