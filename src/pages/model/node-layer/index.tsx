@@ -5,6 +5,7 @@ import { useQuery } from 'react-query';
 import {
   MAPBOX_ACCESS_TOKEN,
   MAPBOX_BEARING,
+  MAPBOX_CENTER,
   MAPBOX_DOUBLE_CLICK_ZOOM,
   MAPBOX_MAX_ZOOM,
   MAPBOX_MIN_ZOOM,
@@ -53,9 +54,9 @@ const Index: FC = () => {
       bearing={MAPBOX_BEARING}
       doubleClickZoom={MAPBOX_DOUBLE_CLICK_ZOOM}
       initialViewState={{
-        longitude: 114.2143432535,
-        latitude: 34.214342,
-        zoom: 3.5,
+        longitude: MAPBOX_CENTER[0],
+        latitude: MAPBOX_CENTER[1],
+        zoom: MAPBOX_ZOOM,
       }}
       mapStyle={MAPBOX_STYLE}
       mapboxAccessToken={MAPBOX_ACCESS_TOKEN}
@@ -63,7 +64,6 @@ const Index: FC = () => {
       minZoom={MAPBOX_MIN_ZOOM}
       pitch={MAPBOX_PITCH}
       scrollZoom={MAPBOX_SCROLL_ZOOM}
-      zoom={MAPBOX_ZOOM}
     >
       <Source
         data={nodeData}
