@@ -10,7 +10,7 @@ import { ProjectService } from './service';
 const { Title } = Typography;
 
 const Index: React.FC = () => {
-  const { data, isLoading, isError } = useQuery<IProject[], Error>(['project_index'], ProjectService.findAll);
+  const { data, isLoading, isError } = useQuery<IProject[], Error>(['project.index'], ProjectService.findAll);
 
   if (isLoading) {
     return <div>数据加载中...</div>;

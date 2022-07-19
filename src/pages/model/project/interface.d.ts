@@ -5,6 +5,7 @@ export type IProject = {
   uuid: string;
   name: string;
   icm_path: string;
+  synced: boolean;
 };
 
 export type INetwork = {

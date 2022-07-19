@@ -1,4 +1,4 @@
-import { Button, Table, Typography } from '@douyinfe/semi-ui';
+import { Button, Table } from '@douyinfe/semi-ui';
 import { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
 import React from 'react';
 import { useQuery } from 'react-query';
@@ -49,7 +49,7 @@ const networkColumns: ColumnProps<INetwork>[] = [
 const Show: React.FC = () => {
   const { projectId } = useParams();
 
-  const { data, isLoading, isError } = useQuery<INetwork[], Error>(['network_index', { projectId }], () =>
+  const { data, isLoading, isError } = useQuery<INetwork[], Error>(['network.index', { projectId }], () =>
     NetworkService.findAll(projectId!),
   );
 

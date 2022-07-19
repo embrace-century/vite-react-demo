@@ -1,6 +1,6 @@
 import { axios } from '@/services';
 
-import { INetwork, IProject } from './interface';
+import { IProject } from '../interface';
 
 // eg: [
 //   {
@@ -8,6 +8,7 @@ import { INetwork, IProject } from './interface';
 //     uuid: 'ef1fd306-62f2-4a85-ab00-7bb50a6745d6',
 //     name: '南湖茶山刘项目',
 //     icm_path: 'snumbat://localhost:40000/chanshanliu',
+//     synced: false
 //   },
 // ];
 
@@ -16,17 +17,14 @@ const findAll = async () => {
   return response.data;
 };
 
-const ProjectService = {
-  findAll,
-};
-
-const findAllNetwork = async (projectId: string) => {
-  const response = await axios.get<INetwork[]>(`/projects/${projectId}/networks`);
+const create = async (params: { name: string }) => {
+  const response = await axios.post<IProject>('/projects', params);
   return response.data;
 };
 
-const NetworkService = {
-  findAll: findAllNetwork,
+const ProjectService = {
+  findAll,
+  create,
 };
 
-export { NetworkService, ProjectService };
+export default ProjectService;

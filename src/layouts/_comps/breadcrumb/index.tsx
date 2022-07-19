@@ -42,7 +42,7 @@ const Index: React.FC = () => {
 
   useEffect(() => {
     end = false;
-    if (pathname === '/') getBreadcrumbByPathName(menuList, '/order-list');
+    if (pathname === '/') getBreadcrumbByPathName(menuList, '/project');
     else getBreadcrumbByPathName(menuList, pathname);
     setState((state) => state + 1);
   }, [pathname]);
