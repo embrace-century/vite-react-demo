@@ -1,5 +1,5 @@
 import { Button, SideSheet, Typography } from '@douyinfe/semi-ui';
-import React, { useCallback, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { DrawForm } from '@/components/form';
 import { IPoint } from '@/pages/model/map/interface';
@@ -16,6 +16,11 @@ export const EditForm = () => {
   const getFormApi = (formApi: any) => {
     setFormApi(formApi);
   };
+
+  // 把uesEffect当做Mounted生命周期用
+  useEffect(() => {
+    dispatch(setSideSheetVisible(false));
+  }, []);
 
   const handleSubmitClick = () => {
     if (formApi) {

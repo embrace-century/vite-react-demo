@@ -14,7 +14,7 @@ import {
   MAPBOX_ZOOM,
 } from '@/constants/default-settings';
 
-import DrawControl from './draw-control';
+import DrawControl from './DrawControl';
 
 const MAPBOX_STYLE_CONST = {
   version: 8,
@@ -64,11 +64,9 @@ export const MapboxInstance = () => {
         minZoom={MAPBOX_MIN_ZOOM}
         pitch={MAPBOX_PITCH}
         scrollZoom={MAPBOX_SCROLL_ZOOM}
-        zoom={MAPBOX_ZOOM}
       >
         <DrawControl
           controls={{
-            polygon: true,
             point: true,
             line_string: true,
             trash: true,

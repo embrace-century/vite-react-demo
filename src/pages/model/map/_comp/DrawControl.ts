@@ -8,6 +8,8 @@ import { useAppDispatch, useAppSelector } from '@/stores';
 import { drawSelector, FeaturesType, setCancleCreate, setFeatures, setModalOpen } from '@/stores/draw-slice';
 import { setSideSheetVisible } from '@/stores/global-slice';
 
+import { PointService } from '../service';
+
 type DrawControlType = {
   position?: ControlPosition;
 };
@@ -29,7 +31,7 @@ export default function DrawControl(props: DrawControlProps) {
 
   const { cancleCreate, features } = useAppSelector(drawSelector);
 
-  const [drawInstance, setDrewInstance] = useState<MapboxDraw>();
+  const [drawInstance, setDrawInstance] = useState<MapboxDraw>();
   const { position } = props;
   let touchCreate = false;
 
@@ -39,13 +41,15 @@ export default function DrawControl(props: DrawControlProps) {
       if (current && drawInstance) {
         current.on('styledata', () => {
           NodeService.findAll().then((data) => {
-            const nodeData = buildGeojsonFromPoint(data);
-            drawInstance.set(nodeData);
+            if (data.length > 0) {
+              const nodeData = buildGeojsonFromPoint(data);
+              drawInstance.set(nodeData);
+            }
           });
         });
       }
     }
-  }, [current, drawInstance, cancleCreate, features]);
+  }, [current, drawInstance]);
 
   // 新建弹窗关闭后，执行删除操作
   useEffect(() => {
@@ -56,10 +60,10 @@ export default function DrawControl(props: DrawControlProps) {
   }, [cancleCreate, features, drawInstance]);
 
   const onCreate = (event: DrawEvent) => {
-    dispatch(setModalOpen(true));
     const { features } = event;
     touchCreate = true;
     dispatch(setFeatures(features[0])); // geometry数据更新到draw-slice
+    dispatch(setModalOpen(true));
     dispatch(setCancleCreate(false));
   };
 
@@ -79,10 +83,13 @@ export default function DrawControl(props: DrawControlProps) {
     [dispatch, touchCreate],
   );
 
-  const onDrawDelete = (event: any) => {
+  const onDrawDelete = (event: DrawEvent) => {
     console.log('🚀 ~ file: draw-control.ts ~ line 58 ~ onDrawDelete ~ event', event);
+    const { id } = event.features[0];
     dispatch(setSideSheetVisible(false));
-    // Todo: 调用实例的delete方法时，是否会触发delete事件
+    PointService.deletePoint(id, 'node').catch(() => {
+      drawInstance?.add(event.features[0] as any);
+    });
   };
 
   useControl<MapboxDraw>(
@@ -91,7 +98,7 @@ export default function DrawControl(props: DrawControlProps) {
       map.on('draw.delete', onDrawDelete);
       map.on('draw.selectionchange', onSelectionchange);
       const draw = new MapboxDraw(props);
-      setDrewInstance(draw);
+      setDrawInstance(draw);
       return draw;
     },
     ({ map }: { map: MapRef }) => {

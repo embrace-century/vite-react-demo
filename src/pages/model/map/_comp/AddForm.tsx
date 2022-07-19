@@ -36,7 +36,7 @@ export const AddForm = () => {
           console.log('🚀 ~ file: AddForm.tsx ~ line 26 ~ formApi.validate ~ errors', errors);
         });
     }
-  }, [formApi]);
+  }, [dispatch, formApi]);
 
   return (
     <Modal
