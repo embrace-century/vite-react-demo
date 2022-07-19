@@ -10,12 +10,14 @@ export type IProject = {
 
 export type INetwork = {
   id: number;
-  uuid: string;
-  project_id: number;
-  icm_id: number;
-  icm_type: string;
   name: string;
-  deleted_at: DateFromISOString | null;
-  created_at: DateFromISOString;
-  updated_at: DateFromISOString;
+  scenario_id: number;
+  project?: IProject;
+  // uuid: string;
+  // project_id: number;
+  // icm_id: number;
+  // icm_type: string;
+  // deleted_at: DateFromISOString | null;
+  // created_at: DateFromISOString;
+  // updated_at: DateFromISOString;
 };

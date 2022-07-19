@@ -64,3 +64,10 @@
     padding-bottom: 64px;
   }
 }
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+
+  margin-bottom: 20px;
+}

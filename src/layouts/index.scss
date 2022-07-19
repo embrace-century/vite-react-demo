@@ -1,9 +1,9 @@
 .layout-page {
-  height: 100%;
-
   border: 1px solid var(--semi-color-border);
 
-  background: #f0f2f5;
+  .layout-bg {
+    background-color: rgb(var(--semi-grey-0));
+  }
 
   .layout-content {
     position: relative;

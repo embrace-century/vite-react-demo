@@ -1,6 +1,6 @@
 import '../index.scss';
 
-import { Button, Card, Descriptions, Tag, Toast } from '@douyinfe/semi-ui';
+import { Button, Card, Descriptions, Popconfirm, Space, Tag, Toast } from '@douyinfe/semi-ui';
 import React, { FC } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import { Link } from 'react-router-dom';
@@ -26,6 +26,16 @@ const CardBlock: FC<IProps> = (props) => {
         Toast.error('同步失败');
       }
       queryClient.invalidateQueries(['project.index']);
+    },
+  });
+
+  const { mutate: mutateRemove, isLoading: isLoadingRemove } = useMutation(ProjectService.remove, {
+    onSuccess: () => {
+      Toast.success('已删除');
+      queryClient.invalidateQueries(['project.index']);
+    },
+    onError: () => {
+      Toast.error('删除失败');
     },
   });
 
@@ -62,24 +72,38 @@ const CardBlock: FC<IProps> = (props) => {
 
   const getButtonGroup = () => {
     return (
-      <div className="flex space-x-3">
-        <Button
-          theme="solid"
-          type="danger"
-        >
-          删除
-        </Button>
+      <Space>
+        {id > 1 && (
+          <Popconfirm
+            cancelText="否"
+            content="此修改将不可逆"
+            okButtonProps={{ loading: isLoadingRemove }}
+            okText="是"
+            position="top"
+            title="确认删除吗？"
+            onConfirm={() => mutateRemove({ id })}
+          >
+            <Button
+              theme="solid"
+              type="danger"
+            >
+              删除
+            </Button>
+          </Popconfirm>
+        )}
 
-        <Button
-          loading={isLoading}
-          theme="light"
-          type="primary"
-          onClick={() => {
-            mutate({ id });
-          }}
-        >
-          同步
-        </Button>
+        {!synced && (
+          <Button
+            loading={isLoading}
+            theme="light"
+            type="primary"
+            onClick={() => {
+              mutate({ id });
+            }}
+          >
+            同步
+          </Button>
+        )}
 
         <Link to={String(id)}>
           <Button
@@ -89,7 +113,7 @@ const CardBlock: FC<IProps> = (props) => {
             查看
           </Button>
         </Link>
-      </div>
+      </Space>
     );
   };
 

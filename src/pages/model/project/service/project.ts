@@ -22,6 +22,12 @@ const create = async (params: { name: string }) => {
   return response.data;
 };
 
+const remove = async (params: { id: number }) => {
+  const { id } = params;
+  const response = await axios.delete<IProject>(`/projects/${id}`);
+  return response.data;
+};
+
 const sync = async (params: { id: number }) => {
   const response = await axios.post<IProject>('/sync/projects', params);
   return response.data;
@@ -30,6 +36,7 @@ const sync = async (params: { id: number }) => {
 const ProjectService = {
   findAll,
   create,
+  remove,
   sync,
 };
 
