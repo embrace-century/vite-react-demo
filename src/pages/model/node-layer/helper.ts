@@ -9,12 +9,12 @@ export const buildGeojsonFromPoint = (data?: INode[]): FeatureCollection => {
 
   if (data?.length) {
     for (const ele of data) {
-      const { id, lonlat, xy, ...rest } = ele;
+      const { id, lonlat, ...rest } = ele;
 
       collection.push({
         id,
         type: 'Feature',
-        properties: { ...rest, xy: convertPointToCoordinates(xy) },
+        properties: { ...rest },
         geometry: {
           type: 'Point',
           coordinates: convertPointToCoordinates(lonlat),

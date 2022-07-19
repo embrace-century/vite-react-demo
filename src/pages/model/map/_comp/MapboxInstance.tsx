@@ -5,6 +5,7 @@ import Map from 'react-map-gl';
 import {
   MAPBOX_ACCESS_TOKEN,
   MAPBOX_BEARING,
+  MAPBOX_CENTER,
   MAPBOX_DOUBLE_CLICK_ZOOM,
   MAPBOX_MAX_ZOOM,
   MAPBOX_MIN_ZOOM,
@@ -54,9 +55,9 @@ export const MapboxInstance = () => {
         bearing={MAPBOX_BEARING}
         doubleClickZoom={MAPBOX_DOUBLE_CLICK_ZOOM}
         initialViewState={{
-          longitude: 114.380512,
-          latitude: 30.479635,
-          zoom: 3.5,
+          longitude: MAPBOX_CENTER[0],
+          latitude: MAPBOX_CENTER[1],
+          zoom: MAPBOX_ZOOM,
         }}
         mapStyle={mapStyle}
         mapboxAccessToken={MAPBOX_ACCESS_TOKEN}
