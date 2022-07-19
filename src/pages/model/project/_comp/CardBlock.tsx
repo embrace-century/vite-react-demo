@@ -1,6 +1,6 @@
 import '../index.scss';
 
-import { Button, Card, Descriptions, Tag, Toast } from '@douyinfe/semi-ui';
+import { Button, Card, Descriptions, Space, Tag, Toast } from '@douyinfe/semi-ui';
 import React, { FC } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import { Link } from 'react-router-dom';
@@ -62,7 +62,7 @@ const CardBlock: FC<IProps> = (props) => {
 
   const getButtonGroup = () => {
     return (
-      <div className="flex space-x-3">
+      <Space>
         <Button
           theme="solid"
           type="danger"
@@ -89,7 +89,7 @@ const CardBlock: FC<IProps> = (props) => {
             查看
           </Button>
         </Link>
-      </div>
+      </Space>
     );
   };
 
