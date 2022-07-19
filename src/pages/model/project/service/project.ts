@@ -22,9 +22,15 @@ const create = async (params: { name: string }) => {
   return response.data;
 };
 
+const sync = async (params: { id: number }) => {
+  const response = await axios.post<IProject>('/sync/projects', params);
+  return response.data;
+};
+
 const ProjectService = {
   findAll,
   create,
+  sync,
 };
 
 export default ProjectService;

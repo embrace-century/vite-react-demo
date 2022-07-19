@@ -8,7 +8,7 @@ const findAll = async (projectId: string) => {
 };
 
 const NetworkService = {
-  findAll: findAll,
+  findAll,
 };
 
 export default NetworkService;
