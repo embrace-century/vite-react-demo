@@ -12,8 +12,10 @@ const updatePoint = async (pointId: string | number, updateData: IPoint) => {
   return response.data;
 };
 
-const deletePoint = async (pointId: string | number) => {
-  const response = await axios.delete<IPoint[]>(`/points/${pointId}`);
+const deletePoint = async (pointId: string | number, classNme: string) => {
+  const response = await axios.delete<IPoint[]>(`/points/${pointId}`, {
+    params: { class_name: classNme },
+  });
   return response.data;
 };
 

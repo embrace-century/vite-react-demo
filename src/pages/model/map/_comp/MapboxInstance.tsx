@@ -64,7 +64,6 @@ export const MapboxInstance = () => {
         minZoom={MAPBOX_MIN_ZOOM}
         pitch={MAPBOX_PITCH}
         scrollZoom={MAPBOX_SCROLL_ZOOM}
-        zoom={MAPBOX_ZOOM}
       >
         <DrawControl
           controls={{

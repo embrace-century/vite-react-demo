@@ -40,13 +40,13 @@ export const POINT_CONFIG: Record<string, IFormItemConfig> = {
   system_type: {
     key: 'system_type',
     label: '系统类型',
-    disabled: true,
-    type: 'InputNumber',
-    initValue: 1,
+    disabled: false,
+    type: 'Input',
+    initValue: 'storm',
     trigger: 'blur',
     rules: [
       { required: true, message: '必填' },
-      { type: 'number', message: '系统类型应为数字' },
+      { type: 'string', message: '系统类型应为数字' },
     ],
   },
   lon: {
@@ -172,13 +172,13 @@ export const LINESTRING_CONFIG: Record<string, IFormItemConfig> = {
   system_type: {
     key: 'system_type',
     label: '系统类型',
-    disabled: true,
+    disabled: false,
     type: 'InputNumber',
-    initValue: 1,
+    initValue: 'storm',
     trigger: 'blur',
     rules: [
       { required: true, message: '必填' },
-      { type: 'number', message: '系统类型应为数字' },
+      { type: 'string', message: '系统类型应为数字' },
     ],
   },
   lon: {
