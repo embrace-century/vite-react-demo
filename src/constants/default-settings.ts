@@ -25,6 +25,13 @@ export const BASE_URL = 'http://172.168.59.155:3000';
 export const MAPBOX_ACCESS_TOKEN =
   'pk.eyJ1IjoiaGFucWl1IiwiYSI6ImNrZ2pjdmNsZTBveXkycW8zYjA4N3U0Ym8ifQ.SjP7d69NztifBh1z23BesQ';
 export const MAPBOX_STYLE = 'mapbox://styles/hanqiu/cknu80yr10m4t17mkjk1a8g6a';
+export const MAPBOX_STYLE_BLANK = {
+  version: 8,
+  name: 'Positron',
+  metadata: {},
+  sources: {},
+  layers: [],
+};
 export const MAPBOX_CANVAS = 'mapbox-canvas'; // mapbox挂载的 dom 的 id
 export const MAPBOX_ATTRIBUTION_CONTROL = false; // 控件
 

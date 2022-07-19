@@ -1,4 +1,4 @@
-import { Switch, Typography } from '@douyinfe/semi-ui';
+import { Card, Switch, Typography } from '@douyinfe/semi-ui';
 import React, { useCallback, useState } from 'react';
 import Map from 'react-map-gl';
 
@@ -12,26 +12,19 @@ import {
   MAPBOX_PITCH,
   MAPBOX_SCROLL_ZOOM,
   MAPBOX_STYLE,
+  MAPBOX_STYLE_BLANK,
   MAPBOX_ZOOM,
 } from '@/constants/default-settings';
 
 import DrawControl from './DrawControl';
 
-const MAPBOX_STYLE_CONST = {
-  version: 8,
-  name: 'Positron',
-  metadata: {},
-  sources: {},
-  layers: [],
-};
-
 export const MapboxInstance = () => {
   const { Title } = Typography;
-  const [open, setOpen] = useState(false);
-  const [mapStyle, setMapStyle] = useState<any>(open ? MAPBOX_STYLE : MAPBOX_STYLE_CONST);
+  const [open, setOpen] = useState(true);
+  const [mapStyle, setMapStyle] = useState<any>(open ? MAPBOX_STYLE : MAPBOX_STYLE_BLANK);
 
   const handleSwitchChange = useCallback((switchValue: boolean) => {
-    setMapStyle(switchValue ? MAPBOX_STYLE : MAPBOX_STYLE_CONST);
+    setMapStyle(switchValue ? MAPBOX_STYLE : MAPBOX_STYLE_BLANK);
     setOpen((prev) => !prev);
   }, []);
 
@@ -42,10 +35,9 @@ export const MapboxInstance = () => {
           heading={6}
           style={{ margin: 8 }}
         >
-          {open ? '正常加载' : '无底图模式'}
+          {open ? '已开启底图' : '已关闭底图'}
         </Title>
         <Switch
-          aria-label="a switch for demo"
           checked={open}
           onChange={handleSwitchChange}
         />
