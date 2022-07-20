@@ -1,6 +1,7 @@
 import { Switch, Typography } from '@douyinfe/semi-ui';
+import { map } from 'lodash-es';
 import { Style } from 'mapbox-gl';
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Map, { ViewStateChangeEvent } from 'react-map-gl';
 
 import {
@@ -33,8 +34,14 @@ export const MapboxInstance = () => {
     zoom: MAPBOX_ZOOM,
   });
 
-  const handleMove = useCallback((e: ViewStateChangeEvent) => {
+  // 地图移动赋值视角
+  const handleMapMove = useCallback((e: ViewStateChangeEvent) => {
     setViewState(e.viewState);
+  }, []);
+
+  // 赋值到window对象
+  const handleMapLoad = useCallback(() => {
+    window.map = mapRef.current;
   }, []);
 
   const handleSwitchChange = useCallback((v: boolean) => {
@@ -75,7 +82,8 @@ export const MapboxInstance = () => {
         pitch={MAPBOX_PITCH}
         scrollZoom={MAPBOX_SCROLL_ZOOM}
         style={{ width: '100%', height: '80vh' }}
-        onMove={handleMove}
+        onLoad={handleMapLoad}
+        onMove={handleMapMove}
       >
         <DrawControl
           controls={{
