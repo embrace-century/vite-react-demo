@@ -1,12 +1,11 @@
 import { Breadcrumb, Card, Col, Row, Typography } from '@douyinfe/semi-ui';
 import React from 'react';
 import { useQuery } from 'react-query';
-import { Link } from 'react-router-dom';
 
 import CardAdd from './_comp/CardAdd';
 import CardBlock from './_comp/CardBlock';
 import { IProject } from './interface';
-import { ProjectService } from './service';
+import ProjectService from './service';
 
 const { Title } = Typography;
 

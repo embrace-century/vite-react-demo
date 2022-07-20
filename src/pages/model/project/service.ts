@@ -1,6 +1,6 @@
 import { axios } from '@/services';
 
-import { IProject } from '../interface';
+import { IProject } from './interface';
 
 // eg: [
 //   {

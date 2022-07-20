@@ -7,17 +7,3 @@ export type IProject = {
   icm_path: string;
   synced: boolean;
 };
-
-export type INetwork = {
-  id: number;
-  name: string;
-  scenario_id: number;
-  project?: IProject;
-  // uuid: string;
-  // project_id: number;
-  // icm_id: number;
-  // icm_type: string;
-  // deleted_at: DateFromISOString | null;
-  // created_at: DateFromISOString;
-  // updated_at: DateFromISOString;
-};

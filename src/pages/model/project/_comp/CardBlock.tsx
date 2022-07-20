@@ -6,7 +6,7 @@ import { useMutation, useQueryClient } from 'react-query';
 import { Link } from 'react-router-dom';
 
 import { IProject } from '../interface';
-import { ProjectService } from '../service';
+import ProjectService from '../service';
 
 type IProps = {
   item: IProject;
