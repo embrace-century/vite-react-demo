@@ -8,7 +8,8 @@ import AppLayout from '@/layouts';
 import { WrapperRouteComponent, WrapperRouteWithOutLayoutComponent } from './config';
 
 const ProjectIndex = lazy(() => import('@/pages/model/project'));
-const ProjectShow = lazy(() => import('@/pages/model/project/Show'));
+const ProjectShow = lazy(() => import('@/pages/model/project/show'));
+const NetworkShow = lazy(() => import('@/pages/model/network/show'));
 
 const MyMock = lazy(() => import('@/pages/model/mock'));
 const Map = lazy(() => import('@/pages/model/map'));
@@ -25,6 +26,7 @@ const routeList: RouteObject[] = [
       />
     ),
     children: [
+      { path: '/model' },
       {
         path: '/project',
         children: [
@@ -60,7 +62,7 @@ const routeList: RouteObject[] = [
             element: (
               <WrapperRouteComponent
                 auth
-                element={<Map />}
+                element={<NetworkShow />}
                 titleId="管网方案详情"
               />
             ),

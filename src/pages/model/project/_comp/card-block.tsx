@@ -6,7 +6,7 @@ import { useMutation, useQueryClient } from 'react-query';
 import { Link } from 'react-router-dom';
 
 import { IProject } from '../interface';
-import { ProjectService } from '../service';
+import ProjectService from '../service';
 
 type IProps = {
   item: IProject;
@@ -105,7 +105,7 @@ const CardBlock: FC<IProps> = (props) => {
           </Button>
         )}
 
-        <Link to={String(id)}>
+        <Link to={`/project/${id}`}>
           <Button
             theme="solid"
             type="primary"

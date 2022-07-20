@@ -1,6 +1,6 @@
 import { axios } from '@/services';
 
-import { INetwork } from '../interface';
+import { INetwork } from './interface';
 
 const findAll = async (params: { projectId: string }) => {
   const { projectId } = params;

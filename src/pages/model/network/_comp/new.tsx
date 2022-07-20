@@ -1,25 +1,28 @@
 import { Form, Modal, Toast } from '@douyinfe/semi-ui';
 import React, { FC, useRef } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
+import { useParams } from 'react-router';
 
-import { IProject } from '../interface';
-import { ProjectService } from '../service';
+import { INetwork } from '../interface';
+import NetworkService from '../service';
 
 type IProps = {
   visible: boolean;
   onClose: Function;
 };
 
-const NewProject: FC<IProps> = (props) => {
+const New: FC<IProps> = (props) => {
   const { visible, onClose: closeCB } = props;
   const api = useRef<any>();
+
+  const { projectId } = useParams();
 
   let message = '该项为必填项';
 
   const queryClient = useQueryClient();
-  const { mutate } = useMutation(ProjectService.create, {
-    onSuccess: () => {
-      queryClient.invalidateQueries(['project.index']);
+  const { mutate } = useMutation(NetworkService.create, {
+    onSuccess: (status) => {
+      queryClient.invalidateQueries(['network.index']);
       // 关闭modal框
       closeCB();
       Toast.success('新建成功');
@@ -30,8 +33,8 @@ const NewProject: FC<IProps> = (props) => {
   });
 
   const handleForm = () => {
-    api.current.validate().then((values: Pick<IProject, 'name'>) => {
-      mutate(values);
+    api.current.validate().then((values: Pick<INetwork, 'name'>) => {
+      mutate({ projectId: projectId!, ...values });
     });
   };
 
@@ -39,7 +42,7 @@ const NewProject: FC<IProps> = (props) => {
     <Modal
       closeOnEsc={true}
       maskClosable={false}
-      title="新建项目"
+      title="新建网络"
       visible={visible}
       onCancel={() => closeCB()}
       onOk={() => {
@@ -58,4 +61,4 @@ const NewProject: FC<IProps> = (props) => {
   );
 };
 
-export default NewProject;
+export default New;

@@ -1,21 +1,28 @@
-import { Breadcrumb, Card, Col, Row, Typography } from '@douyinfe/semi-ui';
-import React from 'react';
+import { Breadcrumb, Button, Card, Col, Popconfirm, Row, Typography } from '@douyinfe/semi-ui';
+import { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
+import React, { useState } from 'react';
 import { useQuery } from 'react-query';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 import CardAdd from './_comp/add-card';
 import CardBlock from './_comp/card-block';
-import { IProject } from './interface';
-import ProjectService from './service';
+import { INetwork } from './interface';
+import NetworkService from './service';
 
 const { Title } = Typography;
 
-const Index: React.FC = () => {
-  const { data, isLoading, isError } = useQuery<IProject[], Error>(['project.index'], ProjectService.findAll);
+const Show: React.FC = () => {
+  const { projectId } = useParams();
+  const [create, setCreate] = useState(false);
+
+  const { data, isLoading, isError } = useQuery<INetwork[], Error>(['network.index', { projectId }], () =>
+    NetworkService.findAll({ projectId: projectId! }),
+  );
 
   if (isLoading) {
     return <div>数据加载中...</div>;
   }
+
   if (isError) {
     return <div>数据加载出错</div>;
   }
@@ -30,10 +37,11 @@ const Index: React.FC = () => {
         <Breadcrumb.Item>
           <Link to="/project">我的项目</Link>
         </Breadcrumb.Item>
+        <Breadcrumb.Item>管网方案列表</Breadcrumb.Item>
       </Breadcrumb>
 
       <Card>
-        <Title heading={6}>我的项目</Title>
+        <Title heading={6}>管网方案列表</Title>
         <div className="mt-6">
           <Row gutter={24}>
             <Col
@@ -68,4 +76,4 @@ const Index: React.FC = () => {
   );
 };
 
-export default Index;
+export default Show;
