@@ -53,8 +53,8 @@ const Show: React.FC = () => {
               <CardAdd />
             </Col>
 
-            {data?.length &&
-              data?.map((ele) => (
+            {data! &&
+              data.map((ele) => (
                 <Col
                   key={ele.id}
                   lg={6}
