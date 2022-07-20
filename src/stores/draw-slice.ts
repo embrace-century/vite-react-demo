@@ -20,6 +20,7 @@ export type FeaturesType = {
 };
 
 export type DrawState = {
+  nodeId: number | null;
   modalIsOpen: boolean; // 新增弹窗是否打开
   features?: FeaturesType;
   cancleCreate: boolean; // 是否取消新建操作
@@ -36,6 +37,7 @@ export const emptyFeatures = {
 };
 
 const initialState: DrawState = {
+  nodeId: null,
   modalIsOpen: false,
   features: emptyFeatures,
   cancleCreate: false,
@@ -47,6 +49,9 @@ export const drawSlice = createSlice({
   name: name,
   initialState,
   reducers: {
+    setNodeId: (state, action: PayloadAction<number>) => {
+      state.nodeId = action.payload;
+    },
     setModalOpen: (state, action: PayloadAction<boolean>) => {
       state.modalIsOpen = action.payload;
     },
@@ -59,7 +64,7 @@ export const drawSlice = createSlice({
   },
 });
 
-export const { setModalOpen, setFeatures, setCancleCreate } = drawSlice.actions;
+export const { setNodeId, setModalOpen, setFeatures, setCancleCreate } = drawSlice.actions;
 
 export const drawSelector = (state: AppState) => {
   return state[name];

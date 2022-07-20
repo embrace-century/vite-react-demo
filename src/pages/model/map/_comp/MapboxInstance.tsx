@@ -1,7 +1,7 @@
 import { Switch, Typography } from '@douyinfe/semi-ui';
 import { Style } from 'mapbox-gl';
 import React, { useCallback, useRef, useState } from 'react';
-import Map, { ViewStateChangeEvent } from 'react-map-gl';
+import Map, { MapLayerMouseEvent, ViewStateChangeEvent } from 'react-map-gl';
 
 import {
   MAPBOX_ACCESS_TOKEN,
@@ -16,14 +16,20 @@ import {
   MAPBOX_STYLE_BLANK,
   MAPBOX_ZOOM,
 } from '@/constants/default-settings';
+import { useAppDispatch } from '@/stores';
+import { setCancleCreate, setNodeId } from '@/stores/draw-slice';
+import { setSideSheetVisible } from '@/stores/global-slice';
 
-import DrawControl from './DrawControl';
 import Node from './node';
 
+const { Title } = Typography;
+
 export const MapboxInstance = () => {
-  const { Title } = Typography;
+  const dispatch = useAppDispatch();
 
   const [open, setOpen] = useState(true);
+
+  const [cursor, setCursor] = useState<string>('grab');
 
   const mapRef = useRef(null);
   const [mapStyle, setMapStyle] = useState<string | Style>(open ? MAPBOX_STYLE : MAPBOX_STYLE_BLANK);
@@ -48,6 +54,24 @@ export const MapboxInstance = () => {
     setMapStyle(v ? MAPBOX_STYLE : MAPBOX_STYLE_BLANK);
     setOpen((prev) => !prev);
   }, []);
+
+  const onClick = useCallback(
+    (event: MapLayerMouseEvent) => {
+      const feature = event.features?.[0];
+
+      if (feature) {
+        if (feature.layer.id === 'node') {
+          dispatch(setNodeId(feature.id as number));
+          dispatch(setSideSheetVisible(true));
+          dispatch(setCancleCreate(false));
+        }
+      }
+    },
+    [dispatch],
+  );
+
+  const onMouseEnter = useCallback(() => setCursor('pointer'), []);
+  const onMouseLeave = useCallback(() => setCursor('grab'), []);
 
   return (
     <div className="flex h-full w-full flex-col">
@@ -74,7 +98,9 @@ export const MapboxInstance = () => {
         ref={mapRef}
         reuseMaps
         bearing={MAPBOX_BEARING}
+        cursor={cursor}
         doubleClickZoom={MAPBOX_DOUBLE_CLICK_ZOOM}
+        interactiveLayerIds={['node']}
         mapStyle={mapStyle}
         mapboxAccessToken={MAPBOX_ACCESS_TOKEN}
         maxZoom={MAPBOX_MAX_ZOOM}
@@ -82,7 +108,10 @@ export const MapboxInstance = () => {
         pitch={MAPBOX_PITCH}
         scrollZoom={MAPBOX_SCROLL_ZOOM}
         style={{ width: '100%', height: '80vh' }}
+        onClick={onClick}
         onLoad={handleMapLoad}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
         onMove={handleMapMove}
       >
         <Node />

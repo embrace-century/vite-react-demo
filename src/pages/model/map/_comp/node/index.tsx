@@ -7,7 +7,7 @@ import { buildGeojsonFromPoint } from '@/pages/model/node-layer/helper';
 import { INode } from '@/pages/model/node-layer/interface';
 import NodeService from '@/pages/model/node-layer/service';
 
-import { useNodeData, useUpdateNoteData } from '../../map-context';
+import { useUpdateNoteData } from '../../map-context';
 
 const Node: FC = memo(function Node() {
   const updateNodeData = useUpdateNoteData();
@@ -18,11 +18,6 @@ const Node: FC = memo(function Node() {
       updateNodeData(data);
     },
   });
-  console.log(`🚀 ~ file: node.tsx ~ line 11 ~ nodeDatanodeDatanodeDatanodeDatanodeData`, useNodeData());
-
-  // const nodeGeojson = useMemo(() => {
-  //   return buildGeojsonFromPoint(data);
-  // }, [data]);
 
   if (isLoading) {
     return <div>数据加载中...</div>;
