@@ -16,6 +16,7 @@ specifiers:
   '@turf/area': ^6.5.0
   '@types/geojson': ^7946.0.10
   '@types/lodash-es': ^4.17.6
+  '@types/mapbox-gl': ^2.7.3
   '@types/mapbox__mapbox-gl-draw': ^1.2.5
   '@types/node': ^18.0.5
   '@types/react': ^18.0.15
@@ -77,7 +78,7 @@ specifiers:
 dependencies:
   '@douyinfe/semi-icons': 2.15.0_react@18.2.0
   '@douyinfe/semi-illustrations': 2.15.0_react@18.2.0
-  '@douyinfe/semi-ui': 2.15.0_slbsluydli5hbqv5hki566req4
+  '@douyinfe/semi-ui': 2.15.0_p2ipsf336anyyqmnghad65cyy4
   '@mapbox/geojson-area': 0.2.2
   '@mapbox/geojson-extent': 1.0.1
   '@mapbox/geojson-normalize': 0.0.1
@@ -98,7 +99,7 @@ dependencies:
   react-dom: 18.2.0_react@18.2.0
   react-map-gl: 7.0.17_5j2ssl2iivfln2vhupjbnsghfu
   react-query: 3.39.2_biqbaboplfbrettd7655fr4n2y
-  react-redux: 8.0.2_v7vsrdtui4d36prbwvdnlb7tpq
+  react-redux: 8.0.2_rxpulxqxsibgdk5rs4llgxl6gy
   react-router: 6.3.0_react@18.2.0
   react-router-dom: 6.3.0_biqbaboplfbrettd7655fr4n2y
   xtend: 4.0.2
@@ -109,6 +110,7 @@ devDependencies:
   '@ls-lint/ls-lint': 1.11.2
   '@types/geojson': 7946.0.10
   '@types/lodash-es': 4.17.6
+  '@types/mapbox-gl': 2.7.3
   '@types/mapbox__mapbox-gl-draw': 1.2.5
   '@types/node': 18.0.5
   '@types/react': 18.0.15
@@ -135,7 +137,7 @@ devDependencies:
   lint-staged: 13.0.3
   postcss: 8.4.14
   prettier: 2.7.1
-  prop-types: 15.7.2
+  prop-types: 15.8.1
   sass: 1.53.0
   stylelint: 14.9.1
   stylelint-config-prettier: 9.0.3_stylelint@14.9.1
@@ -606,7 +608,7 @@ packages:
       postcss-selector-parser: 6.0.10
     dev: true
 
-  /@douyinfe/semi-animation-react/2.15.0_3bsg7idxxazmtsqzddt2xlcgzi:
+  /@douyinfe/semi-animation-react/2.15.0_v2m5e27vhdewzwhryxwfaorcca:
     resolution: {integrity: sha512-WybqBXznlivVqpJBrHjA7Q2i4sQ41vciRMNejumwtxBgx5VTw42zfK0PhNHG0aUBZSsFo9v4sn0ch3e6/po8Lw==}
     peerDependencies:
       prop-types: 15.7.2
@@ -617,7 +619,7 @@ packages:
       '@douyinfe/semi-animation': 2.12.0
       '@douyinfe/semi-animation-styled': 2.15.0
       classnames: 2.3.1
-      prop-types: 15.7.2
+      prop-types: 15.8.1
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
     dev: false
@@ -674,7 +676,7 @@ packages:
       glob: 7.2.3
     dev: false
 
-  /@douyinfe/semi-ui/2.15.0_slbsluydli5hbqv5hki566req4:
+  /@douyinfe/semi-ui/2.15.0_p2ipsf336anyyqmnghad65cyy4:
     resolution: {integrity: sha512-K4B0/4bNgMLzdqi7mmQNj65iY4dfVy+pQEYXOCnlmJLpLzqjvowuqACYE/Vu3O0k9z/1siaC1opc/k3+W2OolA==}
     peerDependencies:
       '@types/react': '>=16.0.0'
@@ -685,7 +687,7 @@ packages:
     dependencies:
       '@babel/runtime-corejs3': 7.18.6
       '@douyinfe/semi-animation': 2.12.0
-      '@douyinfe/semi-animation-react': 2.15.0_3bsg7idxxazmtsqzddt2xlcgzi
+      '@douyinfe/semi-animation-react': 2.15.0_v2m5e27vhdewzwhryxwfaorcca
       '@douyinfe/semi-foundation': 2.15.0
       '@douyinfe/semi-icons': 2.15.0_react@18.2.0
       '@douyinfe/semi-illustrations': 2.15.0_react@18.2.0
@@ -699,7 +701,7 @@ packages:
       date-fns: 2.28.0
       date-fns-tz: 1.3.5_date-fns@2.28.0
       lodash: 4.17.21
-      prop-types: 15.7.2
+      prop-types: 15.8.1
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       react-resizable: 1.11.1_biqbaboplfbrettd7655fr4n2y
@@ -988,7 +990,7 @@ packages:
     dependencies:
       immer: 9.0.15
       react: 18.2.0
-      react-redux: 8.0.2_v7vsrdtui4d36prbwvdnlb7tpq
+      react-redux: 8.0.2_rxpulxqxsibgdk5rs4llgxl6gy
       redux: 4.2.0
       redux-thunk: 2.4.1_redux@4.2.0
       reselect: 4.1.6
@@ -1060,7 +1062,7 @@ packages:
     dev: true
 
   /@types/mapbox-gl/2.7.3:
-    resolution: {integrity: sha512-XdveeJptNNZw7ZoeiAJ2/dupNtWaV6qpBG/SOFEpQNQAc+oiO6qUznX85n+W1XbLeD8SVRVfVORKuR+I4CHDZw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npm.taobao.org/@types/mapbox-gl/-/mapbox-gl-2.7.3.tgz}
+    resolution: {integrity: sha512-XdveeJptNNZw7ZoeiAJ2/dupNtWaV6qpBG/SOFEpQNQAc+oiO6qUznX85n+W1XbLeD8SVRVfVORKuR+I4CHDZw==}
     dependencies:
       '@types/geojson': 7946.0.10
 
@@ -4342,13 +4344,6 @@ packages:
     hasBin: true
     dev: true
 
-  /prop-types/15.7.2:
-    resolution: {integrity: sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==}
-    dependencies:
-      loose-envify: 1.4.0
-      object-assign: 4.1.1
-      react-is: 16.13.1
-
   /prop-types/15.8.1:
     resolution: {integrity: sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==}
     dependencies:
@@ -4447,7 +4442,7 @@ packages:
       react-dom: 18.2.0_react@18.2.0
     dev: false
 
-  /react-redux/8.0.2_v7vsrdtui4d36prbwvdnlb7tpq:
+  /react-redux/8.0.2_rxpulxqxsibgdk5rs4llgxl6gy:
     resolution: {integrity: sha512-nBwiscMw3NoP59NFCXFf02f8xdo+vSHT/uZ1ldDwF7XaTpzm+Phk97VT4urYBl5TYAPNVaFm12UHAEyzkpNzRA==}
     peerDependencies:
       '@types/react': ^16.8 || ^17.0 || ^18.0
@@ -4477,6 +4472,7 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       react-is: 18.2.0
+      redux: 4.2.0
       use-sync-external-store: 1.2.0_react@18.2.0
     dev: false
 

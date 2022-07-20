@@ -1,5 +1,5 @@
 import { Breadcrumb, Card, Col, Row, Typography } from '@douyinfe/semi-ui';
-import React, { createContext, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
 
@@ -11,12 +11,18 @@ import { AddForm } from './_comp/AddForm';
 import { EditForm } from './_comp/EditForm';
 import { MapboxInstance } from './_comp/MapboxInstance';
 import { MapDataTable } from './_comp/MapDataTable';
-import { MapDataProvider } from './map-context';
+import { MapDataProvider, useUpdateNoteData } from './map-context';
 
 const { Title } = Typography;
 
 const Map = () => {
-  const { data, isLoading, isError } = useQuery<INode[], Error>(['node.index'], NodeService.findAll);
+  const { data, isLoading, isError } = useQuery<INode[], Error>(['node.index'], NodeService.findAll, {
+    onSuccess: (data) => {
+      console.log('这是一个回调');
+    },
+  });
+
+  const updateNodeData = useUpdateNoteData();
 
   const nodeData = useMemo(() => {
     return buildGeojsonFromPoint(data);

@@ -33,7 +33,6 @@ export default function DrawControl(props: DrawControlProps) {
   const { cancleCreate, features } = useAppSelector(drawSelector);
 
   const nodeData = useNodeData();
-  console.log('🚀 ~ file: DrawControl.ts ~ line 36 ~ DrawControl ~ nodeData', nodeData);
 
   const [drawInstance, setDrawInstance] = useState<MapboxDraw>();
   const { position } = props;
@@ -44,7 +43,6 @@ export default function DrawControl(props: DrawControlProps) {
     if (drawInstance) {
       if (current && drawInstance) {
         current.on('styledata', () => {
-          console.log('🚀 ~ file: DrawControl.ts ~ line 50 ~ current.on ~ drawInstance.set执行了');
           // Todo: 增删改之后要再次set
           drawInstance.set(nodeData);
         });
@@ -75,7 +73,6 @@ export default function DrawControl(props: DrawControlProps) {
         touchCreate = false;
         return;
       }
-      console.log('🚀 ~ file: DrawControl.ts ~ line 77 ~ DrawControl ~ onSelectionchange', event);
       const { features } = event;
       // 未选中图形时，features是一个空数组
       if (!features.length) return;

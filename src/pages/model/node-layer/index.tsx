@@ -39,8 +39,6 @@ const Index: FC = () => {
   const nodeData = useMemo(() => {
     return buildGeojsonFromPoint(data);
   }, [data]);
-  // 数据不对, 数据到河南去了
-  console.log(`🚀 ~ file: index.tsx ~ line 41 ~ nodeData ~ nodeData`, nodeData);
 
   if (isLoading) {
     return <div>数据加载中...</div>;

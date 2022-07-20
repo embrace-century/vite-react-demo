@@ -1,5 +1,6 @@
 import { Switch, Typography } from '@douyinfe/semi-ui';
-import React, { useCallback, useState } from 'react';
+import { Style } from 'mapbox-gl';
+import React, { useCallback, useRef, useState } from 'react';
 import Map from 'react-map-gl';
 
 import {
@@ -20,11 +21,19 @@ import DrawControl from './DrawControl';
 
 export const MapboxInstance = () => {
   const { Title } = Typography;
-  const [open, setOpen] = useState(true);
-  const [mapStyle, setMapStyle] = useState<any>(open ? MAPBOX_STYLE : MAPBOX_STYLE_BLANK);
 
-  const handleSwitchChange = useCallback((switchValue: boolean) => {
-    setMapStyle(switchValue ? MAPBOX_STYLE : MAPBOX_STYLE_BLANK);
+  const [open, setOpen] = useState(true);
+
+  const mapRef = useRef(null);
+  const [mapStyle, setMapStyle] = useState<string | Style>(open ? MAPBOX_STYLE : MAPBOX_STYLE_BLANK);
+  const [viewState, setViewState] = React.useState({
+    longitude: MAPBOX_CENTER[0],
+    latitude: MAPBOX_CENTER[1],
+    zoom: MAPBOX_ZOOM,
+  });
+
+  const handleSwitchChange = useCallback((v: boolean) => {
+    setMapStyle(v ? MAPBOX_STYLE : MAPBOX_STYLE_BLANK);
     setOpen((prev) => !prev);
   }, []);
 
@@ -49,13 +58,10 @@ export const MapboxInstance = () => {
       </div>
 
       <Map
+        {...viewState}
+        ref={mapRef}
         bearing={MAPBOX_BEARING}
         doubleClickZoom={MAPBOX_DOUBLE_CLICK_ZOOM}
-        initialViewState={{
-          longitude: MAPBOX_CENTER[0],
-          latitude: MAPBOX_CENTER[1],
-          zoom: MAPBOX_ZOOM,
-        }}
         mapStyle={mapStyle}
         mapboxAccessToken={MAPBOX_ACCESS_TOKEN}
         maxZoom={MAPBOX_MAX_ZOOM}
@@ -63,6 +69,9 @@ export const MapboxInstance = () => {
         pitch={MAPBOX_PITCH}
         scrollZoom={MAPBOX_SCROLL_ZOOM}
         style={{ width: '100%', height: '80vh' }}
+        onMove={(evt) => {
+          setViewState(evt.viewState);
+        }}
       >
         <DrawControl
           controls={{
