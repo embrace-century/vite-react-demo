@@ -15,7 +15,7 @@ type DrawFormProp = {
 export const DrawForm = (props: DrawFormProp) => {
   const { features } = useAppSelector(drawSelector);
   const { sideSheetVisible } = useAppSelector(globalSelector);
-  const { labelCol = 6, wrapperCol = 20, getFormApi } = props;
+  const { labelCol = 8, wrapperCol = 16, getFormApi } = props;
   const { Input, InputNumber } = Form;
   // coordinates point: 一维数组 line: 二维数组 polygon: 三维数组
   const { geometry, properties } = features!;
@@ -69,6 +69,7 @@ export const DrawForm = (props: DrawFormProp) => {
                 initValue={initValue}
                 label={label}
                 rules={rules}
+                style={{ width: 250 }}
                 trigger={trigger}
               />
             );
@@ -81,6 +82,7 @@ export const DrawForm = (props: DrawFormProp) => {
                 initValue={initValue}
                 label={label}
                 rules={rules}
+                style={{ width: 250 }}
                 trigger={trigger}
               />
             );
