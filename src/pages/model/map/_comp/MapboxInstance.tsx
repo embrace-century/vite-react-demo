@@ -20,6 +20,7 @@ import { useAppDispatch } from '@/stores';
 import { setCancleCreate, setFeatures, setNodeId } from '@/stores/draw-slice';
 import { setSideSheetVisible } from '@/stores/global-slice';
 
+import DrawControl from './DrawControl';
 import Node from './node';
 
 const { Title } = Typography;
@@ -116,7 +117,7 @@ export const MapboxInstance = () => {
       >
         <Node />
 
-        {/* <DrawControl
+        <DrawControl
           controls={{
             point: true,
             line_string: true,
@@ -125,7 +126,7 @@ export const MapboxInstance = () => {
           defaultMode="simple_select"
           displayControlsDefault={false}
           position="top-left"
-        /> */}
+        />
       </Map>
     </div>
   );

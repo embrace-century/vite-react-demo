@@ -2,11 +2,12 @@ import { Modal, Toast } from '@douyinfe/semi-ui';
 import React, { useCallback, useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 
-// import { DrawForm } from '@/components/form';
 import { IPoint } from '@/pages/model/map/interface';
 import { PointService } from '@/pages/model/map/service';
 import { useAppDispatch, useAppSelector } from '@/stores';
 import { drawSelector, setCancleCreate, setModalOpen } from '@/stores/draw-slice';
+
+import New from './node/new';
 
 export const AddForm = () => {
   const dispatch = useAppDispatch();
@@ -52,7 +53,7 @@ export const AddForm = () => {
       onCancel={closeModal}
       onOk={handleForm}
     >
-      {/* <DrawForm getFormApi={getFormApi} /> */}
+      <New getFormApi={getFormApi} />
     </Modal>
   );
 };

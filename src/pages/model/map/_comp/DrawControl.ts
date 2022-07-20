@@ -1,15 +1,10 @@
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
 import { useCallback, useEffect, useState } from 'react';
-import { ControlPosition, MapRef, useControl, useMap } from 'react-map-gl';
+import { ControlPosition, MapRef, useControl } from 'react-map-gl';
 
-import { buildGeojsonFromPoint } from '@/pages/model/node-layer/helper';
-import NodeService from '@/pages/model/node-layer/service';
 import { useAppDispatch, useAppSelector } from '@/stores';
 import { drawSelector, FeaturesType, setCancleCreate, setFeatures, setModalOpen } from '@/stores/draw-slice';
 import { setSideSheetVisible } from '@/stores/global-slice';
-
-import { useNodeData, useUpdateDrawInstance } from '../map-context';
-import { PointService } from '../service';
 
 type DrawControlType = {
   position?: ControlPosition;
@@ -28,27 +23,12 @@ type DrawEvent = {
 
 export default function DrawControl(props: DrawControlProps) {
   const dispatch = useAppDispatch();
-  const { current } = useMap();
 
   const { cancleCreate, features } = useAppSelector(drawSelector);
-
-  const nodeData = useNodeData();
 
   const [drawInstance, setDrawInstance] = useState<MapboxDraw>();
   const { position } = props;
   let touchCreate = false;
-
-  // 地图加载之后，查询项目下已经建好的点线并绘制
-  useEffect(() => {
-    if (drawInstance) {
-      if (current && drawInstance) {
-        current.on('styledata', () => {
-          // Todo: 增删改之后要再次set
-          drawInstance.set(nodeData);
-        });
-      }
-    }
-  }, [current, drawInstance, nodeData]);
 
   // 新建弹窗关闭后，执行删除操作
   useEffect(() => {
@@ -60,8 +40,9 @@ export default function DrawControl(props: DrawControlProps) {
 
   const onCreate = (event: DrawEvent) => {
     const { features } = event;
+    console.log(`🚀 ~ file: DrawControl.ts ~ line 43 ~ onCreate ~ features`, features);
     touchCreate = true;
-    dispatch(setFeatures(features[0])); // geometry数据更新到draw-slice
+    dispatch(setFeatures(features[0]));
     dispatch(setModalOpen(true));
     dispatch(setCancleCreate(false));
   };
