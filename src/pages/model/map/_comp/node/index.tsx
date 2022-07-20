@@ -14,7 +14,6 @@ const Node: FC = memo(function Node() {
   const updateNodeData = useUpdateNoteData();
 
   const { data, isLoading, isError } = useQuery<INode[], Error>(['node.index'], NodeService.findAll, {
-    onSuccess: (data) => {},
     onSettled: (data) => {
       updateNodeData(data);
     },

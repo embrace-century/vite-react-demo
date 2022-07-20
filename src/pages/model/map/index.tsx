@@ -37,9 +37,11 @@ const Map = () => {
 
           <Col span={10}>
             <Card>
-              <Title heading={6}>node 数据</Title>
+              <Title heading={6}>Node 列表</Title>
 
-              <div className="mt-6">{/* <MapDataTable /> */}</div>
+              <div className="mt-6">
+                <MapDataTable />
+              </div>
             </Card>
           </Col>
         </Row>
