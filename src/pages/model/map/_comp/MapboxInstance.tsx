@@ -1,7 +1,7 @@
 import { Switch, Typography } from '@douyinfe/semi-ui';
 import { Style } from 'mapbox-gl';
 import React, { useCallback, useRef, useState } from 'react';
-import Map from 'react-map-gl';
+import Map, { ViewStateChangeEvent } from 'react-map-gl';
 
 import {
   MAPBOX_ACCESS_TOKEN,
@@ -26,11 +26,16 @@ export const MapboxInstance = () => {
 
   const mapRef = useRef(null);
   const [mapStyle, setMapStyle] = useState<string | Style>(open ? MAPBOX_STYLE : MAPBOX_STYLE_BLANK);
+
   const [viewState, setViewState] = React.useState({
     longitude: MAPBOX_CENTER[0],
     latitude: MAPBOX_CENTER[1],
     zoom: MAPBOX_ZOOM,
   });
+
+  const handleMove = useCallback((e: ViewStateChangeEvent) => {
+    setViewState(e.viewState);
+  }, []);
 
   const handleSwitchChange = useCallback((v: boolean) => {
     setMapStyle(v ? MAPBOX_STYLE : MAPBOX_STYLE_BLANK);
@@ -60,6 +65,7 @@ export const MapboxInstance = () => {
       <Map
         {...viewState}
         ref={mapRef}
+        reuseMaps
         bearing={MAPBOX_BEARING}
         doubleClickZoom={MAPBOX_DOUBLE_CLICK_ZOOM}
         mapStyle={mapStyle}
@@ -69,9 +75,7 @@ export const MapboxInstance = () => {
         pitch={MAPBOX_PITCH}
         scrollZoom={MAPBOX_SCROLL_ZOOM}
         style={{ width: '100%', height: '80vh' }}
-        onMove={(evt) => {
-          setViewState(evt.viewState);
-        }}
+        onMove={handleMove}
       >
         <DrawControl
           controls={{
