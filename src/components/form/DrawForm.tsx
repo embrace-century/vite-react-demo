@@ -38,7 +38,11 @@ export const DrawForm = (props: DrawFormProp) => {
     if (sideSheetVisible) {
       Object.keys(formItems).forEach((key) => {
         if (properties[key]) {
-          formItems[key].initValue = properties[key];
+          if (formItems[key].type === 'InputNumber') {
+            formItems[key].initValue = parseFloat(properties[key]);
+          } else {
+            formItems[key].initValue = properties[key];
+          }
         }
       });
     }

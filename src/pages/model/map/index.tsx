@@ -11,12 +11,12 @@ import { AddForm } from './_comp/AddForm';
 import { EditForm } from './_comp/EditForm';
 import { MapboxInstance } from './_comp/MapboxInstance';
 import { MapDataTable } from './_comp/MapDataTable';
-import { MapFeatures } from './map-context';
+import { MapDataProvider } from './map-context';
 
 const { Title } = Typography;
 
 const Map = () => {
-  const { data, isLoading, isError } = useQuery<INode[], Error>(['node_index'], NodeService.findAll);
+  const { data, isLoading, isError } = useQuery<INode[], Error>(['node.index'], NodeService.findAll);
 
   const nodeData = useMemo(() => {
     return buildGeojsonFromPoint(data);
@@ -42,17 +42,16 @@ const Map = () => {
         <Breadcrumb.Item>管网方案详情</Breadcrumb.Item>
       </Breadcrumb>
 
-      <MapFeatures.Provider value={nodeData}>
+      <MapDataProvider
+        drawInstance={null}
+        initialNodedata={nodeData}
+      >
         <Row gutter={24}>
           <Col span={14}>
             <Card>
-              <Title heading={6}>管网方案详情</Title>
-
-              <div className="mt-6">
-                <MapboxInstance />
-                <EditForm />
-                <AddForm />
-              </div>
+              <MapboxInstance />
+              <EditForm />
+              <AddForm />
             </Card>
           </Col>
 
@@ -66,7 +65,7 @@ const Map = () => {
             </Card>
           </Col>
         </Row>
-      </MapFeatures.Provider>
+      </MapDataProvider>
     </>
   );
 };

@@ -30,17 +30,22 @@ export const MapboxInstance = () => {
 
   return (
     <div className="flex h-full w-full flex-col">
-      <div className="flex items-center">
-        <Title
-          heading={6}
-          style={{ margin: 8 }}
-        >
-          {open ? '已开启底图' : '已关闭底图'}
-        </Title>
-        <Switch
-          checked={open}
-          onChange={handleSwitchChange}
-        />
+      <div className="mb-4 flex items-center justify-between">
+        <Title heading={6}>管网方案详情</Title>
+
+        <div className="flex items-center">
+          <Title
+            heading={6}
+            style={{ marginRight: 8 }}
+          >
+            {open ? '已开启底图' : '已关闭底图'}
+          </Title>
+          <Switch
+            checked={open}
+            size="small"
+            onChange={handleSwitchChange}
+          />
+        </div>
       </div>
 
       <Map

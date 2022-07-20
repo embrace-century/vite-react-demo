@@ -1,4 +1,3 @@
-import MapboxDraw from '@mapbox/mapbox-gl-draw';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 
@@ -26,7 +25,7 @@ export type DrawState = {
   cancleCreate: boolean; // 是否取消新建操作
 };
 
-const emptyFeatures = {
+export const emptyFeatures = {
   id: 0,
   properties: {},
   type: Feature.Feature,

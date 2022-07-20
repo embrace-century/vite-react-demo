@@ -1,5 +1,5 @@
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { ControlPosition, MapRef, useControl, useMap } from 'react-map-gl';
 
 import { buildGeojsonFromPoint } from '@/pages/model/node-layer/helper';
@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from '@/stores';
 import { drawSelector, FeaturesType, setCancleCreate, setFeatures, setModalOpen } from '@/stores/draw-slice';
 import { setSideSheetVisible } from '@/stores/global-slice';
 
-import { MapFeatures } from '../map-context';
+import { useNodeData, useUpdateDrawInstance } from '../map-context';
 import { PointService } from '../service';
 
 type DrawControlType = {
@@ -32,7 +32,8 @@ export default function DrawControl(props: DrawControlProps) {
 
   const { cancleCreate, features } = useAppSelector(drawSelector);
 
-  const nodeData = useContext(MapFeatures);
+  const nodeData = useNodeData();
+  console.log('🚀 ~ file: DrawControl.ts ~ line 36 ~ DrawControl ~ nodeData', nodeData);
 
   const [drawInstance, setDrawInstance] = useState<MapboxDraw>();
   const { position } = props;
@@ -43,6 +44,8 @@ export default function DrawControl(props: DrawControlProps) {
     if (drawInstance) {
       if (current && drawInstance) {
         current.on('styledata', () => {
+          console.log('🚀 ~ file: DrawControl.ts ~ line 50 ~ current.on ~ drawInstance.set执行了');
+          // Todo: 增删改之后要再次set
           drawInstance.set(nodeData);
         });
       }
@@ -72,6 +75,7 @@ export default function DrawControl(props: DrawControlProps) {
         touchCreate = false;
         return;
       }
+      console.log('🚀 ~ file: DrawControl.ts ~ line 77 ~ DrawControl ~ onSelectionchange', event);
       const { features } = event;
       // 未选中图形时，features是一个空数组
       if (!features.length) return;
@@ -81,19 +85,9 @@ export default function DrawControl(props: DrawControlProps) {
     [dispatch, touchCreate],
   );
 
-  const onDrawDelete = (event: DrawEvent) => {
-    console.log('🚀 ~ file: draw-control.ts ~ line 58 ~ onDrawDelete ~ event', event);
-    const { id } = event.features[0];
-    dispatch(setSideSheetVisible(false));
-    PointService.deletePoint(id!, 'node').catch(() => {
-      drawInstance?.add(event.features[0] as any);
-    });
-  };
-
   useControl<MapboxDraw>(
     ({ map }: { map: MapRef }) => {
       map.on('draw.create', onCreate);
-      map.on('draw.delete', onDrawDelete);
       map.on('draw.selectionchange', onSelectionchange);
       const draw = new MapboxDraw(props);
       setDrawInstance(draw);
@@ -102,7 +96,6 @@ export default function DrawControl(props: DrawControlProps) {
     ({ map }: { map: MapRef }) => {
       map.off('draw.create', onCreate);
       map.on('draw.selectionchange', onSelectionchange);
-      map.on('draw.delete', onDrawDelete);
     },
     {
       position: position,

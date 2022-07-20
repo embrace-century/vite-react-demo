@@ -1,5 +1,6 @@
-import { Modal } from '@douyinfe/semi-ui';
+import { Modal, Toast } from '@douyinfe/semi-ui';
 import React, { useCallback, useState } from 'react';
+import { useMutation, useQueryClient } from 'react-query';
 
 import { DrawForm } from '@/components/form';
 import { IPoint } from '@/pages/model/map/interface';
@@ -13,30 +14,34 @@ export const AddForm = () => {
 
   const [formApi, setFormApi] = useState<any>();
 
+  const queryClient = useQueryClient();
+
   const getFormApi = (formApi: any) => {
     setFormApi(formApi);
   };
 
+  // 新建请求
+  const { mutate } = useMutation(PointService.createPoint, {
+    onSuccess: (status) => {
+      queryClient.invalidateQueries(['node.index']);
+      dispatch(setModalOpen(false));
+      Toast.success('创建成功');
+    },
+    onError: () => {
+      Toast.error('创建失败');
+    },
+  });
+
   const closeModal = useCallback(() => {
-    // dispatch(setCancleCreate(true));
+    dispatch(setCancleCreate(true));
     dispatch(setModalOpen(false));
   }, [dispatch]);
 
-  const handleOnOk = useCallback(() => {
-    if (formApi) {
-      formApi
-        .validate()
-        .then((values: IPoint) => {
-          PointService.createPoint(values).then(() => {
-            dispatch(setModalOpen(false));
-          });
-          // Todo: 这里要执行同步操作
-        })
-        .catch((errors: any) => {
-          console.log('🚀 ~ file: AddForm.tsx ~ line 26 ~ formApi.validate ~ errors', errors);
-        });
-    }
-  }, [dispatch, formApi]);
+  const handleForm = () => {
+    formApi.validate().then((values: IPoint) => {
+      mutate({ createData: values });
+    });
+  };
 
   return (
     <Modal
@@ -45,7 +50,7 @@ export const AddForm = () => {
       title="地理信息"
       visible={modalIsOpen}
       onCancel={closeModal}
-      onOk={handleOnOk}
+      onOk={handleForm}
     >
       <DrawForm getFormApi={getFormApi} />
     </Modal>

@@ -2,17 +2,20 @@ import { axios } from '@/services';
 
 import { IPoint } from './interface';
 
-const createPoint = async (createData: IPoint) => {
+const createPoint = async (params: { createData: IPoint }) => {
+  const { createData } = params;
   const response = await axios.post<IPoint[]>('/points', createData);
   return response.data;
 };
 
-const updatePoint = async (pointId: string | number, updateData: IPoint) => {
+const updatePoint = async (params: { pointId: string | number; updateData: IPoint }) => {
+  const { pointId, updateData } = params;
   const response = await axios.put<IPoint[]>(`/points/${pointId}`, updateData);
   return response.data;
 };
 
-const deletePoint = async (pointId: string | number, classNme: string) => {
+const deletePoint = async (params: { pointId: string | number; classNme: string }) => {
+  const { pointId, classNme } = params;
   const response = await axios.delete<IPoint[]>(`/points/${pointId}`, {
     params: { class_name: classNme },
   });
