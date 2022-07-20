@@ -26,6 +26,7 @@ const routeList: RouteObject[] = [
       />
     ),
     children: [
+      { path: '/model' },
       {
         path: '/project',
         children: [
