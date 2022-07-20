@@ -1,11 +1,13 @@
+// @ts-nocheck
 import { Table } from '@douyinfe/semi-ui';
 import { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
-import React, { FC, useContext, useMemo } from 'react';
+import React, { FC, useMemo } from 'react';
 
 import { FeaturesType } from '@/stores/draw-slice';
 
+import { buildGeojsonFromPoint } from '../../node-layer/helper';
 import { IPoint } from '../interface';
-import { MapFeatures } from '../map-context';
+import { useNodeData } from '../map-context';
 
 type IColumns = IPoint & {
   id: string | number;
@@ -19,15 +21,21 @@ const mapDataColumns: ColumnProps<IColumns>[] = [
 ];
 
 export const MapDataTable: FC = () => {
-  const nodeData = useContext(MapFeatures);
+  const nodeData = useNodeData();
 
   const dataSource = useMemo(() => {
-    return nodeData.features.map((feature: FeaturesType) => {
-      const { properties, geometry } = feature;
-      return { ...properties, lon: geometry.coordinates[0], lat: geometry.coordinates[1] };
-    });
-  }, [nodeData.features]);
-  console.log('🚀 ~ file: MapDataTable.tsx ~ line 34 ~ dataSource ~ dataSource', dataSource);
+    if (nodeData) {
+      const geojson = buildGeojsonFromPoint(nodeData)!;
+
+      return geojson.features.map((feature: FeaturesType) => {
+        const { properties, geometry } = feature;
+        // Todo: 这里要优化，只考虑的点的情况，没考虑线的情况
+        return { ...properties, lon: geometry.coordinates[0], lat: geometry.coordinates[1] };
+      });
+    } else {
+      return [];
+    }
+  }, [nodeData]);
 
   return (
     <Table<IColumns>

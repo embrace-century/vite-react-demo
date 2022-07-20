@@ -1,5 +1,9 @@
 export {};
 
 declare global {
-  type IPoint = `POINT (${number} ${number})`;
+  interface Window {
+    [key: string]: unknown;
+  }
+
+  type IPointDef = `POINT (${number} ${number})`;
 }

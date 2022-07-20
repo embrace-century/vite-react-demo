@@ -8,7 +8,7 @@ export type GlobalState = {
 };
 
 const initialState: GlobalState = {
-  sideSheetVisible: false,
+  sideSheetVisible: true,
 };
 
 const name = 'global';

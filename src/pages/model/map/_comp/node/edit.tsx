@@ -1,51 +1,62 @@
-import { Button, Popconfirm, SideSheet, Typography } from '@douyinfe/semi-ui';
-import React, { useCallback, useEffect, useState } from 'react';
+import { Button, Popconfirm, SideSheet, Toast, Typography } from '@douyinfe/semi-ui';
+import React, { useEffect, useRef } from 'react';
+import { useMutation, useQueryClient } from 'react-query';
 
-import { DrawForm } from '@/components/form';
 import { IPoint } from '@/pages/model/map/interface';
 import { PointService } from '@/pages/model/map/service';
 import { useAppDispatch, useAppSelector } from '@/stores';
 import { drawSelector } from '@/stores/draw-slice';
 import { globalSelector, setSideSheetVisible } from '@/stores/global-slice';
 
-export const EditForm = () => {
+import Form from './form';
+
+const Edit = () => {
   const dispatch = useAppDispatch();
+  const api = useRef<any>();
+
   const { sideSheetVisible } = useAppSelector(globalSelector);
   const { features } = useAppSelector(drawSelector);
 
-  const [formApi, setFormApi] = useState<any>();
-
-  const getFormApi = (formApi: any) => {
-    setFormApi(formApi);
-  };
-
+  const queryClient = useQueryClient();
   // 把uesEffect当做Mounted生命周期用
   useEffect(() => {
     dispatch(setSideSheetVisible(false));
   }, [dispatch]);
 
-  const handleDelete = useCallback(() => {
-    const { id, properties } = features!;
-    // 如果先删再查的话，就不需要draw的实例了
-    PointService.deletePoint(features!.id!, properties['class_name']).then(() => {
+  // 更新点
+  const { mutate } = useMutation(PointService.updatePoint, {
+    onSuccess: (status) => {
+      queryClient.invalidateQueries(['node.index']);
       dispatch(setSideSheetVisible(false));
-    });
-  }, []);
+      Toast.success('更新成功');
+    },
+    onError: () => {
+      Toast.error('更新失败');
+    },
+  });
 
-  const handleSubmitClick = () => {
-    if (formApi) {
-      formApi
-        .validate()
-        .then((values: IPoint) => {
-          PointService.updatePoint(123, values).then(() => {
-            dispatch(setSideSheetVisible(false));
-          });
-          // Todo: 这里要执行同步操作
-        })
-        .catch((errors: any) => {
-          console.log('🚀 ~ file: AddForm.tsx ~ line 26 ~ formApi.validate ~ errors', errors);
-        });
-    }
+  // 删除点
+  const { mutate: deleteMutate } = useMutation(PointService.deletePoint, {
+    onSuccess: (status) => {
+      queryClient.invalidateQueries(['node.index']);
+      dispatch(setSideSheetVisible(false));
+      Toast.success('删除成功');
+    },
+    onError: () => {
+      Toast.error('删除失败');
+    },
+  });
+
+  const handleDelete = () => {
+    const { id, properties } = features!;
+    deleteMutate({ pointId: id!, classNme: properties['class_name'] });
+  };
+
+  const handleForm = () => {
+    const { id } = features!;
+    api.current.validate().then((values: IPoint) => {
+      mutate({ pointId: id!, updateData: values });
+    });
   };
 
   const footer = (
@@ -68,7 +79,7 @@ export const EditForm = () => {
       </Popconfirm>
       <div>
         <Button
-          className="pr-4"
+          className="mr-4"
           theme="solid"
           type="tertiary"
           onClick={() => dispatch(setSideSheetVisible(false))}
@@ -77,9 +88,9 @@ export const EditForm = () => {
         </Button>
         <Button
           theme="solid"
-          onClick={handleSubmitClick}
+          onClick={handleForm}
         >
-          提交
+          更新
         </Button>
       </div>
     </div>
@@ -89,12 +100,14 @@ export const EditForm = () => {
       bodyStyle={{ borderBottom: '1px solid var(--semi-color-border)' }}
       footer={footer}
       headerStyle={{ borderBottom: '1px solid var(--semi-color-border)' }}
-      mask={false}
-      title={<Typography.Title heading={4}>地理信息</Typography.Title>}
+      mask={true}
+      title={<Typography.Title heading={4}>编辑 Node</Typography.Title>}
       visible={sideSheetVisible}
       onCancel={() => dispatch(setSideSheetVisible(false))}
     >
-      <DrawForm getFormApi={getFormApi} />
+      <Form getFormApi={(formApi: any) => (api.current = formApi)} />
     </SideSheet>
   );
 };
+
+export default Edit;

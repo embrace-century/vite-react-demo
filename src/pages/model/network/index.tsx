@@ -1,6 +1,5 @@
-import { Breadcrumb, Button, Card, Col, Popconfirm, Row, Typography } from '@douyinfe/semi-ui';
-import { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
-import React, { useState } from 'react';
+import { Breadcrumb, Card, Col, Row, Typography } from '@douyinfe/semi-ui';
+import React from 'react';
 import { useQuery } from 'react-query';
 import { Link, useParams } from 'react-router-dom';
 
@@ -13,9 +12,8 @@ const { Title } = Typography;
 
 const Show: React.FC = () => {
   const { projectId } = useParams();
-  const [create, setCreate] = useState(false);
 
-  const { data, isLoading, isError } = useQuery<INetwork[], Error>(['network.index', { projectId }], () =>
+  const { data, isLoading, isError } = useQuery<INetwork[], Error>(['network.index'], () =>
     NetworkService.findAll({ projectId: projectId! }),
   );
 

@@ -17,7 +17,7 @@ export const buildGeojsonFromPoint = (data?: INode[]): FeatureCollection => {
         properties: { ...rest },
         geometry: {
           type: 'Point',
-          coordinates: convertPointToCoordinates(lonlat),
+          coordinates: convertPointToCoordinates(lonlat) as number[],
         },
       });
     }
