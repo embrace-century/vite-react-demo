@@ -1,7 +1,6 @@
 import { Switch, Typography } from '@douyinfe/semi-ui';
-import { map } from 'lodash-es';
 import { Style } from 'mapbox-gl';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import Map, { ViewStateChangeEvent } from 'react-map-gl';
 
 import {
@@ -19,6 +18,7 @@ import {
 } from '@/constants/default-settings';
 
 import DrawControl from './DrawControl';
+import Node from './node';
 
 export const MapboxInstance = () => {
   const { Title } = Typography;
@@ -85,7 +85,9 @@ export const MapboxInstance = () => {
         onLoad={handleMapLoad}
         onMove={handleMapMove}
       >
-        <DrawControl
+        <Node />
+
+        {/* <DrawControl
           controls={{
             point: true,
             line_string: true,
@@ -94,7 +96,7 @@ export const MapboxInstance = () => {
           defaultMode="simple_select"
           displayControlsDefault={false}
           position="top-left"
-        />
+        /> */}
       </Map>
     </div>
   );

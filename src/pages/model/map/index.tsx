@@ -1,40 +1,14 @@
 import { Breadcrumb, Card, Col, Row, Typography } from '@douyinfe/semi-ui';
-import React, { useMemo } from 'react';
-import { useQuery } from 'react-query';
-import { Link } from 'react-router-dom';
-
-import { buildGeojsonFromPoint } from '@/pages/model/node-layer/helper';
-import { INode } from '@/pages/model/node-layer/interface';
-import NodeService from '@/pages/model/node-layer/service';
+import React from 'react';
 
 import { AddForm } from './_comp/AddForm';
 import { EditForm } from './_comp/EditForm';
 import { MapboxInstance } from './_comp/MapboxInstance';
-import { MapDataTable } from './_comp/MapDataTable';
-import { MapDataProvider, useUpdateNoteData } from './map-context';
+import { MapDataProvider } from './map-context';
 
 const { Title } = Typography;
 
 const Map = () => {
-  const { data, isLoading, isError } = useQuery<INode[], Error>(['node.index'], NodeService.findAll, {
-    onSuccess: (data) => {
-      console.log('这是一个回调');
-    },
-  });
-
-  const updateNodeData = useUpdateNoteData();
-
-  const nodeData = useMemo(() => {
-    return buildGeojsonFromPoint(data);
-  }, [data]);
-
-  if (isLoading) {
-    return <div>数据加载中...</div>;
-  }
-  if (isError) {
-    return <div>数据加载出错</div>;
-  }
-
   return (
     <>
       <Breadcrumb
@@ -50,7 +24,7 @@ const Map = () => {
 
       <MapDataProvider
         drawInstance={null}
-        initialNodedata={nodeData}
+        initialNodedata={null}
       >
         <Row gutter={24}>
           <Col span={14}>
@@ -65,9 +39,7 @@ const Map = () => {
             <Card>
               <Title heading={6}>node 数据</Title>
 
-              <div className="mt-6">
-                <MapDataTable />
-              </div>
+              <div className="mt-6">{/* <MapDataTable /> */}</div>
             </Card>
           </Col>
         </Row>
