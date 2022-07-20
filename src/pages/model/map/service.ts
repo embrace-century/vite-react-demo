@@ -19,10 +19,25 @@ const deletePoint = async (pointId: string | number, classNme: string) => {
   return response.data;
 };
 
+const getPointType = async () => {
+  const response = await axios.get<any>(`/constant/point_types`);
+  return response.data;
+};
+
+const getLineType = async () => {
+  const response = await axios.get<any>(`/constant/line_types`);
+  return response.data;
+};
+
 const PointService = {
   createPoint,
   updatePoint,
   deletePoint,
+  getPointType,
 };
 
-export { PointService };
+const LineService = {
+  getLineType,
+};
+
+export { LineService, PointService };

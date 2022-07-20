@@ -3,7 +3,7 @@ import { RouteObject } from 'react-router';
 import { useRoutes } from 'react-router-dom';
 
 import Empty from '@/components/empty';
-import { NavLayout } from '@/layouts';
+import AppLayout from '@/layouts';
 
 import { WrapperRouteComponent, WrapperRouteWithOutLayoutComponent } from './config';
 
@@ -20,7 +20,7 @@ const routeList: RouteObject[] = [
     element: (
       <WrapperRouteComponent
         auth
-        element={<NavLayout />}
+        element={<AppLayout />}
         titleId=""
       />
     ),
@@ -46,6 +46,22 @@ const routeList: RouteObject[] = [
                 auth
                 element={<ProjectShow />}
                 titleId="我的项目"
+              />
+            ),
+          },
+        ],
+      },
+      {
+        path: '/network',
+        children: [
+          {
+            path: ':networkId',
+            index: false,
+            element: (
+              <WrapperRouteComponent
+                auth
+                element={<Map />}
+                titleId="管网方案详情"
               />
             ),
           },

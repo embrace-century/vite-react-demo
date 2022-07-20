@@ -14,7 +14,7 @@ const Feature = {
 } as const;
 
 export type FeaturesType = {
-  id: string;
+  id?: number;
   properties: Record<string, any>;
   geometry: GeoMetryType;
   type: keyof typeof Feature;
@@ -27,7 +27,7 @@ export type DrawState = {
 };
 
 const emptyFeatures = {
-  id: '',
+  id: 0,
   properties: {},
   type: Feature.Feature,
   geometry: {

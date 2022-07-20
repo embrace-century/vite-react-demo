@@ -1,6 +1,7 @@
-import { Card, Col, Row, Typography } from '@douyinfe/semi-ui';
+import { Breadcrumb, Card, Col, Row, Typography } from '@douyinfe/semi-ui';
 import React from 'react';
 import { useQuery } from 'react-query';
+import { Link } from 'react-router-dom';
 
 import CardAdd from './_comp/CardAdd';
 import CardBlock from './_comp/CardBlock';
@@ -20,38 +21,48 @@ const Index: React.FC = () => {
   }
 
   return (
-    <Card>
-      <Title heading={6}>我的项目</Title>
-      <div className="mt-6">
-        <Row gutter={24}>
-          <Col
-            lg={6}
-            md={8}
-            sm={12}
-            xl={6}
-            xs={24}
-            xxl={6}
-          >
-            <CardAdd />
-          </Col>
+    <>
+      <Breadcrumb
+        className="mb-4"
+        compact={false}
+      >
+        <Breadcrumb.Item>模型编排管理</Breadcrumb.Item>
+        <Breadcrumb.Item>我的项目</Breadcrumb.Item>
+      </Breadcrumb>
 
-          {data?.length &&
-            data?.map((ele) => (
-              <Col
-                key={ele.id}
-                lg={6}
-                md={8}
-                sm={12}
-                xl={6}
-                xs={24}
-                xxl={6}
-              >
-                <CardBlock item={ele} />
-              </Col>
-            ))}
-        </Row>
-      </div>
-    </Card>
+      <Card>
+        <Title heading={6}>我的项目</Title>
+        <div className="mt-6">
+          <Row gutter={24}>
+            <Col
+              lg={6}
+              md={8}
+              sm={12}
+              xl={6}
+              xs={24}
+              xxl={6}
+            >
+              <CardAdd />
+            </Col>
+
+            {data?.length &&
+              data?.map((ele) => (
+                <Col
+                  key={ele.id}
+                  lg={6}
+                  md={8}
+                  sm={12}
+                  xl={6}
+                  xs={24}
+                  xxl={6}
+                >
+                  <CardBlock item={ele} />
+                </Col>
+              ))}
+          </Row>
+        </div>
+      </Card>
+    </>
   );
 };
 
