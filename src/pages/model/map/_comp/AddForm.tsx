@@ -2,7 +2,7 @@ import { Modal, Toast } from '@douyinfe/semi-ui';
 import React, { useCallback, useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 
-import { DrawForm } from '@/components/form';
+// import { DrawForm } from '@/components/form';
 import { IPoint } from '@/pages/model/map/interface';
 import { PointService } from '@/pages/model/map/service';
 import { useAppDispatch, useAppSelector } from '@/stores';
@@ -47,12 +47,12 @@ export const AddForm = () => {
     <Modal
       closeOnEsc={true}
       style={{ width: '40rem' }}
-      title="地理信息"
+      title="创建 Node"
       visible={modalIsOpen}
       onCancel={closeModal}
       onOk={handleForm}
     >
-      <DrawForm getFormApi={getFormApi} />
+      {/* <DrawForm getFormApi={getFormApi} /> */}
     </Modal>
   );
 };

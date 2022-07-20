@@ -17,7 +17,7 @@ import {
   MAPBOX_ZOOM,
 } from '@/constants/default-settings';
 import { useAppDispatch } from '@/stores';
-import { setCancleCreate, setNodeId } from '@/stores/draw-slice';
+import { setCancleCreate, setFeatures, setNodeId } from '@/stores/draw-slice';
 import { setSideSheetVisible } from '@/stores/global-slice';
 
 import Node from './node';

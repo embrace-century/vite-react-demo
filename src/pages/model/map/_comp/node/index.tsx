@@ -8,6 +8,7 @@ import { INode } from '@/pages/model/node-layer/interface';
 import NodeService from '@/pages/model/node-layer/service';
 
 import { useUpdateNoteData } from '../../map-context';
+import Edit from './edit';
 
 const Node: FC = memo(function Node() {
   const updateNodeData = useUpdateNoteData();
@@ -38,13 +39,17 @@ const Node: FC = memo(function Node() {
   };
 
   return (
-    <Source
-      data={buildGeojsonFromPoint(data)}
-      id="node"
-      type="geojson"
-    >
-      <Layer {...layerStyle} />
-    </Source>
+    <>
+      <Source
+        data={buildGeojsonFromPoint(data)}
+        id="node"
+        type="geojson"
+      >
+        <Layer {...layerStyle} />
+      </Source>
+
+      <Edit />
+    </>
   );
 });
 

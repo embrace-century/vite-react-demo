@@ -1,26 +1,23 @@
 import { Button, Popconfirm, SideSheet, Toast, Typography } from '@douyinfe/semi-ui';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 
-import { DrawForm } from '@/components/form';
 import { IPoint } from '@/pages/model/map/interface';
 import { PointService } from '@/pages/model/map/service';
 import { useAppDispatch, useAppSelector } from '@/stores';
 import { drawSelector } from '@/stores/draw-slice';
 import { globalSelector, setSideSheetVisible } from '@/stores/global-slice';
 
-export const EditForm = () => {
+import Form from './form';
+
+const Edit = () => {
   const dispatch = useAppDispatch();
+  const api = useRef<any>();
+
   const { sideSheetVisible } = useAppSelector(globalSelector);
   const { features } = useAppSelector(drawSelector);
-  const [formApi, setFormApi] = useState<any>();
 
   const queryClient = useQueryClient();
-
-  const getFormApi = (formApi: any) => {
-    setFormApi(formApi);
-  };
-
   // 把uesEffect当做Mounted生命周期用
   useEffect(() => {
     dispatch(setSideSheetVisible(false));
@@ -57,7 +54,7 @@ export const EditForm = () => {
 
   const handleForm = () => {
     const { id } = features!;
-    formApi.validate().then((values: IPoint) => {
+    api.current.validate().then((values: IPoint) => {
       mutate({ pointId: id!, updateData: values });
     });
   };
@@ -82,7 +79,7 @@ export const EditForm = () => {
       </Popconfirm>
       <div>
         <Button
-          className="pr-4"
+          className="mr-4"
           theme="solid"
           type="tertiary"
           onClick={() => dispatch(setSideSheetVisible(false))}
@@ -93,7 +90,7 @@ export const EditForm = () => {
           theme="solid"
           onClick={handleForm}
         >
-          提交
+          更新
         </Button>
       </div>
     </div>
@@ -104,11 +101,13 @@ export const EditForm = () => {
       footer={footer}
       headerStyle={{ borderBottom: '1px solid var(--semi-color-border)' }}
       mask={true}
-      title={<Typography.Title heading={4}>地理信息</Typography.Title>}
+      title={<Typography.Title heading={4}>编辑 Node</Typography.Title>}
       visible={sideSheetVisible}
       onCancel={() => dispatch(setSideSheetVisible(false))}
     >
-      <DrawForm getFormApi={getFormApi} />
+      <Form getFormApi={(formApi: any) => (api.current = formApi)} />
     </SideSheet>
   );
 };
+
+export default Edit;

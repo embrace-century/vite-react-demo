@@ -91,3 +91,18 @@ export const HIDE_MAP_WHEN_DEVELOPING_PAGE = IS_NOT_PROD && false; // 开发页�
 export const USE_DECKGL = false;
 export const SHOW_MESSAGE_IN_POPUP = false;
 export const MANUAL_RELATE = false;
+
+/**
+ * @description: node_type类型
+ * @param {*}
+ * @return {*}
+ */
+export const ENode = {
+  Manhole: 1, // 检查井
+  Storage: 2, // 蓄水池
+  Outfall: 3, // 排口
+  Pond: 4, // 池塘
+  Break: 5, // 断点
+  Outfall2D: 6, // 2D排口
+  Connect2D: 7, // 2D连接点
+} as const;

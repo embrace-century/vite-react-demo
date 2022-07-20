@@ -22,12 +22,16 @@ export const MapDataTable: FC = () => {
   const nodeData = useNodeData();
 
   const dataSource = useMemo(() => {
-    return nodeData.features.map((feature: FeaturesType) => {
-      const { properties, geometry } = feature;
-      // Todo: 这里要优化，只考虑的点的情况，没考虑线的情况
-      return { ...properties, lon: geometry.coordinates[0], lat: geometry.coordinates[1] };
-    });
-  }, [nodeData.features]);
+    if (nodeData) {
+      return nodeData.features.map((feature: FeaturesType) => {
+        const { properties, geometry } = feature;
+        // Todo: 这里要优化，只考虑的点的情况，没考虑线的情况
+        return { ...properties, lon: geometry.coordinates[0], lat: geometry.coordinates[1] };
+      });
+    } else {
+      return [];
+    }
+  }, [nodeData]);
 
   return (
     <Table<IColumns>

@@ -5,5 +5,5 @@ declare global {
     [key: string]: unknown;
   }
 
-  type IPoint = `POINT (${number} ${number})`;
+  type IPointDef = `POINT (${number} ${number})`;
 }
