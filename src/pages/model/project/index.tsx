@@ -1,9 +1,10 @@
 import { Breadcrumb, Card, Col, Row, Typography } from '@douyinfe/semi-ui';
 import React from 'react';
 import { useQuery } from 'react-query';
+import { Link } from 'react-router-dom';
 
-import CardAdd from './_comp/CardAdd';
-import CardBlock from './_comp/CardBlock';
+import CardAdd from './_comp/add-card';
+import CardBlock from './_comp/card-block';
 import { IProject } from './interface';
 import ProjectService from './service';
 
@@ -26,7 +27,9 @@ const Index: React.FC = () => {
         compact={false}
       >
         <Breadcrumb.Item>模型编排管理</Breadcrumb.Item>
-        <Breadcrumb.Item>我的项目</Breadcrumb.Item>
+        <Breadcrumb.Item>
+          <Link to="/project">我的项目</Link>
+        </Breadcrumb.Item>
       </Breadcrumb>
 
       <Card>

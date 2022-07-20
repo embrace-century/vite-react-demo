@@ -1,6 +1,7 @@
 import { Breadcrumb, Card, Col, Row, Typography } from '@douyinfe/semi-ui';
 import React, { createContext, useMemo } from 'react';
 import { useQuery } from 'react-query';
+import { Link } from 'react-router-dom';
 
 import { buildGeojsonFromPoint } from '@/pages/model/node-layer/helper';
 import { INode } from '@/pages/model/node-layer/interface';
@@ -35,7 +36,9 @@ const Map = () => {
         compact={false}
       >
         <Breadcrumb.Item>模型编排管理</Breadcrumb.Item>
-        <Breadcrumb.Item>我的项目</Breadcrumb.Item>
+        <Breadcrumb.Item>
+          <Link to="/project">我的项目</Link>
+        </Breadcrumb.Item>
         <Breadcrumb.Item>管网方案详情</Breadcrumb.Item>
       </Breadcrumb>
 

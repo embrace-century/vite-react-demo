@@ -105,7 +105,7 @@ const CardBlock: FC<IProps> = (props) => {
           </Button>
         )}
 
-        <Link to={String(id)}>
+        <Link to={`/project/${id}`}>
           <Button
             theme="solid"
             type="primary"

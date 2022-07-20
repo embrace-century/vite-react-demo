@@ -12,7 +12,7 @@ module.exports = {
     VITE_APP_ENDPOINT: endpoint,
   },
   local: {
-    VITE_APP_ENDPOINT: 'http://localhost:3000',
+    VITE_APP_ENDPOINT: 'http://localhost:4000',
   },
   production: {
     VITE_APP_ENDPOINT: endpoint,
