@@ -9,7 +9,7 @@ const { Sider } = Layout;
 const Index: FC = () => {
   const navigate = useNavigate();
 
-  const handleSelect = useCallback(
+  const handleClick = useCallback(
     (data: any) => {
       navigate(data.itemKey);
     },
@@ -26,7 +26,7 @@ const Index: FC = () => {
         }}
         items={menuItems}
         style={{ maxWidth: 220, height: '100%' }}
-        onSelect={handleSelect}
+        onClick={handleClick}
       />
     </Sider>
   );

@@ -1,4 +1,4 @@
-import { Card, Col, Row, Typography } from '@douyinfe/semi-ui';
+import { Breadcrumb, Card, Col, Row, Typography } from '@douyinfe/semi-ui';
 import React, { createContext, useMemo } from 'react';
 import { useQuery } from 'react-query';
 
@@ -29,39 +29,42 @@ const Map = () => {
   }
 
   return (
-    <MapFeatures.Provider value={nodeData}>
-      <Row gutter={{ xs: 1, sm: 1, md: 1, lg: 2, xl: 2, xxl: 2 }}>
-        <Col
-          lg={18}
-          md={18}
-          sm={18}
-          xl={18}
-          xs={18}
-        >
-          <Card>
-            <Title heading={6}>我的项目</Title>
+    <>
+      <Breadcrumb
+        className="mb-4"
+        compact={false}
+      >
+        <Breadcrumb.Item>模型编排管理</Breadcrumb.Item>
+        <Breadcrumb.Item>我的项目</Breadcrumb.Item>
+        <Breadcrumb.Item>管网方案详情</Breadcrumb.Item>
+      </Breadcrumb>
 
-            <div className="mt-6">
-              <MapboxInstance />
-              <EditForm />
-              <AddForm />
-            </div>
-          </Card>
-        </Col>
+      <MapFeatures.Provider value={nodeData}>
+        <Row gutter={24}>
+          <Col span={14}>
+            <Card>
+              <Title heading={6}>管网方案详情</Title>
 
-        <Col
-          lg={6}
-          md={6}
-          sm={6}
-          xl={6}
-          xs={6}
-        >
-          <Card style={{ height: '90vh' }}>
-            <MapDataTable />
-          </Card>
-        </Col>
-      </Row>
-    </MapFeatures.Provider>
+              <div className="mt-6">
+                <MapboxInstance />
+                <EditForm />
+                <AddForm />
+              </div>
+            </Card>
+          </Col>
+
+          <Col span={10}>
+            <Card>
+              <Title heading={6}>node 数据</Title>
+
+              <div className="mt-6">
+                <MapDataTable />
+              </div>
+            </Card>
+          </Col>
+        </Row>
+      </MapFeatures.Provider>
+    </>
   );
 };
 

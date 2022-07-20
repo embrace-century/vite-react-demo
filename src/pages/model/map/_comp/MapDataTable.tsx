@@ -16,8 +16,6 @@ const mapDataColumns: ColumnProps<IColumns>[] = [
   { dataIndex: 'lat', title: '纬度' },
   { dataIndex: 'flood_level', title: '洪水高程' },
   { dataIndex: 'ground_level', title: '地面高程' },
-  { dataIndex: 'x', title: 'x' },
-  { dataIndex: 'y', title: 'y' },
 ];
 
 export const MapDataTable: FC = () => {
