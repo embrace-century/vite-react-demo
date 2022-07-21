@@ -3,19 +3,19 @@ import React, { useEffect, useRef } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 
 import { IPoint } from '@/pages/model/map/interface';
-import { PointService } from '@/pages/model/map/service';
 import { useAppDispatch, useAppSelector } from '@/stores';
 import { drawSelector } from '@/stores/draw-slice';
 import { globalSelector, setSideSheetVisible } from '@/stores/global-slice';
 
 import Form from './form';
+import NodeService from './service';
 
 const Edit = () => {
   const dispatch = useAppDispatch();
   const api = useRef<any>();
 
   const { sideSheetVisible } = useAppSelector(globalSelector);
-  const { features } = useAppSelector(drawSelector);
+  const { nodeId } = useAppSelector(drawSelector);
 
   const queryClient = useQueryClient();
   // 把uesEffect当做Mounted生命周期用
@@ -24,7 +24,7 @@ const Edit = () => {
   }, [dispatch]);
 
   // 更新点
-  const { mutate } = useMutation(PointService.updatePoint, {
+  const { mutate } = useMutation(NodeService.update, {
     onSuccess: (status) => {
       queryClient.invalidateQueries(['node.index']);
       dispatch(setSideSheetVisible(false));
@@ -36,7 +36,7 @@ const Edit = () => {
   });
 
   // 删除点
-  const { mutate: deleteMutate } = useMutation(PointService.deletePoint, {
+  const { mutate: deleteMutate } = useMutation(NodeService.remove, {
     onSuccess: (status) => {
       queryClient.invalidateQueries(['node.index']);
       dispatch(setSideSheetVisible(false));
@@ -48,15 +48,17 @@ const Edit = () => {
   });
 
   const handleDelete = () => {
-    const { id, properties } = features!;
-    deleteMutate({ pointId: id!, classNme: properties['class_name'] });
+    deleteMutate({ id: nodeId! });
   };
 
   const handleForm = () => {
-    const { id } = features!;
     api.current.validate().then((values: IPoint) => {
-      mutate({ pointId: id!, updateData: values });
+      mutate(values);
     });
+  };
+
+  const getContainer = (): HTMLElement => {
+    return document.querySelector('.map-card')!;
   };
 
   const footer = (
@@ -99,8 +101,10 @@ const Edit = () => {
     <SideSheet
       bodyStyle={{ borderBottom: '1px solid var(--semi-color-border)' }}
       footer={footer}
+      getPopupContainer={getContainer}
       headerStyle={{ borderBottom: '1px solid var(--semi-color-border)' }}
-      mask={true}
+      mask={false}
+      placement="left"
       title={<Typography.Title heading={4}>编辑 Node</Typography.Title>}
       visible={sideSheetVisible}
       onCancel={() => dispatch(setSideSheetVisible(false))}

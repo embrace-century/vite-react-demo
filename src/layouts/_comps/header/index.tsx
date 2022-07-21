@@ -17,7 +17,7 @@ const Index: FC = () => {
               src="//lf1-cdn-tos.bytescm.com/obj/ttfe/ies/semi/webcast_logo.svg"
               width="36"
             />
-            <span className="ml-4 font-bold text-black">水务管理平台</span>
+            <span className="ml-4 font-bold text-black">在线模拟系统</span>
           </div>
         </Nav.Header>
 
