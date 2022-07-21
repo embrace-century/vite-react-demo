@@ -42,7 +42,7 @@ const Node: FC = memo(function Node() {
       </Source>
 
       <Edit />
-      <New />
+      {/* <New /> */}
     </>
   );
 });
