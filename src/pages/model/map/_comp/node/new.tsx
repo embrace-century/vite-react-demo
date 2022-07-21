@@ -1,10 +1,10 @@
 import { Form } from '@douyinfe/semi-ui';
-import React, { useEffect } from 'react';
+import React from 'react';
 
-import { FORM_DICT } from '@/configs/draw-config';
 import { useAppSelector } from '@/stores';
 import { drawSelector } from '@/stores/draw-slice';
-import { globalSelector } from '@/stores/global-slice';
+
+import NodeRows from './row';
 
 type DrawFormProp = {
   labelCol?: number;
@@ -12,41 +12,26 @@ type DrawFormProp = {
   getFormApi?: (formapi: any) => void;
 };
 
+const { Input, InputNumber, Select } = Form;
+
 const New = (props: DrawFormProp) => {
   const { features } = useAppSelector(drawSelector);
-  const { sideSheetVisible } = useAppSelector(globalSelector);
   const { labelCol = 8, wrapperCol = 16, getFormApi } = props;
-  const { Input, InputNumber } = Form;
-  // coordinates point: 一维数组 line: 二维数组 polygon: 三维数组
   const { geometry, properties } = features!;
-  const { coordinates, type } = geometry;
-  const formItems = FORM_DICT[type];
+  const { coordinates } = geometry;
 
-  switch (type) {
-    case 'Point':
-      formItems['lon'].initValue = (coordinates as Array<number>)[0];
-      formItems['lat'].initValue = (coordinates as Array<number>)[1];
-      break;
-    case 'LineString':
-      break;
-    default:
-      break;
-  }
+  NodeRows['lon'].initValue = (coordinates as Array<number>)[0];
+  NodeRows['lat'].initValue = (coordinates as Array<number>)[1];
 
-  // 当维护时给表单赋值
-  useEffect(() => {
-    if (sideSheetVisible) {
-      Object.keys(formItems).forEach((key) => {
-        if (properties[key]) {
-          if (formItems[key].type === 'InputNumber') {
-            formItems[key].initValue = parseFloat(properties[key]);
-          } else {
-            formItems[key].initValue = properties[key];
-          }
-        }
-      });
+  Object.keys(NodeRows).forEach((key) => {
+    if (properties[key]) {
+      if (NodeRows[key].type === 'InputNumber') {
+        NodeRows[key].initValue = parseFloat(properties[key]);
+      } else {
+        NodeRows[key].initValue = properties[key];
+      }
     }
-  }, [formItems, properties, sideSheetVisible]);
+  });
 
   return (
     <Form
@@ -56,8 +41,8 @@ const New = (props: DrawFormProp) => {
       labelPosition="left"
       wrapperCol={{ span: wrapperCol }}
     >
-      {Object.keys(formItems).map((formKey) => {
-        const { label, disabled, rules, type, initValue, trigger } = formItems[formKey];
+      {Object.keys(NodeRows).map((formKey) => {
+        const { label, disabled, rules, type, initValue, trigger, options } = NodeRows[formKey];
         switch (type) {
           case 'InputNumber':
             return (
@@ -72,6 +57,27 @@ const New = (props: DrawFormProp) => {
                 style={{ width: 250 }}
                 trigger={trigger}
               />
+            );
+          case 'Select':
+            return (
+              <Select
+                key={formKey}
+                disabled={disabled}
+                field={formKey}
+                initValue={initValue}
+                label={label}
+                rules={rules}
+                style={{ width: 250 }}
+              >
+                {options?.map((option) => (
+                  <Select.Option
+                    key={option.value}
+                    value={option.value}
+                  >
+                    {option.label}
+                  </Select.Option>
+                ))}
+              </Select>
             );
           default:
             return (

@@ -28,7 +28,10 @@ const Map = () => {
         initialNodedata={null}
       >
         <Row gutter={24}>
-          <Col span={14}>
+          <Col
+            className="map-card"
+            span={14}
+          >
             <Card>
               <MapboxInstance />
               <AddForm />
