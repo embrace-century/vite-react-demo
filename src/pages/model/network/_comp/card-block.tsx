@@ -12,7 +12,7 @@ type IProps = {
 
 const CardBlock: FC<IProps> = (props) => {
   const {
-    item: { id, name },
+    item: { id, name, scenario_id },
   } = props;
 
   const getContent = () => {
@@ -40,7 +40,7 @@ const CardBlock: FC<IProps> = (props) => {
           </Button>
         </Popconfirm>
 
-        <Link to={`/network/${id}`}>
+        <Link to={`/network/${scenario_id}`}>
           <Button
             theme="solid"
             type="primary"
