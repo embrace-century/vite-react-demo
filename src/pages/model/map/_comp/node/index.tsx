@@ -6,11 +6,14 @@ import colors from '@/constants/colors';
 import { buildGeojsonFromPoint } from '@/pages/model/node-layer/helper';
 import { INode } from '@/pages/model/node-layer/interface';
 import NodeService from '@/pages/model/node-layer/service';
+import { useAppSelector } from '@/stores';
+import { drawSelector } from '@/stores/draw-slice';
 
+import Add from './add';
 import Edit from './edit';
-import New from './new';
 
 const Node: FC = memo(function Node() {
+  const { mode } = useAppSelector(drawSelector);
   const { data, isLoading, isError } = useQuery<INode[], Error>(['node.index'], NodeService.findAll);
 
   if (isLoading) {
@@ -40,9 +43,7 @@ const Node: FC = memo(function Node() {
       >
         <Layer {...layerStyle} />
       </Source>
-
-      <Edit />
-      {/* <New /> */}
+      {mode === 'add' ? <Add /> : <Edit />}
     </>
   );
 });

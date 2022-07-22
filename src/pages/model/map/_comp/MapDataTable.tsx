@@ -2,10 +2,10 @@
 import { Table } from '@douyinfe/semi-ui';
 import { ColumnProps } from '@douyinfe/semi-ui/lib/es/table';
 import React, { FC, useMemo } from 'react';
-import { useQuery } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 
 import { useAppDispatch } from '@/stores';
-import { FeaturesType, setNodeId } from '@/stores/draw-slice';
+import { FeaturesType, setMode, setNodeId } from '@/stores/draw-slice';
 import { setSideSheetVisible } from '@/stores/global-slice';
 
 import { buildGeojsonFromPoint } from '../../node-layer/helper';
@@ -27,6 +27,7 @@ const mapDataColumns: ColumnProps<IColumns>[] = [
 export const MapDataTable: FC = () => {
   const { data: nodeData, isLoading, isError } = useQuery<INode[], Error>(['node.index'], NodeService.findAll);
   const dispatch = useAppDispatch();
+  const queryClient = useQueryClient();
 
   const scroll = { x: 1000, y: 850 };
   const rowColor = 'rgb(244,245,245)';
@@ -55,8 +56,11 @@ export const MapDataTable: FC = () => {
   const handleRow = (record, index) => {
     const rowClick = () => {
       const { id } = record;
+      console.log('🚀 ~ file: MapDataTable.tsx ~ line 59 ~ rowClick ~ record', record);
       dispatch(setNodeId(id));
+      queryClient.resetQueries('node.show');
       dispatch(setSideSheetVisible(true));
+      dispatch(setMode('edit'));
     };
     if (index % 2 === 0) {
       return {

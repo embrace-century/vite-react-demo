@@ -17,7 +17,7 @@ import {
   MAPBOX_ZOOM,
 } from '@/constants/default-settings';
 import { useAppDispatch } from '@/stores';
-import { setCancleCreate, setFeatures, setNodeId } from '@/stores/draw-slice';
+import { setCancleCreate, setMode, setNodeId } from '@/stores/draw-slice';
 import { setSideSheetVisible } from '@/stores/global-slice';
 
 import DrawControl from './DrawControl';
@@ -63,6 +63,7 @@ export const MapboxInstance = () => {
       if (feature) {
         if (feature.layer.id === 'node') {
           dispatch(setNodeId(feature.id as number));
+          dispatch(setMode('edit'));
           dispatch(setSideSheetVisible(true));
           dispatch(setCancleCreate(false));
         }
@@ -93,41 +94,45 @@ export const MapboxInstance = () => {
           />
         </div>
       </div>
-
-      <Map
-        {...viewState}
-        ref={mapRef}
-        reuseMaps
-        bearing={MAPBOX_BEARING}
-        cursor={cursor}
-        doubleClickZoom={MAPBOX_DOUBLE_CLICK_ZOOM}
-        interactiveLayerIds={['node']}
-        mapStyle={mapStyle}
-        mapboxAccessToken={MAPBOX_ACCESS_TOKEN}
-        maxZoom={MAPBOX_MAX_ZOOM}
-        minZoom={MAPBOX_MIN_ZOOM}
-        pitch={MAPBOX_PITCH}
-        scrollZoom={MAPBOX_SCROLL_ZOOM}
-        style={{ width: '100%', height: '80vh' }}
-        onClick={onClick}
-        onLoad={handleMapLoad}
-        onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave}
-        onMove={handleMapMove}
+      <div
+        className="relative"
+        id="map-container"
       >
-        <Node />
+        <Map
+          {...viewState}
+          ref={mapRef}
+          reuseMaps
+          bearing={MAPBOX_BEARING}
+          cursor={cursor}
+          doubleClickZoom={MAPBOX_DOUBLE_CLICK_ZOOM}
+          interactiveLayerIds={['node']}
+          mapStyle={mapStyle}
+          mapboxAccessToken={MAPBOX_ACCESS_TOKEN}
+          maxZoom={MAPBOX_MAX_ZOOM}
+          minZoom={MAPBOX_MIN_ZOOM}
+          pitch={MAPBOX_PITCH}
+          scrollZoom={MAPBOX_SCROLL_ZOOM}
+          style={{ width: '100%', height: '80vh' }}
+          onClick={onClick}
+          onLoad={handleMapLoad}
+          onMouseEnter={onMouseEnter}
+          onMouseLeave={onMouseLeave}
+          onMove={handleMapMove}
+        >
+          <Node />
 
-        <DrawControl
-          controls={{
-            point: true,
-            line_string: true,
-            // trash: true,
-          }}
-          defaultMode="simple_select"
-          displayControlsDefault={false}
-          position="top-left"
-        />
-      </Map>
+          <DrawControl
+            controls={{
+              point: true,
+              line_string: true,
+              // trash: true,
+            }}
+            defaultMode="simple_select"
+            displayControlsDefault={false}
+            position="top-left"
+          />
+        </Map>
+      </div>
     </div>
   );
 };

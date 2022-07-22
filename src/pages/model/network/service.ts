@@ -14,9 +14,15 @@ const create = async (params: { projectId: string; name: string }) => {
   return response.data;
 };
 
+const sync = async (params: { id: number }) => {
+  const response = await axios.post<INetwork>('/sync/networks', params);
+  return response.data;
+};
+
 const NetworkService = {
   findAll,
   create,
+  sync,
 };
 
 export default NetworkService;

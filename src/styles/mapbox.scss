@@ -54,3 +54,11 @@ a.mapboxgl-ctrl-logo,
     }
   }
 }
+
+// 修改mapbox control的层级
+.mapboxgl-ctrl-bottom-left,
+.mapboxgl-ctrl-bottom-right,
+.mapboxgl-ctrl-top-left,
+.mapboxgl-ctrl-top-right {
+  z-index: 1;
+}

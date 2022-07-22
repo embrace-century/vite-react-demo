@@ -20,7 +20,18 @@ const New: FC<IProps> = (props) => {
   let message = '该项为必填项';
 
   const queryClient = useQueryClient();
-  const { mutate } = useMutation(NetworkService.create, {
+
+  // 同步创建网络
+  const { mutate: syncNetWorkMutate } = useMutation(NetworkService.sync, {
+    onSuccess: (status) => {
+      Toast.success('同步成功');
+    },
+    onError: () => {
+      Toast.error('同步失败');
+    },
+  });
+
+  const { mutateAsync } = useMutation(NetworkService.create, {
     onSuccess: (status) => {
       queryClient.invalidateQueries(['network.index']);
       // 关闭modal框
@@ -34,7 +45,10 @@ const New: FC<IProps> = (props) => {
 
   const handleForm = () => {
     api.current.validate().then((values: Pick<INetwork, 'name'>) => {
-      mutate({ projectId: projectId!, ...values });
+      mutateAsync({ projectId: projectId!, ...values }).then((responseValue) => {
+        const { id } = responseValue;
+        syncNetWorkMutate({ id });
+      });
     });
   };
 

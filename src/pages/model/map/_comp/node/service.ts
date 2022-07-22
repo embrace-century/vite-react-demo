@@ -54,12 +54,18 @@ const getPointType = async () => {
   return response.data;
 };
 
+const sync = async (params: { id: number }) => {
+  const response = await axios.post<IPoint>('/sync/nodes', params);
+  return response.data;
+};
+
 const NodeService = {
   findAll,
   findById,
   create,
   update,
   remove,
+  sync,
   getPointType,
 };
 

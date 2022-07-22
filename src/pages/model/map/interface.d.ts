@@ -6,7 +6,7 @@ export type IPoint = {
   lon: number;
   node_type: string;
   remarks: string;
-  scenario_id?: number;
+  scenario_id: number;
   system_type: number;
   x: number;
   y: number;

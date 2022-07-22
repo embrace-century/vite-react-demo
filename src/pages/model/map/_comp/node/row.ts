@@ -13,12 +13,12 @@ export type IFormItemConfig = {
   disabled: boolean;
   type: 'Input' | 'Select' | 'InputNumber';
   initValue?: string | number;
-  trigger: 'blur' | 'change' | 'custom' | 'mount';
+  trigger?: 'blur' | 'change' | 'custom' | 'mount';
   rules?: any[];
   options?: IOption[];
 };
 
-const NodeRows: Record<string, IFormItemConfig> = {
+export const NodeRows: Record<string, IFormItemConfig> = {
   id: {
     key: 'id',
     label: 'ID',
@@ -117,6 +117,13 @@ const NodeRows: Record<string, IFormItemConfig> = {
     trigger: 'blur',
     rules: [{ type: 'number', message: 'type error' }],
   },
+  class_name: {
+    key: 'class_name',
+    label: '类名',
+    disabled: true,
+    type: 'Input',
+    initValue: 'node',
+  },
   system_type: {
     key: 'system_type',
     label: '系统类型',
@@ -155,4 +162,130 @@ const NodeRows: Record<string, IFormItemConfig> = {
   },
 };
 
-export default NodeRows;
+export const AddNodeRows: Record<string, IFormItemConfig> = {
+  flood_level: {
+    key: 'flood_level',
+    label: '洪水高程',
+    disabled: false,
+    type: 'InputNumber',
+    initValue: '',
+    trigger: 'blur',
+    rules: [
+      { required: true, message: '必填' },
+      { type: 'number', message: '洪水高程值应为数值类型' },
+    ],
+  },
+  ground_level: {
+    key: 'ground_level',
+    label: '地面高程',
+    disabled: false,
+    type: 'InputNumber',
+    initValue: '',
+    trigger: 'blur',
+    rules: [
+      { required: true, message: '必填' },
+      { type: 'number', message: '地面高程值应为数值类型' },
+    ],
+  },
+  lon: {
+    key: 'lon',
+    label: 'lon',
+    disabled: true,
+    type: 'InputNumber',
+    initValue: '',
+    trigger: 'blur',
+    rules: [
+      { required: true, message: '必填' },
+      { type: 'number', message: '经度应为数值类型' },
+    ],
+  },
+  lat: {
+    key: 'lat',
+    label: 'lat',
+    disabled: true,
+    type: 'InputNumber',
+    initValue: '',
+    trigger: 'blur',
+    rules: [
+      { required: true, message: '必填' },
+      { type: 'number', message: '纬度应为数值类型' },
+    ],
+  },
+  node_type: {
+    key: 'node_type',
+    label: '节点类型',
+    disabled: false,
+    type: 'Select',
+    initValue: 'Manhole',
+    trigger: 'blur',
+    options: nodeTypeOption,
+    rules: [
+      { required: true, message: '必填' },
+      { type: 'string', message: '节点类型的值应为字符串' },
+    ],
+  },
+  remarks: {
+    key: 'remarks',
+    label: '备注',
+    disabled: false,
+    type: 'Input',
+    initValue: '',
+    trigger: 'blur',
+    rules: [
+      { required: true, message: '必填' },
+      { type: 'string', message: '备注应为字符类型' },
+    ],
+  },
+  scenario_id: {
+    key: 'scenario_id',
+    label: 'scenario_id',
+    disabled: true,
+    type: 'InputNumber',
+    initValue: '',
+    trigger: 'blur',
+    rules: [{ type: 'number', message: 'type error' }],
+  },
+  class_name: {
+    key: 'class_name',
+    label: '类名',
+    disabled: true,
+    type: 'Input',
+    initValue: 'node',
+  },
+  system_type: {
+    key: 'system_type',
+    label: '系统类型',
+    disabled: false,
+    type: 'Input',
+    initValue: 'storm',
+    trigger: 'blur',
+    rules: [
+      { required: true, message: '必填' },
+      { type: 'string', message: '系统类型应为数字' },
+    ],
+  },
+  x: {
+    key: 'x',
+    label: 'x',
+    disabled: false,
+    type: 'InputNumber',
+    initValue: '',
+    trigger: 'blur',
+    rules: [
+      { required: true, message: '必填' },
+      { type: 'number', message: '坐标x应为数值类型' },
+    ],
+  },
+  y: {
+    key: 'y',
+    label: 'y',
+    disabled: false,
+    type: 'InputNumber',
+    initValue: '',
+    trigger: 'blur',
+    rules: [
+      { required: true, message: '必填' },
+      { type: 'number', message: '坐标y应为数值类型' },
+    ],
+  },
+};
