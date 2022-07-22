@@ -94,41 +94,45 @@ export const MapboxInstance = () => {
           />
         </div>
       </div>
-
-      <Map
-        {...viewState}
-        ref={mapRef}
-        reuseMaps
-        bearing={MAPBOX_BEARING}
-        cursor={cursor}
-        doubleClickZoom={MAPBOX_DOUBLE_CLICK_ZOOM}
-        interactiveLayerIds={['node']}
-        mapStyle={mapStyle}
-        mapboxAccessToken={MAPBOX_ACCESS_TOKEN}
-        maxZoom={MAPBOX_MAX_ZOOM}
-        minZoom={MAPBOX_MIN_ZOOM}
-        pitch={MAPBOX_PITCH}
-        scrollZoom={MAPBOX_SCROLL_ZOOM}
-        style={{ width: '100%', height: '80vh' }}
-        onClick={onClick}
-        onLoad={handleMapLoad}
-        onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave}
-        onMove={handleMapMove}
+      <div
+        className="relative"
+        id="map-container"
       >
-        <Node />
+        <Map
+          {...viewState}
+          ref={mapRef}
+          reuseMaps
+          bearing={MAPBOX_BEARING}
+          cursor={cursor}
+          doubleClickZoom={MAPBOX_DOUBLE_CLICK_ZOOM}
+          interactiveLayerIds={['node']}
+          mapStyle={mapStyle}
+          mapboxAccessToken={MAPBOX_ACCESS_TOKEN}
+          maxZoom={MAPBOX_MAX_ZOOM}
+          minZoom={MAPBOX_MIN_ZOOM}
+          pitch={MAPBOX_PITCH}
+          scrollZoom={MAPBOX_SCROLL_ZOOM}
+          style={{ width: '100%', height: '80vh' }}
+          onClick={onClick}
+          onLoad={handleMapLoad}
+          onMouseEnter={onMouseEnter}
+          onMouseLeave={onMouseLeave}
+          onMove={handleMapMove}
+        >
+          <Node />
 
-        <DrawControl
-          controls={{
-            point: true,
-            line_string: true,
-            // trash: true,
-          }}
-          defaultMode="simple_select"
-          displayControlsDefault={false}
-          position="top-left"
-        />
-      </Map>
+          <DrawControl
+            controls={{
+              point: true,
+              line_string: true,
+              // trash: true,
+            }}
+            defaultMode="simple_select"
+            displayControlsDefault={false}
+            position="top-left"
+          />
+        </Map>
+      </div>
     </div>
   );
 };

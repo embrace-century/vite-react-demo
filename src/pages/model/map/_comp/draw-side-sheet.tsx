@@ -16,7 +16,7 @@ export const DrawSideSheet = (props: PropsWithChildren & ISideSheet) => {
   const { sideSheetVisible } = useAppSelector(globalSelector);
 
   const getContainer = (): HTMLElement => {
-    return document.querySelector('.map-card')!;
+    return document.querySelector('#map-container')!;
   };
 
   const handleCancle = () => {

@@ -22,10 +22,7 @@ const Map = () => {
       </Breadcrumb>
 
       <Row gutter={24}>
-        <Col
-          className="map-card"
-          span={14}
-        >
+        <Col span={14}>
           <Card>
             <MapboxInstance />
           </Card>
