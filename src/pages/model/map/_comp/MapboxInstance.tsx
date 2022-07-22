@@ -17,7 +17,7 @@ import {
   MAPBOX_ZOOM,
 } from '@/constants/default-settings';
 import { useAppDispatch } from '@/stores';
-import { setCancleCreate, setFeatures, setNodeId } from '@/stores/draw-slice';
+import { setCancleCreate, setMode, setNodeId } from '@/stores/draw-slice';
 import { setSideSheetVisible } from '@/stores/global-slice';
 
 import DrawControl from './DrawControl';
@@ -63,6 +63,7 @@ export const MapboxInstance = () => {
       if (feature) {
         if (feature.layer.id === 'node') {
           dispatch(setNodeId(feature.id as number));
+          dispatch(setMode('edit'));
           dispatch(setSideSheetVisible(true));
           dispatch(setCancleCreate(false));
         }

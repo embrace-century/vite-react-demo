@@ -8,7 +8,7 @@ import { drawSelector } from '@/stores/draw-slice';
 import { convertPointToCoordinates } from '@/utils/geojson';
 
 import { INode } from './interface';
-import NodeRows from './row';
+import { NodeRows } from './row';
 import NodeService from './service';
 
 type IProps = {
@@ -20,11 +20,11 @@ type IProps = {
 const { Input, InputNumber, Select } = SemiForm;
 
 const Form = (props: IProps) => {
-  const { nodeId } = useAppSelector(drawSelector);
-
   const { labelCol = 8, wrapperCol = 16, getFormApi } = props;
 
-  const { data, isLoading, isError } = useQuery<INode, Error>(['node.show'], () =>
+  const { nodeId } = useAppSelector(drawSelector);
+
+  const { data, isLoading, isError } = useQuery<INode, Error>(['node.show', nodeId], () =>
     NodeService.findById({ id: nodeId! }),
   );
 
@@ -82,6 +82,7 @@ const Form = (props: IProps) => {
           case 'Select':
             return (
               <Select
+                key={formKey}
                 disabled={disabled}
                 field={formKey}
                 initValue={initValue}

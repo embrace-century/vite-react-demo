@@ -4,7 +4,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { AppState } from './index';
 
 export type GeoMetryType = {
-  coordinates: number[] | Array<number[]> | Array<Array<number[]>>;
+  coordinates: number[];
   type: string;
 };
 
@@ -21,9 +21,9 @@ export type FeaturesType = {
 
 export type DrawState = {
   nodeId: number | null;
-  modalIsOpen: boolean; // 新增弹窗是否打开
   features?: FeaturesType;
   cancleCreate: boolean; // 是否取消新建操作
+  mode: 'add' | 'edit';
 };
 
 export const emptyFeatures = {
@@ -38,9 +38,9 @@ export const emptyFeatures = {
 
 const initialState: DrawState = {
   nodeId: null,
-  modalIsOpen: false,
   features: emptyFeatures,
   cancleCreate: false,
+  mode: 'add',
 };
 
 const name = 'draw';
@@ -52,19 +52,19 @@ export const drawSlice = createSlice({
     setNodeId: (state, action: PayloadAction<number>) => {
       state.nodeId = action.payload;
     },
-    setModalOpen: (state, action: PayloadAction<boolean>) => {
-      state.modalIsOpen = action.payload;
-    },
     setFeatures: (state, action: PayloadAction<FeaturesType>) => {
       state.features = action.payload;
     },
     setCancleCreate: (state, action: PayloadAction<boolean>) => {
       state.cancleCreate = action.payload;
     },
+    setMode: (state, action: PayloadAction<'add' | 'edit'>) => {
+      state.mode = action.payload;
+    },
   },
 });
 
-export const { setNodeId, setModalOpen, setFeatures, setCancleCreate } = drawSlice.actions;
+export const { setNodeId, setFeatures, setCancleCreate, setMode } = drawSlice.actions;
 
 export const drawSelector = (state: AppState) => {
   return state[name];

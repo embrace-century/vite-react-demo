@@ -1,12 +1,13 @@
-import { Button, Popconfirm, SideSheet, Toast, Typography } from '@douyinfe/semi-ui';
+import { Button, Popconfirm, Toast } from '@douyinfe/semi-ui';
 import React, { useEffect, useRef } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 
 import { IPoint } from '@/pages/model/map/interface';
 import { useAppDispatch, useAppSelector } from '@/stores';
 import { drawSelector } from '@/stores/draw-slice';
-import { globalSelector, setSideSheetVisible } from '@/stores/global-slice';
+import { setSideSheetVisible } from '@/stores/global-slice';
 
+import { DrawSideSheet } from '../draw-side-sheet';
 import Form from './form';
 import NodeService from './service';
 
@@ -14,7 +15,6 @@ const Edit = () => {
   const dispatch = useAppDispatch();
   const api = useRef<any>();
 
-  const { sideSheetVisible } = useAppSelector(globalSelector);
   const { nodeId } = useAppSelector(drawSelector);
 
   const queryClient = useQueryClient();
@@ -53,12 +53,9 @@ const Edit = () => {
 
   const handleForm = () => {
     api.current.validate().then((values: IPoint) => {
+      console.log('🚀 ~ file: edit.tsx ~ line 56 ~ api.current.validate ~ values', values);
       mutate(values);
     });
-  };
-
-  const getContainer = (): HTMLElement => {
-    return document.querySelector('.map-card')!;
   };
 
   const footer = (
@@ -97,20 +94,28 @@ const Edit = () => {
       </div>
     </div>
   );
+  // return (
+  //   <SideSheet
+  //     bodyStyle={{ borderBottom: '1px solid var(--semi-color-border)' }}
+  //     footer={footer}
+  //     getPopupContainer={getContainer}
+  //     headerStyle={{ borderBottom: '1px solid var(--semi-color-border)' }}
+  //     mask={false}
+  //     placement="left"
+  //     title={<Typography.Title heading={4}>编辑 Node</Typography.Title>}
+  //     visible={sideSheetVisible}
+  //     onCancel={() => dispatch(setSideSheetVisible(false))}
+  //   >
+  //     <Form getFormApi={(formApi: any) => (api.current = formApi)} />
+  //   </SideSheet>
+  // );
   return (
-    <SideSheet
-      bodyStyle={{ borderBottom: '1px solid var(--semi-color-border)' }}
+    <DrawSideSheet
       footer={footer}
-      getPopupContainer={getContainer}
-      headerStyle={{ borderBottom: '1px solid var(--semi-color-border)' }}
-      mask={false}
-      placement="left"
-      title={<Typography.Title heading={4}>编辑 Node</Typography.Title>}
-      visible={sideSheetVisible}
-      onCancel={() => dispatch(setSideSheetVisible(false))}
+      title="编辑 Node"
     >
       <Form getFormApi={(formApi: any) => (api.current = formApi)} />
-    </SideSheet>
+    </DrawSideSheet>
   );
 };
 

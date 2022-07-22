@@ -4,7 +4,7 @@ import React from 'react';
 import { useAppSelector } from '@/stores';
 import { drawSelector } from '@/stores/draw-slice';
 
-import NodeRows from './row';
+import { AddNodeRows } from './row';
 
 type DrawFormProp = {
   labelCol?: number;
@@ -20,15 +20,15 @@ const New = (props: DrawFormProp) => {
   const { geometry, properties } = features!;
   const { coordinates } = geometry;
 
-  NodeRows['lon'].initValue = (coordinates as Array<number>)[0];
-  NodeRows['lat'].initValue = (coordinates as Array<number>)[1];
+  AddNodeRows['lon'].initValue = coordinates[0];
+  AddNodeRows['lat'].initValue = coordinates[1];
 
-  Object.keys(NodeRows).forEach((key) => {
+  Object.keys(AddNodeRows).forEach((key) => {
     if (properties[key]) {
-      if (NodeRows[key].type === 'InputNumber') {
-        NodeRows[key].initValue = parseFloat(properties[key]);
+      if (AddNodeRows[key].type === 'InputNumber') {
+        AddNodeRows[key].initValue = parseFloat(properties[key]);
       } else {
-        NodeRows[key].initValue = properties[key];
+        AddNodeRows[key].initValue = properties[key];
       }
     }
   });
@@ -41,8 +41,8 @@ const New = (props: DrawFormProp) => {
       labelPosition="left"
       wrapperCol={{ span: wrapperCol }}
     >
-      {Object.keys(NodeRows).map((formKey) => {
-        const { label, disabled, rules, type, initValue, trigger, options } = NodeRows[formKey];
+      {Object.keys(AddNodeRows).map((formKey) => {
+        const { label, disabled, rules, type, initValue, trigger, options } = AddNodeRows[formKey];
         switch (type) {
           case 'InputNumber':
             return (
