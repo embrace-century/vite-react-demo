@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 import { MapboxInstance } from './_comp/MapboxInstance';
 import { MapDataTable } from './_comp/MapDataTable';
+import { layerHandlerInitData, MapLayerContext } from './context';
 
 const { Title } = Typography;
 
@@ -24,7 +25,9 @@ const Map = () => {
       <Row gutter={24}>
         <Col span={14}>
           <Card>
-            <MapboxInstance />
+            <MapLayerContext.Provider value={layerHandlerInitData}>
+              <MapboxInstance />
+            </MapLayerContext.Provider>
           </Card>
         </Col>
 

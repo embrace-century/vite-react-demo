@@ -1,6 +1,6 @@
 import { Switch, Typography } from '@douyinfe/semi-ui';
 import { Style } from 'mapbox-gl';
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useContext, useRef, useState } from 'react';
 import Map, { MapLayerMouseEvent, ViewStateChangeEvent } from 'react-map-gl';
 
 import {
@@ -20,6 +20,7 @@ import { useAppDispatch } from '@/stores';
 import { setCancleCreate, setMode, setNodeId } from '@/stores/draw-slice';
 import { setSideSheetVisible } from '@/stores/global-slice';
 
+import { MapLayerContext } from '../context';
 import DrawControl from './DrawControl';
 import Node from './node';
 
@@ -41,6 +42,9 @@ export const MapboxInstance = () => {
     zoom: MAPBOX_ZOOM,
   });
 
+  const mapLayerHandle = useContext(MapLayerContext);
+  const { layerHandles } = mapLayerHandle;
+
   // 地图移动赋值视角
   const handleMapMove = useCallback((e: ViewStateChangeEvent) => {
     setViewState(e.viewState);
@@ -61,11 +65,16 @@ export const MapboxInstance = () => {
       const feature = event.features?.[0];
 
       if (feature) {
-        if (feature.layer.id === 'node') {
-          dispatch(setNodeId(feature.id as number));
-          dispatch(setMode('edit'));
-          dispatch(setSideSheetVisible(true));
-          dispatch(setCancleCreate(false));
+        // if (feature.layer.id === 'node') {
+        //   dispatch(setNodeId(feature.id as number));
+        //   dispatch(setMode('edit'));
+        //   dispatch(setSideSheetVisible(true));
+        //   dispatch(setCancleCreate(false));
+        // }
+        for (const [key, value] of Object.entries(layerHandles)) {
+          value.forEach((fn) => {
+            fn(event);
+          });
         }
       }
     },
