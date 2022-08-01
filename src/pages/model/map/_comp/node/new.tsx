@@ -1,5 +1,6 @@
 import { Form } from '@douyinfe/semi-ui';
 import React from 'react';
+import { useParams } from 'react-router';
 
 import { useAppSelector } from '@/stores';
 import { drawSelector } from '@/stores/draw-slice';
@@ -20,6 +21,8 @@ const New = (props: DrawFormProp) => {
   const { geometry, properties } = features!;
   const { coordinates } = geometry;
 
+  const { networkId } = useParams();
+
   AddNodeRows['lon'].initValue = coordinates[0];
   AddNodeRows['lat'].initValue = coordinates[1];
 
@@ -32,6 +35,8 @@ const New = (props: DrawFormProp) => {
       }
     }
   });
+
+  AddNodeRows['scenario_id'].initValue = networkId;
 
   return (
     <Form
