@@ -63,6 +63,7 @@ export const MapboxInstance = () => {
   const onClick = useCallback(
     (event: MapLayerMouseEvent) => {
       const feature = event.features?.[0];
+      console.log('🚀 ~ file: MapboxInstance.tsx ~ line 66 ~ MapboxInstance ~ event', event);
 
       if (feature) {
         // if (feature.layer.id === 'node') {
@@ -78,7 +79,7 @@ export const MapboxInstance = () => {
         }
       }
     },
-    [dispatch],
+    [layerHandles],
   );
 
   const onMouseEnter = useCallback(() => setCursor('pointer'), []);

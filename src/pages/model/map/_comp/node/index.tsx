@@ -4,7 +4,7 @@ import { CircleLayer, Layer, Source } from 'react-map-gl';
 import { useQuery } from 'react-query';
 
 import colors from '@/constants/colors';
-import { featureData } from '@/mock/features';
+import { line } from '@/mock/features';
 import { buildGeojsonFromPoint } from '@/pages/model/node-layer/helper';
 import { INode } from '@/pages/model/node-layer/interface';
 import NodeService from '@/pages/model/node-layer/service';
@@ -31,13 +31,13 @@ const Node: FC = memo(function Node() {
 
   // 定义layers的事件
   const nodeClick = (event: any) => {
-    console.log('🚀 ~ file: index.tsx ~ line 33 ~ nodeClick ~ event', event);
+    // console.log('🚀 ~ file: index.tsx ~ line 33 ~ nodeClick ~ event', event);
     console.log('node has been clicked');
   };
 
   useEffect(() => {
     setLayers('node', [nodeClick]);
-  }, []);
+  }, [setLayers]);
 
   const layerStyle: CircleLayer = {
     id: 'node',
@@ -54,7 +54,7 @@ const Node: FC = memo(function Node() {
     <>
       <Source
         // data={buildGeojsonFromPoint(data)}
-        data={featureData as Feature}
+        data={line}
         id="node"
         type="geojson"
       >

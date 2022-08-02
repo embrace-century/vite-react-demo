@@ -17,7 +17,7 @@ type ILayerContext = {
 // 定义好初始化数据结构
 export const layerHandlerInitData: ILayerContext = {
   layerHandles: {
-    node: [nodeClick],
+    // node: [nodeClick],
   },
   setLayers: function (layerId: string, layerHandleFns: Function[]) {
     layerHandlerInitData.layerHandles[layerId] = layerHandleFns;
